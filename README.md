@@ -1,34 +1,16 @@
-# React + TypeScript + Vite
+# Project Idea & Problem Statement
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Problem Statement
+Students, vendors and residents often face challenges when trying to buy or sell goods within their community. The platforms that exist now are unstructured, lack trust and they do not provide secure payment options. Many buyers and sellers are left to rely on informal channels such as social media groups or word of mouth, which offer no verification of who they are dealing with and no protection if something goes wrong. This results in unreliable transactions, limited accessibility and an increase in the risk of fraud, ultimately discouraging community members from engaging in trade that could otherwise benefit them.
 
-Currently, two official plugins are available:
+## Proposed Solution
+The Community Store Project proposes a mobile first marketplace that provides a centralized, secure and user-friendly platform for buying and selling goods and services within the community. Rather than relying on scattered, informal platforms, users are brought together into one trusted space where every account is verified, every payment is processed securely, and every transaction contributes to a visible reputation through a rating system. This combination of verified user accounts, secure payment integration and a rating system works together to enhance trust and usability, making it easier for students, vendors and residents to buy and sell with confidence.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Business Justification
+The Community Store Project will improve access to affordable goods for students, giving them a reliable place to find what they need without overpaying or dealing with unverified sellers. It will also provide vendors with a targeted marketplace where they can reach a community of buyers who are actively looking to purchase. By reducing fraud through secure authentication and payment, the platform builds the kind of trust that encourages more people to participate. On top of this, the project promotes sustainability through secondhand trading, giving goods a longer lifespan and reducing unnecessary waste within the community.
 
-## React Compiler
+## Expected Benefits
+By bringing students and vendors together on one platform, the project is expected to increase community engagement, creating a more connected local marketplace. Because transactions are backed by verified accounts and secure payments, users can expect safer and more reliable transactions overall. For students specifically, this translates into real cost savings, since affordable and secondhand options become easier to find and trust. Vendors, in turn, gain new business opportunities by reaching a dedicated audience within their own community that they may not have had access to before.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+## Tech Stack
+React + TypeScript + Vite
