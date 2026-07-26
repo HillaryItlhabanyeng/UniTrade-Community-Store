@@ -1,0 +1,90 @@
+.delivery-banner{
+    background: #1e3a5f;
+    color:#fff;
+    text-align: center;
+    padding: 8px 0;
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar-logo{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: #111;
+}
+
+.logo-icon{
+    font-size: 20px;
+}
+
+.logo-text{
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+}
+
+.logo-highlight{
+    color: #14b8a6;
+}
+
+.navbar-links{
+    display: flex;
+    gap: 33px;
+}
+
+.navbar-links a{
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.navbar-links a:hover{
+    color:#14b8a6;
+}
+
+.navbar-actions{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.icon-btn{
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.sign-in-link{
+    text-decoration: none;
+    color:#333;
+    font-size: 14px;
+}
+
+.register-btn{
+    background: #e5e5e5;
+    color:#111;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.register-btn:hover {
+  background: #d5d5d5;
+}
