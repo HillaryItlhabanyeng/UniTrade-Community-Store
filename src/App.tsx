@@ -6,6 +6,8 @@ import RegisterPage from "./Pages/RegisterPage";
 import AccountPage from "./Pages/AccountPage";
 import HomePage from "./Pages/HomePage";
 import ConfirmationPage from "./Pages/ConfirmationPage";
+import CartPage from "./Pages/CartPage";
+import CheckoutPage from "./Pages/CheckoutPage";
 
 
 function App(){
@@ -19,6 +21,8 @@ function App(){
         <Route path="/checkout/payment" element={<PaymentPage />} />
         <Route path="/checkout/confirmation" element={<ConfirmationPage />} />
         <Route path="/account" element={<AccountPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
         </Routes>
         </BrowserRouter>
     );
