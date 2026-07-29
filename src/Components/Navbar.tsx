@@ -19,6 +19,7 @@ export default function Navbar(){
         <div className="navbar-links">
             <Link to="/">Home</Link>
             <Link to="/shop">Shop</Link>
+            <Link to="/contact">Contact</Link>
         </div>
 
         <div className="navbar-actions">
