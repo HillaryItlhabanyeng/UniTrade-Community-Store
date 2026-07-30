@@ -1,19 +1,6 @@
-import Navbar from "../Components/Navbar";
-import "./CartPage.css";
-
-export default function CartPage() {
-  return (
-    <div className="cart-page">
-      <Navbar />
-      <div className="cart-content">
-        <h2>Your Cart</h2>
-        <p>Cart page coming soon.</p>
-      </div>
-    </div>
-  );
-}
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../Components/Navbar";
 import "./CartPage.css";
 
 interface CartItem {
@@ -105,26 +92,7 @@ function CartPage() {
 
   return (
     <div className="cart-page">
-      <header className="cart-header">
-        <div className="cart-header-left">
-          <span className="logo-mark">U</span>
-          <span className="logo-text">Trade</span>
-        </div>
-        <nav className="cart-nav">
-          <a href="/browse">Browse</a>
-          <a href="/category">Category</a>
-          <a href="/sell">Sell</a>
-          <a href="/messages">Messages</a>
-        </nav>
-        <div className="cart-header-right">
-          <button className="icon-btn" aria-label="Cart">
-            🛒
-          </button>
-          <button className="icon-btn" aria-label="Account">
-            👤
-          </button>
-        </div>
-      </header>
+      <Navbar />
 
       <main className="cart-container">
         <h1 className="cart-title">Shopping Cart</h1>
