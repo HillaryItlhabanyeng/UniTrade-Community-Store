@@ -6,6 +6,9 @@ import RegisterPage from "./Pages/RegisterPage";
 import AccountPage from "./Pages/AccountPage";
 import HomePage from "./Pages/HomePage";
 import ConfirmationPage from "./Pages/ConfirmationPage";
+import RatingsReviewsPage from "./Pages/RatingsreviewsPage";
+
+
 
 
 function App(){
@@ -19,6 +22,7 @@ function App(){
         <Route path="/checkout/payment" element={<PaymentPage />} />
         <Route path="/checkout/confirmation" element={<ConfirmationPage />} />
         <Route path="/account" element={<AccountPage />} />
+        <Route path="/ratings-reviews" element={<RatingsReviewsPage />} />
         </Routes>
         </BrowserRouter>
     );

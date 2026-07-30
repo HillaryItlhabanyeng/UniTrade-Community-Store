@@ -1,0 +1,727 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ratings-page {
+  min-height: 100vh;
+  background: #f2f4f7;
+}
+
+
+/* =========================================
+   HEADER
+   White top bar with navy icons, matching
+   the Figma reference.
+========================================= */
+
+.site-header {
+  background: #ffffff;
+  box-shadow: 0 2px 10px rgba(22, 47, 76, 0.05);
+}
+
+.site-header-top {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 14px 28px 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 28px;
+
+  border-bottom: 1px solid #eef1f4;
+}
+
+.site-logo img {
+  height: 46px;
+  width: auto;
+  display: block;
+}
+
+.site-search {
+  flex: 1;
+  max-width: 560px;
+
+  display: flex;
+  align-items: center;
+
+  background: #f1f3f6;
+  border: 1px solid #e0e5eb;
+  border-radius: 8px;
+  padding: 0 4px 0 16px;
+  height: 40px;
+}
+
+.site-search input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 13px;
+  color: #26394d;
+}
+
+.site-search input::placeholder {
+  color: #7c8896;
+}
+
+.site-search button {
+  width: 34px;
+  height: 32px;
+  margin: 0 3px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #29b9c1, #2bb0b8);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.site-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-left: auto;
+}
+
+.header-icon-btn {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #304967;
+  font-size: 17px;
+}
+
+.icon-btn-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #405064;
+}
+
+.icon-badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #e0505e;
+  color: #ffffff;
+  font-size: 9px;
+  font-weight: 700;
+  border-radius: 999px;
+}
+
+.icon-badge-accent {
+  background: #14b8a6;
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #203b5b;
+}
+
+.user-avatar-img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ffffff;
+}
+
+.user-avatar-fallback {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  border: 2px solid #ffffff;
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.site-nav {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 28px;
+
+  display: flex;
+  gap: 26px;
+
+  background: #ffffff;
+}
+
+.site-nav a {
+  position: relative;
+  padding: 11px 0;
+
+  color: #45576a;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site-nav a:hover {
+  color: #14b8a6;
+}
+
+.site-nav a.active {
+  color: #14b8a6;
+}
+
+.site-nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: #14b8a6;
+}
+
+
+/* =========================================
+   MAIN LAYOUT
+========================================= */
+
+.ratings-main {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 36px;
+}
+
+.ratings-page-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 26px;
+}
+
+.ratings-page-heading h1 {
+  color: #182e45;
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.ratings-page-heading p {
+  color: #56687c;
+  font-size: 14px;
+}
+
+.write-review-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-width: 150px;
+  height: 40px;
+  padding: 0 18px;
+
+  border: none;
+  border-radius: 6px;
+  background: #26b8c4;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: filter 0.2s;
+}
+
+.write-review-btn:hover {
+  filter: brightness(1.06);
+}
+
+.ratings-content {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+
+/* =========================================
+   LEFT: RATING SUMMARY
+========================================= */
+
+.rating-summary-card {
+  width: 300px;
+  background: #ffffff;
+  border: 1px solid #ededed;
+  border-radius: 8px;
+  padding: 28px;
+}
+
+.rating-summary-card h2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #182e45;
+  margin-bottom: 16px;
+}
+
+.rating-summary-score {
+  font-size: 42px;
+  font-weight: 700;
+  color: #182e45;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.star-row {
+  display: inline-flex;
+  gap: 4px;
+  margin: 8px 0;
+}
+
+.star-filled {
+  color: #f8c32d;
+}
+
+.star-empty {
+  color: #d6d6d6;
+}
+
+.rating-summary-count {
+  margin-top: 8px;
+  margin-bottom: 20px;
+  color: #7c8896;
+  font-size: 12px;
+}
+
+.rating-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.rating-breakdown-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rating-breakdown-label {
+  width: 42px;
+  flex-shrink: 0;
+  font-size: 11px;
+  color: #56687c;
+}
+
+.rating-breakdown-track {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: #edf0f3;
+  overflow: hidden;
+}
+
+/* Fill uses a CSS variable (--fill-percent) set inline per row, animated
+   via transform so it doesn't fight the inline style. */
+.rating-breakdown-fill {
+  height: 100%;
+  width: 100%;
+  border-radius: 999px;
+  background: #f5b400;
+  transform-origin: left;
+  transform: scaleX(var(--fill-percent, 0%));
+  animation: grow-bar 0.8s ease;
+}
+
+@keyframes grow-bar {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+.rating-breakdown-percent {
+  width: 30px;
+  flex-shrink: 0;
+  text-align: right;
+  font-size: 11px;
+  color: #7c8896;
+}
+
+
+/* =========================================
+   RIGHT: REVIEWS PANEL
+========================================= */
+
+.reviews-panel {
+  min-width: 0;
+}
+
+.reviews-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #e7ebef;
+}
+
+.reviews-tabs {
+  display: flex;
+  gap: 22px;
+}
+
+.reviews-tabs button {
+  position: relative;
+  padding: 10px 0;
+
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  color: #7c8896;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.reviews-tabs button.active {
+  color: #14b8a6;
+}
+
+.reviews-tabs button.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -5px;
+  height: 2px;
+  background: #14b8a6;
+}
+
+.reviews-sort {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.reviews-sort select {
+  appearance: none;
+  height: 32px;
+  padding: 0 26px 0 12px;
+
+  border: 1px solid #dbe1e7;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #45576a;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.reviews-sort-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #7c8896;
+  pointer-events: none;
+}
+
+.review-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-empty {
+  color: #7c8896;
+  font-size: 13px;
+  padding: 20px 0;
+}
+
+
+/* =========================================
+   REVIEW CARDS
+========================================= */
+
+.review-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 18px;
+  margin-bottom: 14px;
+}
+
+.review-avatar-img {
+  flex-shrink: 0;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #efe3ff;
+}
+
+.review-avatar-fallback {
+  flex-shrink: 0;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  border: 4px solid #efe3ff;
+}
+
+.review-content {
+  min-width: 0;
+  flex: 1;
+}
+
+.review-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.review-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #17375e;
+}
+
+.review-role {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.review-role-buyer {
+  background: #dff5ea;
+  color: #32a06b;
+}
+
+.review-role-seller {
+  background: #e3ebff;
+  color: #4f6bc4;
+}
+
+.review-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.review-date {
+  font-size: 12px;
+  color: #96a2ae;
+}
+
+.review-title {
+  margin-top: 6px;
+  margin-bottom: 4px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #17375e;
+}
+
+.review-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #555555;
+  margin-bottom: 6px;
+}
+
+.review-item {
+  font-size: 12px;
+  color: #56687c;
+}
+
+.review-item strong {
+  color: #182e45;
+}
+
+
+/* =========================================
+   SKELETON LOADER
+========================================= */
+
+.review-skeleton {
+  pointer-events: none;
+}
+
+.skeleton-circle {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #eef1f4;
+  animation: skeleton-pulse 1.2s ease-in-out infinite;
+}
+
+.skeleton-lines {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeleton-line {
+  height: 10px;
+  border-radius: 4px;
+  background: #eef1f4;
+  animation: skeleton-pulse 1.2s ease-in-out infinite;
+}
+
+.skeleton-line-short {
+  width: 30%;
+}
+
+.skeleton-line-medium {
+  width: 55%;
+}
+
+.skeleton-line-long {
+  width: 90%;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+
+/* =========================================
+   PAGINATION
+========================================= */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 26px;
+}
+
+.pagination button {
+  min-width: 32px;
+  height: 32px;
+  padding: 0 6px;
+
+  border: 1px solid #dbe1e7;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #45576a;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.pagination button:hover:not(:disabled) {
+  border-color: #14b8a6;
+  color: #14b8a6;
+}
+
+.pagination button.active {
+  background: linear-gradient(90deg, #29b9c1, #2bb0b8);
+  border-color: transparent;
+  color: #ffffff;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 960px) {
+  .ratings-content {
+    grid-template-columns: 1fr;
+  }
+
+  .site-header-actions .icon-btn-label {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .site-header-top {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .site-search {
+    order: 3;
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+
+  .site-nav {
+    overflow-x: auto;
+    gap: 18px;
+  }
+
+  .ratings-page-heading {
+    flex-direction: column;
+  }
+
+  .write-review-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
