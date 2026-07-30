@@ -10,6 +10,7 @@ import CartPage from "./Pages/CartPage";
 import CheckoutPage from "./Pages/CheckoutPage";
 import ContactPage from "./Pages/ContactPage";
 import MarketPlacePage from "./Pages/MarketPlacePage";
+import RatingsReviewsPage from "./Pages/RatingsreviewsPage";
 
 
 function App(){
@@ -27,6 +28,8 @@ function App(){
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/shop" element={<MarketPlacePage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage/>} />
+        <Route path="/ratings-reviews" element={<RatingsReviewsPage/>} />
         </Routes>
         </BrowserRouter>
     );
