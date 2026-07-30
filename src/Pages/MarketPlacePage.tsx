@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import Navbar from "../Components/Navbar";
 import "./MarketPlacePage.css";
 
@@ -11,60 +11,59 @@ const products = [
     title: "PROLINE INTEL CELERON",
     price: "R3699.00",
     location: "Bellville Campus",
-    img: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200&h=150&fit=crop",
+    image: "/laptop.jpg",
   },
   {
     title: "A4 Counter Books - 3 Quire",
     price: "R40.00",
     location: "Wellington Campus",
-    img: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=200&h=150&fit=crop",
+    image: "/a4.jpg",
   },
   {
     title: "Laptop Stand Laptop Cooling Pad",
     price: "R250.00",
     location: "Mowbray Campus",
-    img: "https://images.unsplash.com/photo-1587614382346-4ec70e388b28?w=200&h=150&fit=crop",
+    image: "/coolpad.jpg",
   },
   {
     title: "Calculator Scientific - Black - Deli",
     price: "R550.00",
     location: "Distric 6 Campus",
-    img: "https://images.unsplash.com/photo-1587145820266-a5951ee6f620?w=200&h=150&fit=crop",
+    image: "/calculator.jpg",
   },
   {
     title: "Iphone 11 64GB",
     price: "R5200.00",
     location: "Distric 6 Campus",
-    img: "https://images.unsplash.com/photo-1592286927505-1def25115558?w=200&h=150&fit=crop",
+    image: "/iphone.jpg",
   },
   {
     title: "Bugani FreeBuds B20 Wireless Earbuds",
     price: "R930.00",
     location: "Mowbray Campus",
-    img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=200&h=150&fit=crop",
+    image: "/earbuds.jpg",
   },
   {
     title: "Nortic Classic Home office Desk",
     price: "R1500.00",
     location: "Wellington Campus",
-    img: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=200&h=150&fit=crop",
+    image: "/desks.jpg",
   },
   {
     title: "Brightup Backpack Zip",
     price: "R765.00",
     location: "Bellville Campus",
-    img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=200&h=150&fit=crop",
+    image: "/backpack.jpg",
   },
 ];
 
-export default function MarketplacePage() {
+export default function MarketPlacePage() {
   const [activeCategory, setActiveCategory] = useState("All Categories");
 
   return (
     <div className="mp-page">
       <Navbar />
 
-      {/* Page header */}
       <div className="mp-page-header">
         <div>
           <h1>Market Place</h1>
@@ -73,7 +72,6 @@ export default function MarketplacePage() {
         <button className="mp-sell-btn">Sell an Item</button>
       </div>
 
-      {/* Filter bar */}
       <div className="mp-filter-bar">
         <div className="mp-filter-search">
           <span>🔍</span>
@@ -100,7 +98,6 @@ export default function MarketplacePage() {
       </div>
 
       <div className="mp-body">
-        {/* Sidebar */}
         <aside className="mp-sidebar">
           <div className="mp-sidebar-section">
             <h4>Categories</h4>
@@ -138,7 +135,6 @@ export default function MarketplacePage() {
           </div>
         </aside>
 
-        {/* Results */}
         <main className="mp-results">
           <div className="mp-results-header">
             <span>96 Results found</span>
@@ -151,7 +147,7 @@ export default function MarketplacePage() {
             {products.map((p) => (
               <div className="mp-card" key={p.title}>
                 <div className="mp-card-image">
-                  <img src={p.img} alt={p.title} />
+                  <img src={p.image} alt={p.title} />
                   <button className="mp-fav">♡</button>
                 </div>
                 <div className="mp-card-info">
@@ -178,4 +174,3 @@ export default function MarketplacePage() {
     </div>
   );
 }
-
