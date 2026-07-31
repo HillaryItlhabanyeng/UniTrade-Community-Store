@@ -1,23 +1,4 @@
-.cart-page {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.cart-content {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 24px;
-  text-align: center;
-}
-
-.cart-content h2 {
-  font-size: 24px;
-  margin-bottom: 8px;
-}
-
-.cart-content p {
-  color: #888;
-  font-size: 14px;
-}
+/* ===== Tokens (reuse the ones from DetailsPage.css/PaymentPage.css if already global) ===== */
 .cart-page {
   --navy: #0f2a4a;
   --navy-dark: #0a1f38;
@@ -367,4 +348,3 @@
     flex-direction: column;
   }
 }
-

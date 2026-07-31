@@ -1,5 +1,7 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../Components/Navbar";
+import { useCart } from "../Components/CartContext";
 import "./CheckoutPage.css";
 
 interface ShippingInfo {
@@ -18,19 +20,12 @@ interface FormErrors {
 
 type PaymentMethod = "payfast" | "card" | "other";
 
-interface OrderItem {
-  id: string;
-  name: string;
-  price: number;
-  qty: number;
-  imageUrl?: string;
-}
-
 const DELIVERY_FEE = 50;
 const DISCOUNT = 0;
 
 function CheckoutPage() {
   const navigate = useNavigate();
+  const { items, subtotal } = useCart();
 
   const [shipping, setShipping] = useState<ShippingInfo>({
     fullName: "",
@@ -42,20 +37,9 @@ function CheckoutPage() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("payfast");
 
-  
-  const orderItems: OrderItem[] = [
-    { id: "1", name: "HP Laptop", price: 7000, qty: 1 },
-  ];
-
-  const subtotal = useMemo(
-    () => orderItems.reduce((sum, item) => sum + item.price * item.qty, 0),
-    [orderItems]
-  );
   const total = subtotal + DELIVERY_FEE - DISCOUNT;
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setShipping((prev) => ({ ...prev, [name]: value }));
     if (errors[name as keyof FormErrors]) {
@@ -93,14 +77,18 @@ function CheckoutPage() {
   };
 
   const handleContinue = () => {
+    if (items.length === 0) return;
     if (!validate()) return;
 
+    // Cart items already live in CartContext (and localStorage), so
+    // DetailsPage can read them straight from useCart(). We only need
+    // to pass along shipping/payment choices made on this page.
     sessionStorage.setItem(
-      "checkoutData",
-      JSON.stringify({ shipping, paymentMethod, subtotal, total })
+      "checkoutShipping",
+      JSON.stringify({ shipping, paymentMethod })
     );
 
-    navigate("/checkout/review");
+    navigate("/checkout/details");
   };
 
   const formatCurrency = (value: number) =>
@@ -108,33 +96,10 @@ function CheckoutPage() {
 
   return (
     <div className="checkout-page">
-      <header className="checkout-header">
-        <div className="checkout-header-left">
-          <span className="logo-mark">U</span>
-          <span className="logo-text">Trade</span>
-        </div>
-        <nav className="checkout-nav">
-          <a href="/browse">Browse</a>
-          <a href="/category">Category</a>
-          <a href="/sell">Sell</a>
-          <a href="/messages">Messages</a>
-        </nav>
-        <div className="checkout-header-right">
-          <button className="icon-btn" aria-label="Cart">
-            
-          </button>
-          <button className="icon-btn" aria-label="Account">
-            
-          </button>
-        </div>
-      </header>
+      <Navbar />
 
       <main className="checkout-main">
         <h1 className="checkout-title">Checkout</h1>
-        <p className="breadcrumb">
-          <a href="/">Home</a> &gt; <a href="/cart">Cart</a> &gt;{" "}
-          <span>Checkout</span>
-        </p>
 
         <ol className="step-indicator">
           <li className="step active">
@@ -159,7 +124,6 @@ function CheckoutPage() {
         </ol>
 
         <div className="checkout-columns">
-          {/* Left column: forms */}
           <div className="checkout-left">
             <section className="checkout-card">
               <h2 className="card-heading">1. Shipping Information</h2>
@@ -284,38 +248,47 @@ function CheckoutPage() {
                 </label>
               </div>
 
-              <button className="continue-btn" onClick={handleContinue}>
-                Continue to Review
+              <button
+                className="continue-btn"
+                onClick={handleContinue}
+                disabled={items.length === 0}
+              >
+                Continue to Details
               </button>
             </section>
           </div>
 
-          {/* Right column: order summary */}
           <aside className="checkout-right">
             <div className="summary-card">
               <h2 className="card-heading">Order Summary</h2>
 
-              {orderItems.map((item) => (
-                <div className="summary-item" key={item.id}>
-                  <div className="summary-thumb">
-                    {item.imageUrl ? (
-                      <img src={item.imageUrl} alt={item.name} />
-                    ) : null}
+              {items.length === 0 ? (
+                <p className="empty-summary">No items in your cart.</p>
+              ) : (
+                items.map((item) => (
+                  <div className="summary-item" key={item.id}>
+                    <div className="summary-thumb">
+                      {item.imageUrl ? (
+                        <img src={item.imageUrl} alt={item.name} />
+                      ) : null}
+                    </div>
+                    <div className="summary-item-info">
+                      <p className="summary-item-name">{item.name}</p>
+                      <p className="summary-item-qty">Qty: {item.quantity}</p>
+                    </div>
+                    <p className="summary-item-price">
+                      {formatCurrency(item.price * item.quantity)}
+                    </p>
                   </div>
-                  <div className="summary-item-info">
-                    <p className="summary-item-name">{item.name}</p>
-                    <p className="summary-item-qty">Qty: {item.qty}</p>
-                  </div>
-                  <p className="summary-item-price">
-                    {formatCurrency(item.price * item.qty)}
-                  </p>
-                </div>
-              ))}
+                ))
+              )}
 
               <div className="summary-divider" />
 
               <div className="summary-row">
-                <span>Subtotal ({orderItems.length} item{orderItems.length !== 1 ? "s" : ""})</span>
+                <span>
+                  Subtotal ({items.length} item{items.length !== 1 ? "s" : ""})
+                </span>
                 <span>{formatCurrency(subtotal)}</span>
               </div>
               <div className="summary-row">
@@ -335,7 +308,7 @@ function CheckoutPage() {
               </div>
 
               <div className="secure-checkout">
-                <span className="lock-icon"></span>
+                <span className="lock-icon">🔒</span>
                 <div>
                   <p className="secure-title">Secure Checkout</p>
                   <p className="secure-subtitle">

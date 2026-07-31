@@ -1,4 +1,5 @@
 import Navbar from "../Components/Navbar";
+import { useCart } from "../Components/CartContext";
 import "./HomePage.css";
 
 const categories = [
@@ -9,14 +10,53 @@ const categories = [
 ];
 
 const listings = [
-  { title: "PROLINE INTEL CELERON", price: "R3699.00", image: "/laptop.jpg" },
-  { title: "A4 Counter Books - 3 Quire", price: "R40.00", image: "/a4.jpg" },
-  { title: "Nordic Classic Home Office Desk", price: "R1500.00", image: "/desks.jpg" },
-  { title: "Adidas Campus", price: "R1300.00", image: "/adidas.jpg" },
-  { title: "iPhone 11 64GB", price: "R5200.00", image: "/iphone.jpg" },
+  {
+    id: "proline-intel-celeron",
+    title: "PROLINE INTEL CELERON",
+    price: "R3699.00",
+    image: "/laptop.jpg",
+  },
+  {
+    id: "a4-counter-books",
+    title: "A4 Counter Books - 3 Quire",
+    price: "R40.00",
+    image: "/a4.jpg",
+  },
+  {
+    id: "nordic-classic-desk",
+    title: "Nordic Classic Home Office Desk",
+    price: "R1500.00",
+    image: "/desks.jpg",
+  },
+  {
+    id: "adidas-campus",
+    title: "Adidas Campus",
+    price: "R1300.00",
+    image: "/adidas.jpg",
+  },
+  {
+    id: "iphone-11-64gb",
+    title: "iPhone 11 64GB",
+    price: "R5200.00",
+    image: "/iphone.jpg",
+  },
 ];
 
 export default function HomePage() {
+  const { addItem } = useCart();
+
+  const parsePrice = (priceStr: string) =>
+    parseFloat(priceStr.replace(/[^0-9.]/g, ""));
+
+  const handleAddToCart = (item: (typeof listings)[number]) => {
+    addItem({
+      id: item.id,
+      name: item.title,
+      price: parsePrice(item.price),
+      imageUrl: item.image,
+    });
+  };
+
   return (
     <div className="ut-page">
       <Navbar />
@@ -78,11 +118,17 @@ export default function HomePage() {
 
         <div className="ut-listings">
           {listings.map((item) => (
-            <div className="ut-listing-card" key={item.title}>
+            <div className="ut-listing-card" key={item.id}>
               <img src={item.image} alt={item.title} />
               <div className="ut-listing-info">
                 <span className="ut-listing-title">{item.title}</span>
                 <span className="ut-listing-price">{item.price}</span>
+                <button
+                  className="ut-add-to-cart"
+                  onClick={() => handleAddToCart(item)}
+                >
+                  Add to Cart
+                </button>
               </div>
             </div>
           ))}

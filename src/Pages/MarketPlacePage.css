@@ -286,3 +286,20 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+.mp-add-to-cart {
+  margin-top: 8px;
+  width: 100%;
+  background: #14b8a6;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mp-add-to-cart:hover {
+  background: #0f9488;
+}
