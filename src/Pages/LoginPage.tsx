@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./LoginPage.css";
 
@@ -20,6 +20,8 @@ import {
 } from "react-icons/fa";
 
 const LoginPage: React.FC = () => {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -46,19 +48,15 @@ const LoginPage: React.FC = () => {
       return;
     }
 
-    console.log({
-      email,
-      password,
-      rememberMe,
-    });
+    console.log({ email, password, rememberMe });
 
-    alert("Login successful!");
+    // Redirect to the home page after a successful login
+    navigate("/");
   };
 
   return (
     <main className="login-page">
       {/* ================= LEFT PANEL ================= */}
-
       <section className="login-left-panel">
         <img
           src="/image.png"
@@ -83,85 +81,42 @@ const LoginPage: React.FC = () => {
         />
 
         {/* Features */}
-
         <div className="login-features">
           <div className="login-feature">
-            <div className="login-feature-icon">
-              <FaShieldAlt />
-            </div>
-
-            <span>
-              Secure
-              <br />
-              Transactions
-            </span>
+            <div className="login-feature-icon"><FaShieldAlt /></div>
+            <span>Secure<br />Transactions</span>
           </div>
-
           <div className="login-feature">
-            <div className="login-feature-icon">
-              <FaUsers />
-            </div>
-
-            <span>
-              Trusted
-              <br />
-              Community
-            </span>
+            <div className="login-feature-icon"><FaUsers /></div>
+            <span>Trusted<br />Community</span>
           </div>
-
           <div className="login-feature">
-            <div className="login-feature-icon">
-              <FaLeaf />
-            </div>
-
-            <span>
-              Sustainable
-              <br />
-              Marketplace
-            </span>
+            <div className="login-feature-icon"><FaLeaf /></div>
+            <span>Sustainable<br />Marketplace</span>
           </div>
-
           <div className="login-feature">
-            <div className="login-feature-icon">
-              <FaCommentDots />
-            </div>
-
-            <span>
-              Community
-              <br />
-              Engagement
-            </span>
+            <div className="login-feature-icon"><FaCommentDots /></div>
+            <span>Community<br />Engagement</span>
           </div>
         </div>
       </section>
 
       {/* ================= RIGHT PANEL ================= */}
-
       <section className="login-right-panel">
         <div className="login-form-container">
           <h2>Login</h2>
+          <p className="login-subtitle">Access your account</p>
 
-          <p className="login-subtitle">
-            Access your account
-          </p>
-
-          <form
-            onSubmit={handleSubmit}
-            noValidate
-          >
+          <form onSubmit={handleSubmit} noValidate>
             {/* Email */}
-
             <div className="login-input-group">
               <FaEnvelope />
-
               <input
                 id="email"
                 name="email"
                 type="email"
                 value={email}
-                onChange={(e) =>
-                  setEmail(e.target.value)
-                }
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email Address"
                 aria-label="Email Address"
                 autoComplete="email"
@@ -169,153 +124,80 @@ const LoginPage: React.FC = () => {
             </div>
 
             {/* Password */}
-
             <div className="login-input-group">
               <FaLock />
-
               <input
                 id="password"
                 name="password"
-                type={
-                  showPassword
-                    ? "text"
-                    : "password"
-                }
+                type={showPassword ? "text" : "password"}
                 value={password}
-                onChange={(e) =>
-                  setPassword(e.target.value)
-                }
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 aria-label="Password"
                 autoComplete="current-password"
               />
-
               <button
                 type="button"
                 className="password-toggle"
-                onClick={() =>
-                  setShowPassword(
-                    (previous) => !previous
-                  )
-                }
-                aria-label={
-                  showPassword
-                    ? "Hide password"
-                    : "Show password"
-                }
+                onClick={() => setShowPassword((previous) => !previous)}
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
-                {showPassword ? (
-                  <FaRegEyeSlash />
-                ) : (
-                  <FaRegEye />
-                )}
+                {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
               </button>
             </div>
 
             {/* Forgot password */}
-
             <div className="forgot-password-row">
-              <Link to="/forgot-password">
-                Forgot Password?
-              </Link>
+              <Link to="/forgot-password">Forgot Password?</Link>
             </div>
 
             {/* Remember me */}
-
             <div className="remember-me">
               <input
                 id="rememberMe"
                 name="rememberMe"
                 type="checkbox"
                 checked={rememberMe}
-                onChange={(e) =>
-                  setRememberMe(
-                    e.target.checked
-                  )
-                }
+                onChange={(e) => setRememberMe(e.target.checked)}
               />
-
-              <label htmlFor="rememberMe">
-                Remember Me
-              </label>
+              <label htmlFor="rememberMe">Remember Me</label>
             </div>
 
-            {/* Login button */}
-
-            <button
-              type="submit"
-              className="login-button"
-            >
-              Login
-            </button>
+            <button type="submit" className="login-button">Login</button>
           </form>
 
           {/* Divider */}
-
           <div className="or-divider">
             <span />
-
             <p>OR</p>
-
             <span />
           </div>
 
           {/* Role login options */}
-
-          <p className="login-as-text">
-            Login as :
-          </p>
-
+          <p className="login-as-text">Login as :</p>
           <div className="role-options">
-            <button
-              type="button"
-              className="role-option"
-              aria-label="Login as student"
-            >
+            <button type="button" className="role-option" aria-label="Login as student">
               <FaUserGraduate />
-
               <span>Student</span>
             </button>
-
-            <button
-              type="button"
-              className="role-option"
-              aria-label="Login as vendor"
-            >
+            <button type="button" className="role-option" aria-label="Login as vendor">
               <FaStore />
-
               <span>Vendor</span>
             </button>
-
-            <button
-              type="button"
-              className="role-option"
-              aria-label="Login as resident"
-            >
+            <button type="button" className="role-option" aria-label="Login as resident">
               <FaHome />
-
               <span>Resident</span>
             </button>
-
-            <button
-              type="button"
-              className="role-option"
-              aria-label="Login as faculty"
-            >
+            <button type="button" className="role-option" aria-label="Login as faculty">
               <FaBuilding />
-
               <span>Faculty</span>
             </button>
           </div>
 
           {/* Register */}
-
           <p className="register-link">
-            Don’t have an account?
-
-            <Link to="/register">
-              Register
-            </Link>
+            Don't have an account?
+            <Link to="/register">Register</Link>
           </p>
         </div>
       </section>
