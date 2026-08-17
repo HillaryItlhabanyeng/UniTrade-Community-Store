@@ -1,0 +1,305 @@
+.mp-page {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #1a1a1a;
+}
+
+
+.mp-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 24px 32px 16px 32px;
+}
+
+.mp-page-header h1 {
+  font-size: 26px;
+  font-weight: 800;
+  margin: 0 0 4px 0;
+}
+
+.mp-page-header p {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+.mp-sell-btn {
+  background: #14b8a6;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  height: fit-content;
+}
+
+.mp-sell-btn:hover {
+  background: #0d9488;
+}
+
+
+.mp-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 32px 20px 32px;
+}
+
+.mp-filter-search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 14px;
+}
+
+.mp-filter-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 13px;
+}
+
+.mp-filter-bar select {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: #333;
+  background: #fff;
+}
+
+.mp-filters-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  background: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.mp-filters-btn:hover {
+  background: #f5f5f5;
+}
+
+
+.mp-body {
+  display: flex;
+  gap: 24px;
+  padding: 0 32px 40px 32px;
+}
+
+
+.mp-sidebar {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.mp-sidebar-section {
+  border-top: 1px solid #eee;
+  padding: 16px 0;
+}
+
+.mp-sidebar-section:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+
+.mp-sidebar-section h4 {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+}
+
+.mp-category-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mp-category-list li {
+  font-size: 13px;
+  color: #555;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.mp-category-list li:hover {
+  background: #f5f5f5;
+}
+
+.mp-category-list li.mp-active {
+  background: #e5e5e5;
+  font-weight: 700;
+  color: #111;
+}
+
+.mp-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.mp-checkbox input {
+  cursor: pointer;
+}
+
+
+.mp-results {
+  flex: 1;
+}
+
+.mp-results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 16px;
+}
+
+.mp-sort strong {
+  color: #333;
+}
+
+.mp-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.mp-card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.mp-card-image {
+  position: relative;
+}
+
+.mp-card-image img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  display: block;
+  background: #f5f5f5;
+}
+
+.mp-fav {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mp-card-info {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mp-card-title {
+  font-size: 12px;
+  color: #333;
+}
+
+.mp-card-price {
+  font-size: 14px;
+  font-weight: 700;
+  color: #14b8a6;
+}
+
+.mp-card-location {
+  font-size: 11px;
+  color: #999;
+}
+
+/* Pagination */
+.mp-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.mp-page-nav,
+.mp-page-num {
+  border: 1px solid #ddd;
+  background: #fff;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.mp-page-num.mp-active {
+  background: #e5e5e5;
+  font-weight: 700;
+}
+
+.mp-page-dots {
+  color: #999;
+  font-size: 13px;
+}
+
+
+@media (max-width: 900px) {
+  .mp-body {
+    flex-direction: column;
+  }
+
+  .mp-sidebar {
+    width: 100%;
+  }
+
+  .mp-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.mp-add-to-cart {
+  margin-top: 8px;
+  width: 100%;
+  background: #14b8a6;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mp-add-to-cart:hover {
+  background: #0f9488;
+}

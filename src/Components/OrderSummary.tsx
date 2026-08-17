@@ -7,7 +7,7 @@ type OrderItem ={
 
 type Props ={
     items: OrderItem[];
-    deliveryFee: number;
+    deliveryFee: number; 
 };
 
 export default function OrderSummary({items, deliveryFee}: Props){
