@@ -1,103 +1,246 @@
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import {
+  FaSearch,
+  FaComments,
+  FaBell,
+  FaHeart,
+  FaShoppingBag,
+  FaChevronDown,
+  FaUser,
+  FaExchangeAlt,
+  FaSignOutAlt,
+} from "react-icons/fa";
+
 import "./Navbar.css";
 
 type Props = {
   userName?: string;
-  cartCount?: number;
-  notificationCount?: number;
   showLinks?: boolean;
 };
 
 export default function Navbar({
   userName = "Sipho",
-  cartCount = 2,
-  notificationCount = 3,
   showLinks = true,
 }: Props) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Close the dropdown when clicking anywhere outside it
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node)
+      ) {
+        setIsMenuOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <>
+      {/* =====================================================
+          TOP NAVBAR
+      ===================================================== */}
       <nav className="navbar">
+
+        {/* LOGO */}
         <Link to="/" className="navbar-logo">
-          <span className="logo-icon">🎓</span>
-          <div className="logo-text-group">
-            <span className="logo-text">
-              Uni<span className="logo-highlight">Trade</span>
-            </span>
-            <span className="logo-subtext">Campus Marketplace</span>
-          </div>
+          <img
+            src="/UniTrade logo 2.png"
+            alt="UniTrade Campus Marketplace"
+            className="navbar-logo-image"
+          />
         </Link>
 
+        {/* SEARCH */}
         <div className="navbar-search">
-          <input type="text" placeholder="Search for items, users or categories..." />
-          <button aria-label="Search">🔍</button>
+          <input
+            type="text"
+            placeholder="Search for items, users or categories..."
+            aria-label="Search"
+          />
+
+          <button type="button" aria-label="Search">
+            <FaSearch />
+          </button>
         </div>
 
+        {/* NAV ACTIONS */}
         <div className="navbar-actions">
+
+          {/* Messages */}
           <Link to="/messages" className="nav-action">
-            <span className="action-icon">💬</span>
+            <FaComments className="action-icon" />
             <span className="action-label">Messages</span>
           </Link>
 
+          {/* Notifications */}
           <Link to="/notifications" className="nav-action">
-            <span className="action-icon-wrapper">
-              <span className="action-icon">🔔</span>
-              {notificationCount > 0 && (
-                <span className="badge">{notificationCount}</span>
-              )}
-            </span>
+            <FaBell className="action-icon" />
             <span className="action-label">Notifications</span>
           </Link>
 
+          {/* Saved */}
           <Link to="/saved" className="nav-action">
-            <span className="action-icon">🤍</span>
+            <FaHeart className="action-icon" />
             <span className="action-label">Saved</span>
           </Link>
 
+          {/* Cart */}
           <Link to="/cart" className="nav-action">
-            <span className="action-icon-wrapper">
-              <span className="action-icon">🛒</span>
-              {cartCount > 0 && <span className="badge">{cartCount}</span>}
-            </span>
+            <FaShoppingBag className="action-icon" />
             <span className="action-label">Cart</span>
           </Link>
 
-          <Link to="/account" className="nav-profile">
-            <span className="profile-avatar">👤</span>
-            <span className="profile-name">{userName}</span>
-            <span className="profile-chevron">⌄</span>
-          </Link>
+          {/* =================================================
+              PROFILE DROPDOWN
+          ================================================= */}
+          <div className="nav-profile-wrapper" ref={menuRef}>
+
+            <button
+              type="button"
+              className="nav-profile"
+              onClick={() => setIsMenuOpen((open) => !open)}
+              aria-haspopup="true"
+              aria-expanded={isMenuOpen}
+            >
+              <img
+                src="/Sipho.png"
+                alt={`${userName} profile`}
+                className="profile-avatar-image"
+              />
+
+              <span className="profile-name">{userName}</span>
+
+              <FaChevronDown
+                className={`profile-chevron ${isMenuOpen ? "open" : ""}`}
+              />
+            </button>
+
+            {isMenuOpen && (
+              <div className="profile-dropdown">
+                <Link
+                  to="/profile"
+                  className="profile-dropdown-item"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <FaUser className="dropdown-icon" />
+                  Profile
+                </Link>
+
+                <Link
+                  to="/switch-user"
+                  className="profile-dropdown-item"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <FaExchangeAlt className="dropdown-icon" />
+                  Switch User
+                </Link>
+
+                <button
+                  type="button"
+                  className="profile-dropdown-item logout"
+                  onClick={() => {
+                    setIsMenuOpen(false);
+                    // TODO: hook this up to your actual logout logic
+                    console.log("Logging out...");
+                  }}
+                >
+                  <FaSignOutAlt className="dropdown-icon" />
+                  Log Out
+                </button>
+              </div>
+            )}
+          </div>
+
         </div>
       </nav>
 
+      {/* =====================================================
+          SECOND NAVIGATION
+      ===================================================== */}
       {showLinks && (
         <div className="nav-links-row">
-          <NavLink to="/" end className={({ isActive }) => (isActive ? "active" : "")}>
+
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
+          >
             Home
           </NavLink>
-          <NavLink to="/shop" className={({ isActive }) => (isActive ? "active" : "")}>
-            Shop
-          </NavLink>
-          <NavLink to="/browse-listings" className={({ isActive }) => (isActive ? "active" : "")}>
+
+          <NavLink
+            to="/shop"
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
+          >
             Browse Listings
           </NavLink>
-          <NavLink to="/categories" className={({ isActive }) => (isActive ? "active" : "")}>
+
+          <NavLink
+            to="/categories"
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
+          >
             Categories
           </NavLink>
-          <NavLink to="/bulletin-board" className={({ isActive }) => (isActive ? "active" : "")}>
+
+          <NavLink
+            to="/bulletin-board"
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
+          >
             Bulletin Board
           </NavLink>
-          <NavLink to="/account" className={({ isActive }) => (isActive ? "active" : "")}>
+
+          <NavLink
+            to="/account"
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
+          >
             My Orders
           </NavLink>
-          <NavLink to="/my-listings" className={({ isActive }) => (isActive ? "active" : "")}>
+
+          <NavLink
+            to="/my-listings"
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
+          >
             My Listings
           </NavLink>
-          <NavLink to="/ratings-reviews" className={({ isActive }) => (isActive ? "active" : "")}>
+
+          <NavLink
+            to="/ratings-reviews"
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
+          >
             Ratings & Reviews
           </NavLink>
-          <NavLink to="/contact" className={({ isActive }) => (isActive ? "active" : "")}>
+
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
+          >
             Contact
           </NavLink>
+
         </div>
       )}
     </>

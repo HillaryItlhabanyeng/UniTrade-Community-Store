@@ -8,15 +8,17 @@
 
 .profile-page {
   --navy: #1E3A5F;
-  --navy-dark: #142c48;
+  --navy-dark: #142C49;
 
   --teal: #16B3A5;
   --teal-dark: #0E988D;
 
-  --background: #ffffff;
-  --card: #f5f5f5;
+  --gold: #F5A623;
 
-  --text: #111111;
+  --background: #ffffff;
+  --card: #f3f3f3;
+
+  --text: #151515;
   --muted: #777777;
 
   --danger: #df1010;
@@ -36,10 +38,7 @@
 
 
 /* =========================================================
-   PAGE CONTENT
-
-   IMPORTANT:
-   No Navbar is being used on this page.
+   CONTENT AREA
 ========================================================= */
 
 .profile-page-content {
@@ -59,31 +58,26 @@
 
 .profile-main {
   width: 100%;
-
   min-height: 100vh;
-
-  background: #ffffff;
 }
 
 
 /* =========================================================
-   PROFILE TOP BAR
+   TOP BAR
 ========================================================= */
 
 .profile-topbar {
-  height: 72px;
-
-  width: 100%;
+  height: 64px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 28px;
+  padding: 0 27px;
 
   background: #ffffff;
 
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid #dddddd;
 }
 
 
@@ -95,7 +89,7 @@
   display: flex;
   align-items: center;
 
-  gap: 10px;
+  gap: 9px;
 
   border: none;
 
@@ -103,17 +97,16 @@
 
   color: #111111;
 
-  font-size: 17px;
-
+  font-size: 16px;
   font-weight: 600;
 
   cursor: pointer;
 
-  padding: 8px 0;
+  padding: 5px 0;
 }
 
 .profile-back-button svg {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .profile-back-button:hover {
@@ -127,6 +120,7 @@
 
 .profile-top-actions {
   display: flex;
+
   align-items: center;
 
   gap: 18px;
@@ -134,21 +128,21 @@
 
 
 /* =========================================================
-   TOP ACTION BUTTON
+   TOP ICON BUTTON
 ========================================================= */
 
 .profile-action-button {
   position: relative;
 
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
   border: none;
-  border-radius: 50%;
 
   background: transparent;
 
@@ -156,17 +150,19 @@
 
   cursor: pointer;
 
-  font-size: 18px;
+  font-size: 17px;
 
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
+  border-radius: 50%;
+
+  transition: 0.2s ease;
 }
 
 .profile-action-button:hover {
-  background: #f1f4f7;
+  background: #f1f1f1;
+}
 
-  transform: translateY(-1px);
+.profile-action-button svg {
+  font-size: 17px;
 }
 
 
@@ -177,91 +173,82 @@
 .notification-dot {
   position: absolute;
 
-  top: 6px;
-  right: 6px;
-
   width: 7px;
   height: 7px;
+
+  top: 5px;
+  right: 6px;
 
   background: var(--teal);
 
   border-radius: 50%;
 
-  border: 1.5px solid #ffffff;
+  border: 1px solid #ffffff;
 }
 
 
 /* =========================================================
-   TOP AVATAR
-   White outside border + Sipho image inside
+   SIPHO TOP AVATAR
 ========================================================= */
 
 .top-avatar {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
 
-  padding: 3px;
+  padding: 0;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  border: 2px solid var(--navy);
+  overflow: hidden;
 
   border-radius: 50%;
 
-  background: #ffffff;
+  border: 2px solid var(--navy);
 
-  overflow: hidden;
+  background: #e5e5e5;
 
   cursor: pointer;
 
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: 0.2s ease;
 }
 
 .top-avatar:hover {
   transform: scale(1.04);
+}
 
-  box-shadow:
-    0 2px 8px rgba(30, 58, 95, 0.25);
+.top-avatar img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  display: block;
+}
+
+.top-avatar .profile-image-fallback {
+  width: 100%;
+  height: 100%;
 }
 
 
 /* =========================================================
-   TOP AVATAR INNER CIRCLE
+   IMAGE FALLBACK
 ========================================================= */
 
-.top-avatar-inner {
-  width: 100%;
-  height: 100%;
-
+.profile-image-fallback {
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  overflow: hidden;
+  background: var(--navy);
 
-  border-radius: 50%;
+  color: #ffffff;
 
-  background: #d8d8d8;
-
-  color: var(--navy);
-
-  font-size: 16px;
   font-weight: 700;
-}
-
-.top-avatar-inner img {
-  width: 100%;
-  height: 100%;
-
-  display: block;
-
-  object-fit: cover;
-
-  border-radius: 50%;
 }
 
 
@@ -272,25 +259,25 @@
 .profile-banner {
   position: relative;
 
-  height: 188px;
+  height: 150px;
 
   margin: 27px 27px 0;
 
-  border-radius: 11px;
+  border-radius: 10px;
 
   overflow: hidden;
 
   background:
     linear-gradient(
       105deg,
-      #16b3a5 0%,
-      #15b5a9 30%,
-      #218b92 65%,
-      #1E3A5F 100%
+      #12a79e 0%,
+      #13b5a8 35%,
+      #12a9a3 60%,
+      #103e56 100%
     );
 
   box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.10);
+    0 2px 5px rgba(0, 0, 0, 0.08);
 }
 
 
@@ -304,16 +291,16 @@
   position: absolute;
 
   width: 65%;
-  height: 230px;
+  height: 180px;
 
-  top: -100px;
-  right: -40px;
+  top: -80px;
+  right: -50px;
 
   background:
     linear-gradient(
       135deg,
-      rgba(255, 255, 255, 0.20),
-      rgba(255, 255, 255, 0)
+      rgba(255,255,255,0.22),
+      rgba(255,255,255,0)
     );
 
   transform: rotate(-15deg);
@@ -323,41 +310,38 @@
 
 
 /* =========================================================
-   EDIT BUTTON
+   EDIT PROFILE
 ========================================================= */
 
 .edit-profile-button {
   position: absolute;
 
-  top: 12px;
-  right: 12px;
+  top: 10px;
+  right: 10px;
 
   z-index: 5;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
-  gap: 7px;
+  gap: 6px;
 
-  padding: 9px 13px;
+  padding: 8px 12px;
 
   border: none;
 
-  border-radius: 7px;
+  border-radius: 5px;
 
   background: var(--navy);
 
   color: #ffffff;
 
-  font-size: 12px;
-
+  font-size: 11px;
   font-weight: 700;
 
   cursor: pointer;
-
-  box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.12);
 }
 
 .edit-profile-button:hover {
@@ -365,7 +349,7 @@
 }
 
 .edit-profile-button svg {
-  font-size: 11px;
+  font-size: 10px;
 }
 
 
@@ -384,7 +368,7 @@
 
   gap: 25px;
 
-  margin-top: -55px;
+  margin-top: -56px;
 
   padding: 0 27px 40px;
 }
@@ -397,18 +381,18 @@
 .profile-card {
   width: 100%;
 
-  min-height: 600px;
+  min-height: 455px;
 
-  padding: 20px 17px 20px;
+  padding: 0 16px 20px;
 
   background: #ffffff;
 
-  border-radius: 10px;
+  border-radius: 9px;
 
   border: 1px solid #dedede;
 
   box-shadow:
-    0 2px 7px rgba(0, 0, 0, 0.12);
+    0 2px 5px rgba(0, 0, 0, 0.12);
 
   display: flex;
 
@@ -421,65 +405,52 @@
 
 
 /* =========================================================
-   LARGE PROFILE PHOTO
+   PROFILE PHOTO
+   NOTE: .profile-photo-wrapper clips its content so the
+   large avatar can never overflow into the text below it,
+   even if an unexpectedly large source image is used.
 ========================================================= */
 
 .profile-photo-wrapper {
-  width: 118px;
-  height: 118px;
+  width: 100px;
+  height: 100px;
 
-  margin-top: 0;
-
-  margin-bottom: 12px;
+  margin-top: -1px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
-}
-
-
-/* =========================================================
-   PROFILE PHOTO CIRCLE
-========================================================= */
-
-.profile-photo-circle {
-  width: 112px;
-  height: 112px;
-
-  padding: 4px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #ffffff;
-
-  border: 2px solid #ffffff;
-
-  border-radius: 50%;
 
   overflow: hidden;
 
-  box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.22);
+  border-radius: 50%;
+
+  flex-shrink: 0;
 }
 
-.profile-photo-circle img {
-  width: 100%;
-  height: 100%;
-
-  display: block;
+.profile-photo {
+  width: 86px;
+  height: 86px;
 
   object-fit: cover;
 
   border-radius: 50%;
+
+  border: 3px solid #ffffff;
+
+  box-shadow:
+    0 2px 7px rgba(0,0,0,0.18);
+
+  display: block;
 }
 
-.profile-photo-circle span {
-  width: 100%;
-  height: 100%;
+.profile-photo-fallback {
+  width: 86px;
+  height: 86px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -489,9 +460,13 @@
 
   color: #ffffff;
 
-  font-size: 34px;
-
   font-weight: 700;
+  font-size: 30px;
+
+  border: 3px solid #ffffff;
+
+  box-shadow:
+    0 2px 7px rgba(0,0,0,0.18);
 }
 
 
@@ -500,11 +475,11 @@
 ========================================================= */
 
 .profile-user-name {
-  margin: 0 0 5px;
+  margin: 12px 0 5px;
 
   color: #111111;
 
-  font-size: 17px;
+  font-size: 15px;
 
   font-weight: 700;
 }
@@ -515,11 +490,11 @@
 ========================================================= */
 
 .profile-role {
-  margin: 0 0 14px;
+  margin: 0 0 10px;
 
   color: #777777;
 
-  font-size: 11px;
+  font-size: 10px;
 }
 
 
@@ -528,15 +503,15 @@
 ========================================================= */
 
 .profile-bio {
-  max-width: 225px;
+  max-width: 220px;
 
-  margin: 0 auto 22px;
+  margin: 0 auto 20px;
 
   color: #777777;
 
-  font-size: 10px;
+  font-size: 9.5px;
 
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
 
@@ -547,26 +522,24 @@
 .product-ranking {
   width: 100%;
 
-  margin-bottom: 22px;
+  margin-bottom: 17px;
 }
 
 .product-ranking h2 {
-  max-width: 210px;
-
-  margin: 0 auto 9px;
+  margin: 0 0 7px;
 
   color: var(--navy);
 
-  font-size: 23px;
+  font-size: 26px;
 
-  line-height: 1.1;
+  line-height: 1.15;
 
   font-weight: 700;
 }
 
 
 /* =========================================================
-   STARS
+   RANKING STARS
 ========================================================= */
 
 .ranking-stars {
@@ -574,7 +547,7 @@
 
   justify-content: center;
 
-  gap: 4px;
+  gap: 3px;
 
   margin-bottom: 4px;
 }
@@ -582,11 +555,11 @@
 .ranking-star {
   color: #dddddd;
 
-  font-size: 19px;
+  font-size: 16px;
 }
 
 .ranking-star-filled {
-  color: #111111;
+  color: var(--gold);
 }
 
 
@@ -599,9 +572,7 @@
 
   color: #222222;
 
-  font-size: 12px;
-
-  font-weight: 500;
+  font-size: 11px;
 }
 
 
@@ -612,33 +583,27 @@
 .my-products-button {
   width: 100%;
 
-  min-height: 39px;
+  min-height: 31px;
 
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 
   border: none;
 
-  border-radius: 20px;
+  border-radius: 18px;
 
   background: var(--teal);
 
   color: #ffffff;
 
-  font-size: 12px;
+  font-size: 10px;
 
   font-weight: 700;
 
   cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
 }
 
 .my-products-button:hover {
   background: var(--teal-dark);
-
-  transform: translateY(-1px);
 }
 
 
@@ -649,43 +614,36 @@
 .delete-account-button {
   width: 100%;
 
-  min-height: 39px;
+  min-height: 31px;
 
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
-  gap: 7px;
+  gap: 6px;
 
   border: none;
 
-  border-radius: 20px;
+  border-radius: 18px;
 
   background: var(--danger);
 
   color: #ffffff;
 
-  font-size: 12px;
+  font-size: 10px;
 
   font-weight: 700;
 
   cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
 }
 
 .delete-account-button:hover {
   background: #b90000;
-
-  transform: translateY(-1px);
 }
 
 .delete-account-button svg {
-  font-size: 11px;
+  font-size: 9px;
 }
 
 
@@ -696,7 +654,7 @@
 .profile-right {
   min-width: 0;
 
-  padding-top: 66px;
+  padding-top: 67px;
 
   display: flex;
 
@@ -714,14 +672,14 @@
 .brands-card {
   width: 100%;
 
-  padding: 19px 20px;
+  padding: 17px 18px;
 
-  background: #f5f5f5;
+  background: #f3f3f3;
 
-  border-radius: 9px;
+  border-radius: 8px;
 
   box-shadow:
-    0 2px 5px rgba(0, 0, 0, 0.13);
+    0 2px 4px rgba(0,0,0,0.15);
 }
 
 
@@ -736,7 +694,7 @@
 
   justify-content: space-between;
 
-  margin-bottom: 18px;
+  margin-bottom: 15px;
 }
 
 .profile-section-heading h2 {
@@ -744,7 +702,7 @@
 
   color: var(--navy);
 
-  font-size: 25px;
+  font-size: 28px;
 
   font-weight: 700;
 }
@@ -755,10 +713,11 @@
 ========================================================= */
 
 .settings-button {
-  width: 38px;
-  height: 38px;
+  width: 35px;
+  height: 35px;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -772,10 +731,10 @@
 
   cursor: pointer;
 
-  font-size: 17px;
-
   box-shadow:
-    0 1px 4px rgba(0, 0, 0, 0.08);
+    0 2px 4px rgba(0,0,0,0.08);
+
+  font-size: 17px;
 }
 
 .settings-button:hover {
@@ -792,51 +751,39 @@
 
   flex-direction: column;
 
-  gap: 13px;
+  gap: 12px;
 }
-
-
-/* =========================================================
-   DETAIL ROW
-========================================================= */
 
 .detail-row {
   display: flex;
 
   align-items: center;
 
-  gap: 12px;
+  gap: 11px;
 
   color: #222222;
+
+  font-size: 10px;
 }
 
 .detail-icon {
-  width: 17px;
+  width: 14px;
 
   flex-shrink: 0;
 
   color: #111111;
 
-  font-size: 14px;
+  font-size: 11px;
 }
-
-
-/* =========================================================
-   DETAIL CONTENT
-========================================================= */
 
 .detail-content {
   display: flex;
 
-  align-items: center;
-
   gap: 5px;
-
-  font-size: 11px;
 }
 
 .detail-label {
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .detail-value {
@@ -845,15 +792,11 @@
 
 
 /* =========================================================
-   BRANDS
+   BRANDS HEADER
 ========================================================= */
 
-.brands-heading {
-  margin-bottom: 14px;
-}
-
 .brands-heading h2 {
-  margin: 0;
+  margin: 0 0 13px;
 
   color: var(--navy);
 
@@ -864,7 +807,7 @@
 
 
 /* =========================================================
-   BRAND ROW
+   BRANDS
 ========================================================= */
 
 .brands-row {
@@ -873,42 +816,34 @@
   grid-template-columns:
     repeat(3, minmax(0, 1fr));
 
-  gap: 16px;
+  gap: 12px;
 }
 
-
-/* =========================================================
-   BRAND CARD
-========================================================= */
-
 .brand-logo {
-  height: 80px;
+  height: 72px;
 
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
-  padding: 10px;
+  padding: 8px;
 
   background: #ffffff;
 
-  border-radius: 9px;
+  border-radius: 7px;
 
   box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.12);
+    0 2px 3px rgba(0,0,0,0.15);
 }
 
 .brand-logo img {
   display: block;
 
   max-width: 90%;
-
-  max-height: 55px;
+  max-height: 50px;
 
   width: auto;
-
   height: auto;
 
   object-fit: contain;
@@ -916,7 +851,7 @@
 
 
 /* =========================================================
-   PROFILE INFORMATION CARD
+   PROFILE INFO
 ========================================================= */
 
 .profile-info-card {
@@ -929,18 +864,18 @@
 
   align-items: center;
 
-  gap: 20px;
+  gap: 15px;
 
-  padding: 20px;
+  padding: 18px 15px;
 
   background: #ffffff;
 
   border: 1px solid #e3e3e3;
 
-  border-radius: 9px;
+  border-radius: 8px;
 
   box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.07);
+    0 2px 4px rgba(0,0,0,0.06);
 }
 
 
@@ -955,7 +890,7 @@
 
   align-items: center;
 
-  gap: 8px;
+  gap: 7px;
 
   text-align: center;
 }
@@ -964,19 +899,17 @@
   color: var(--navy);
 
   font-size: 15px;
-
-  font-weight: 700;
 }
 
 .info-item span {
-  color: #555555;
+  color: #777777;
 
   font-size: 13px;
 }
 
 
 /* =========================================================
-   INFO DIVIDER
+   DIVIDER
 ========================================================= */
 
 .info-divider {
@@ -992,37 +925,26 @@
    TABLET
 ========================================================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 1000px) {
 
   .profile-content {
     grid-template-columns:
-      250px minmax(0, 1fr);
+      245px minmax(0, 1fr);
 
     gap: 18px;
 
     padding-left: 20px;
-
     padding-right: 20px;
   }
 
   .profile-banner {
     margin-left: 20px;
-
     margin-right: 20px;
   }
 
   .profile-topbar {
     padding-left: 20px;
-
     padding-right: 20px;
-  }
-
-  .profile-user-name {
-    font-size: 15px;
-  }
-
-  .product-ranking h2 {
-    font-size: 20px;
   }
 
 }
@@ -1045,7 +967,7 @@
   }
 
   .profile-card {
-    max-width: 380px;
+    max-width: 330px;
 
     margin: 0 auto;
   }
@@ -1066,27 +988,13 @@
   }
 
   .profile-topbar {
-    height: 62px;
+    height: 58px;
 
     padding: 0 15px;
   }
 
-  .profile-top-actions {
-    gap: 7px;
-  }
-
-  .profile-action-button {
-    width: 36px;
-    height: 36px;
-  }
-
-  .top-avatar {
-    width: 43px;
-    height: 43px;
-  }
-
   .profile-banner {
-    height: 130px;
+    height: 125px;
 
     margin: 15px;
   }
@@ -1108,21 +1016,13 @@
   .profile-info-card {
     grid-template-columns: 1fr;
 
-    gap: 15px;
+    gap: 12px;
   }
 
   .info-divider {
     width: 100%;
 
     height: 1px;
-  }
-
-  .detail-content {
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    gap: 2px;
   }
 
 }
@@ -1134,12 +1034,18 @@
 
 @media (max-width: 450px) {
 
-  .profile-back-button span {
-    display: none;
+  .profile-top-actions {
+    gap: 5px;
   }
 
-  .profile-top-actions {
-    gap: 2px;
+  .profile-action-button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .top-avatar {
+    width: 36px;
+    height: 36px;
   }
 
   .profile-banner {
@@ -1147,25 +1053,17 @@
   }
 
   .edit-profile-button {
-    font-size: 10px;
+    font-size: 9px;
 
-    padding: 7px 9px;
+    padding: 6px 9px;
   }
 
-  .profile-photo-circle {
-    width: 100px;
-
-    height: 100px;
-  }
-
-  .profile-photo-wrapper {
-    width: 105px;
-
-    height: 105px;
+  .profile-section-heading h2 {
+    font-size: 22px;
   }
 
   .product-ranking h2 {
-    font-size: 20px;
+    font-size: 22px;
   }
 
 }
