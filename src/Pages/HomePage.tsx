@@ -1,5 +1,5 @@
 import Navbar from "../Components/Navbar";
-import { useCart } from "../Components/CartContext";
+import { useCart } from "../Components/useCart";
 import "./HomePage.css";
 
 const categories = [

@@ -1,21 +1,11 @@
 import {
   createContext,
-  useContext,
   useState,
   useEffect,
   type ReactNode,
 } from "react";
-
-export interface CartItem {
-  id: string;
-  name: string;
-  price: number;
-  quantity: number;
-  seller?: string;
-  category?: string;
-  location?: string;
-  imageUrl?: string;
-}
+import type { CartItem } from "./CartContext.types";
+import { CART_STORAGE_KEY, loadCart } from "./CartContext.types";
 
 interface CartContextType {
   items: CartItem[];
@@ -28,23 +18,15 @@ interface CartContextType {
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
-const STORAGE_KEY = "unitrade_cart";
 
-function loadCart(): CartItem[] {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
-}
+export { CartContext };
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>(loadCart);
 
  
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
   }, [items]);
 
   const addItem = (item: Omit<CartItem, "quantity">, qty = 1) => {
@@ -92,13 +74,3 @@ export function CartProvider({ children }: { children: ReactNode }) {
     </CartContext.Provider>
   );
 }
-
-export function useCart() {
-  const ctx = useContext(CartContext);
-  if (!ctx) {
-    throw new Error("useCart must be used within a <CartProvider>");
-  }
-  return ctx;
-}
-
-

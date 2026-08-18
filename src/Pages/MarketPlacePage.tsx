@@ -1,6 +1,6 @@
 import  { useState } from "react";
 import Navbar from "../Components/Navbar";
-import { useCart } from "../Components/CartContext";
+import { useCart } from "../Components/useCart";
 import "./MarketPlacePage.css";
 
 const categories = ["All Categories", "Electronics", "Books", "Furniture", "Other"];

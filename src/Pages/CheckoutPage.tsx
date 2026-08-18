@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
-import { useCart } from "../Components/CartContext";
+import { useCart } from "../Components/useCart";
 import "./CheckoutPage.css";
 
 interface ShippingInfo {
