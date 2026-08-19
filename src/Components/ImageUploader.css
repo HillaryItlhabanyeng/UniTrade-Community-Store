@@ -1,6 +1,6 @@
 .image-uploader {
   width: 100%;
-  max-width: 800px;
+  max-width: 1360px;
   margin: 30px auto;
   padding: 25px;
   background-color: white;
@@ -38,17 +38,23 @@
 
 .add-photos-button {
   width: 40%;
+  height: 40px;
+  /* display: flex; */
   /* padding: 15px; */
-  /* border: 2px dashed #aaa; */
+  border: none;
   border-radius: 30px;
   background-color: #14b8a6;
+  color: #eee;
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 30%;
 }
 
 .add-photos-button:hover {
-  background-color: #80fff0;
+  background-color: #1e3647;
 }
 
 .add-photos-button:disabled {
@@ -171,6 +177,7 @@
   margin-top: 15px;
   color: #777;
   font-size: 13px;
+  margin-left: 42%;
 }
 
 .imagesTopic{

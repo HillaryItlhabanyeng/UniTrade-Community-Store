@@ -15,11 +15,11 @@ function OTPPage() {
           <input type="text" maxLength={1} inputMode="numeric" />
         </div>
 
-        <div className="resend">Din't recieve a code? <a href="#"><span style={{ color: "blue", textDecoration: "underline" }}>RESEND</span></a></div>
-        <button type="submit" className="submit-button">
+        <div className="otpResend">Din't recieve a code? <a href="#"><span style={{ color: "blue", textDecoration: "underline" }}>RESEND</span></a></div>
+        <button type="submit" className="otpsubmit-button">
           Verify
         </button>
-        <button type="button" className="cancel-button">
+        <button type="button" className="otpcancel-button">
           Cancel
         </button>
       </div>

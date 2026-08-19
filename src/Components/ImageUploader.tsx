@@ -98,17 +98,6 @@ function ImageUploader() {
         style={{ display: "none" }}
       />
 
-      {/* Add photos button */}
-      {/* <button
-        type="button"
-        className="add-photos-button"
-        onClick={handleAddPhotos}
-        disabled={images.length >= 4}
-      >
-        <span className="camera-icon">📷</span>
-        Add Photos
-      </button> */}
-
       {/* Image previews */}
       {images.length > 0 && (
         <div className="image-grid">
@@ -162,6 +151,7 @@ function ImageUploader() {
       )}
       {/* ============================================== */}
       {/* Add photos button */}
+      <div className="imageT">
       <button
         type="button"
         className="add-photos-button"
@@ -175,6 +165,7 @@ function ImageUploader() {
       <p className="upload-info">
         You can upload up to 4 photos.
       </p>
+      </div>
 
     </div>
   );

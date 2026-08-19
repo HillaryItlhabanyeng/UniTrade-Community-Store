@@ -1,5 +1,6 @@
 // ProductListingPage.js
 import "./ProductListingPage.css";
+import Navbar from "../Components/Navbar";
 import {useState } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
 import { FaArrowLeft, FaTimes, } from "react-icons/fa";
@@ -43,14 +44,14 @@ function ProductListingPage() {
     setIsEditing(true);
   };
 
-  const handleSave = () => {
-    // Here you would typically make an API call to save the changes
-    console.log("Saving changes:", formData);
-    setIsEditing(false);
-    // Show success message or navigate back
-    alert("Listing updated successfully!");
-    navigate("/my-listing");
-  };
+  // const handleSave = () => {
+  //   // Here you would typically make an API call to save the changes
+  //   console.log("Saving changes:", formData);
+  //   setIsEditing(false);
+  //   // Show success message or navigate back
+  //   alert("Listing updated successfully!");
+  //   navigate("/my-listing");
+  // };
 
   const handleCancel = () => {
     if (isEditing) {
@@ -63,86 +64,11 @@ function ProductListingPage() {
   };
 
   return (
-    <div className="container">
-
-      {/* Sidebar */}
-      <aside className="sidebar">
-        <img src="/logo-recolored.png" alt="UniTrade Logo" className="ProductListinglogo" />
-
-        <nav className="navMenu">
-          <div className="navItem" onClick={() => navigate("/home")}>
-            <span>Home</span>
-          </div>
-
-          <div className="navGroup">
-            <div className="navItem navItemActive"
-              onClick={() => setProductsOpen(!productsOpen)}>
-              My Products
-              <span className="arrow">
-                {productsOpen ? "▲" : "▼"}
-              </span>
-            </div>
-
-            {productsOpen && (
-              <div className="subNav">
-                <div className="subItem" onClick={() => navigate("/categories")}><span>Buying</span></div>
-                <div className="subItem" onClick={() => navigate("/sell")}><span>Selling</span></div>
-                <div className="subItem" onClick={() => navigate("/saved")}><span>Saved</span></div>
-              </div>
-            )}
-          </div>
-
-          <div className="navGroup">
-            <div className="navItem2"
-              onClick={() => setCommunityOpen(!communityOpen)}>
-              Community
-              <span className="arrow">
-                {communityOpen ? "▲" : "▼"}
-              </span>
-            </div>
-
-            {communityOpen && (
-              <div className="subNav">
-                <div className="subItem" onClick={() => navigate("/categories")}><span>Announcements</span></div>
-                <div className="subItem" onClick={() => navigate("/services")}><span>Services</span></div>
-                <div className="subItem" onClick={() => navigate("/events")}><span>Events</span></div>
-              </div>
-            )}
-          </div>
-
-          <div className="navItem" onClick={() => navigate("/profile")}>
-            <span>Profile</span>
-          </div>
-
-        </nav>
-
-        <button type="submit" className="Continue-Browsingbtn">
-          Continue Browsing
-        </button>
-
-        <div className="logout" onClick={() => navigate("/logout")}>
-          <FiLogOut className="logoutBtn" onClick={handleCancel} />
-          <span>Log out</span>
-        </div>
-      </aside>
+    <div className="productListingContainer">
+      <Navbar />
 
       {/* Main Content */}
-      <main className="mainContent">
-
-        {/* Header */}
-        <header className="topHeader">
-          <div className="pageTitle">
-            <FaArrowLeft className="backBtn" onClick={handleCancel} />
-            <h1>Product Listing</h1>
-          </div>
-          <div className="headerActions">
-            <img
-              src="https://i.pravatar.cc/150?img=12"
-              alt="Profile"
-              className="profilePic"
-            />
-          </div>
-        </header>
+      <section className="mainContent">
 
         {/* ======================================================== picture form3======================================== */}
 
@@ -315,7 +241,7 @@ function ProductListingPage() {
                 </button>
                 <button
                   className={`btnSave ${!isEditing ? 'disabled' : ''}`}
-                  onClick={handleSave}
+                  // onClick={handleSave}
                   disabled={!isEditing}
                 >
                   List Product
@@ -323,7 +249,7 @@ function ProductListingPage() {
               </div>
             </div>
 
-      </main>
+      </section>
     </div>
   );
 }

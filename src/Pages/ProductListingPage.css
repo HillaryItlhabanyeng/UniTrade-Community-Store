@@ -6,10 +6,10 @@
   box-sizing: border-box;
 }
 
-.container {
-  display: flex;
+.productListingContainer {
+  /* display: flex; */
   min-height: 100vh;
-  background-color: #f4f6f9;
+  background-color: #203b5b;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
