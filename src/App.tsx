@@ -83,7 +83,7 @@ function App() {
           element={<RatingsreviewsPage />}
         />
 
-        <Route path="/otp" element={<OTPPage />} />
+        <Route path="/ot" element={<OTPPage />} />
 
       </Routes>
     </BrowserRouter>
