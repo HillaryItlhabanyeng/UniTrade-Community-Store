@@ -18,6 +18,7 @@ import SavedPage from "./Pages/SavedPage";
 import BulletinBoardPage from "./Pages/BulletinBoardPage";
 import NotificationsPage from "./Pages/NotificationsPage";
 import MessagesPage from "./Pages/MessagesPage";
+import OTPPage from "./Pages/OTPPage";
 
 function App() {
   return (
@@ -81,6 +82,8 @@ function App() {
           path="/ratingsreviews"
           element={<RatingsreviewsPage />}
         />
+
+        <Route path="/otp" element={<OTPPage />} />
 
       </Routes>
     </BrowserRouter>
