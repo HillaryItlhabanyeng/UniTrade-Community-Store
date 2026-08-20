@@ -3,14 +3,13 @@ import "./ProductListingPage.css";
 import Navbar from "../Components/Navbar";
 import {useState } from 'react';
 import { useNavigate, useLocation } from "react-router-dom";
-import { FaArrowLeft, FaTimes, } from "react-icons/fa";
-import { FiLogOut } from "react-icons/fi";
+import { FaTimes } from "react-icons/fa";
 import ImageUploader from "../Components/ImageUploader";
 
 function ProductListingPage() {
 
-  const [productsOpen, setProductsOpen] = useState(false);
-  const [communityOpen, setCommunityOpen] = useState(false);
+  // const [productsOpen, setProductsOpen] = useState(false);
+  // const [communityOpen, setCommunityOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const listingData = location.state || {};

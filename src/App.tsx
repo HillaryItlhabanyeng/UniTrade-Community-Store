@@ -19,8 +19,9 @@ import BulletinBoardPage from "./Pages/BulletinBoardPage";
 import NotificationsPage from "./Pages/NotificationsPage";
 import MessagesPage from "./Pages/MessagesPage";
 import OTPPage from "./Pages/OTPPage";
-import ResetPasswordPage from "./Pages/OTPPage";
+import ResetPasswordPage from "./Pages/ResetPasswordPage";
 import ProductListingPage from "./Pages/ProductListingPage";
+import ProfilePage from "./Pages/ProfilePage";
 
 
 function App() {
@@ -89,6 +90,7 @@ function App() {
         <Route path="/otp" element={<OTPPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/list-product" element={<ProductListingPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
 
 
       </Routes>
