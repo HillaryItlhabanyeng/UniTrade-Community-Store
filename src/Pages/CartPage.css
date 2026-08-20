@@ -145,8 +145,8 @@
 }
 
 .item-thumb {
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   background: #d9d9d9;
   border-radius: 4px;
   flex-shrink: 0;
@@ -155,7 +155,7 @@
 .item-thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 4px;
 }
 

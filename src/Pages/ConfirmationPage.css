@@ -96,10 +96,10 @@
 }
 
 .confirmation-item img{
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
     border-radius: 4px;
-    object-fit: cover;
+    object-fit: contain;
     background: #e5e5e5;
 }
 
