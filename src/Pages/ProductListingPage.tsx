@@ -1,256 +1,154 @@
-// ProductListingPage.js
-import "./ProductListingPage.css";
-import Navbar from "../Components/Navbar";
-import {useState } from 'react';
-import { useNavigate, useLocation } from "react-router-dom";
-import { FaTimes } from "react-icons/fa";
+// import React from 'react';
+import './ProductListingPage.css';
+import { useNavigate } from "react-router-dom";
+// import { useNavigate, useLocation } from "react-router-dom";
+import SideNavigation from "../Components/SideNavigation";
+import { FaCog, FaBell } from "react-icons/fa";
 import ImageUploader from "../Components/ImageUploader";
+// import {useState } from 'react';
 
 function ProductListingPage() {
-
-  // const [productsOpen, setProductsOpen] = useState(false);
-  // const [communityOpen, setCommunityOpen] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
-  const listingData = location.state || {};
+  // const location = useLocation();
+  // const { cartCount } = useCart();
 
-  const [formData, setFormData] = useState({
-    id: listingData.id || 1,
-    name: listingData.name || "",
-    vehicle: listingData.vehicle || "",
-    price: listingData.price || "",
-    image: listingData.image || "",
-    views: listingData.views || 0,
-    likes: listingData.likes || 0,
-    description: listingData.description || "",
-    category: listingData.category || "",
-    condition: listingData.condition || "",
-    year: listingData.year || "",
-    location: listingData.location || "",
-    gender: listingData.gender || "",
-    quantity: listingData.quantity || "",
-    isActive: true
-  });
-
-  const [isEditing, setIsEditing] = useState(false);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    setIsEditing(true);
-  };
-
-  // const handleSave = () => {
-  //   // Here you would typically make an API call to save the changes
-  //   console.log("Saving changes:", formData);
-  //   setIsEditing(false);
-  //   // Show success message or navigate back
-  //   alert("Listing updated successfully!");
-  //   navigate("/my-listing");
-  // };
-
-  const handleCancel = () => {
-    if (isEditing) {
-      if (window.confirm("You have unsaved changes. Are you sure you want to cancel?")) {
-        navigate("/my-listing");
-      }
-    } else {
-      navigate("/my-listing");
-    }
-  };
+  // const [formData, setFormData] = useState({
+  //   id: listingData.id || 1,
+  //   name: listingData.name || "",
+  //   vehicle: listingData.vehicle || "",
+  //   price: listingData.price || "",
+  //   image: listingData.image || "",
+  //   views: listingData.views || 0,
+  //   likes: listingData.likes || 0,
+  //   description: listingData.description || "",
+  //   category: listingData.category || "",
+  //   condition: listingData.condition || "",
+  //   year: listingData.year || "",
+  //   location: listingData.location || "",
+  //   gender: listingData.gender || "",
+  //   quantity: listingData.quantity || "",
+  //   isActive: true
+  // });
 
   return (
-    <div className="productListingContainer">
-      <Navbar />
+    <div className="listing-app-container">
+      {/* Sidebar */}
+      <SideNavigation />
 
       {/* Main Content */}
-      <section className="mainContent">
-
-        {/* ======================================================== picture form3======================================== */}
-
-        <div className="editForm3">
-          <div>
-            <h3 className="create-listing">Upload Images</h3>
-
-            <ImageUploader />
-
+      <main className="listing-main-content">
+        {/* Header */}
+        <header className="listing-top-header">
+          <div className="listing-header-left">
+            <button className="listing-close-btn" onClick={() => navigate("/selling")}>×</button>
+            <h1>Product Listing</h1>
           </div>
-        </div>
+          <div className="listing-header-right">
+            <FaBell className='listing-notification' onClick={() => navigate("/register")} />
+            <FaCog className='listing-settings' />
+            <div className="listing-icon-btn user-icon">
+              <img src="https://i.pravatar.cc/150?img=12" alt="User" className='listing-profile' onClick={() => navigate("/profile")}/>
+            </div>
+          </div>
+        </header>
 
-        {/* =========================================================Edit Form================================================ */}
-        <div className="editForm">
-
-          {/* Image Upload Section */}
-          <div className="imageSection">
+        <div className="listing-scrollable-area">
+          {/* Action Buttons */}
+          <div className="listing-action-bar">
+            <button className="listing-btn-draft">Save Draft</button>
+            <button className="listing-btn-list">List product</button>
           </div>
 
-          {/* Form Fields */}
-          <div className="formFields">
-            <h2 className="General-information">General Information</h2>
+          <div className="listing-form-grid">
+            {/* Left Column: Forms */}
+            <div className="listing-form-column">
+              <div className="listing-card">
+                <h3 className="listing-card-title">General Information</h3>
+                <div className="listing-form-group">
+                  <label>Product Name</label>
+                  <input type="text" className="listing-form-input" />
+                </div>
+                <div className="listing-form-group">
+                  <label>Description</label>
+                  <input type="text" className="listing-form-input" />
+                </div>
 
-            <div className="formRow">
-              <div className="formGroup">
-                <label htmlFor="name">Product Name *</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  placeholder="Enter product name"
-                  required
-                />
+                <div className="listing-form-group">
+                  <label>Location</label>
+                  <select className="listing-form-select">
+                    <option>Select Location</option>
+                    <option>Bellville</option>
+                    <option>District 6</option>
+                    <option>Granger Bay</option>
+                    <option>Mowbray</option>
+                    <option>NewLands</option>
+                    <option>Wellington</option>
+                    </select>
+                </div>
+
+                <div className="listing-form-group">
+                  <label>Category</label>
+                  <select className="listing-form-select">
+                    <option>Select Category</option>
+                  <option>Books & Media</option>
+                  <option>Clothes</option>
+                  <option>Electronics</option>
+                  <option>Furniture </option>
+                  <option>Home Essentials</option>
+                  <option>Jewelry & Watches</option>
+                  <option>Office Supplies </option>
+                  <option>Sports & Outdoors</option>
+                  <option>Toys & Games</option>
+                  <option>Other</option>
+                  </select>
+                </div>
+
+                <div className="listing-form-group">
+                  <label>Gender (Optional)</label>
+                  <div className="listing-radio-group">
+                    <label className="listing-radio-label">
+                      <input type="radio" name="gender" /> Female
+                    </label>
+                    <label className="listing-radio-label">
+                      <input type="radio" name="gender" /> Bisexual
+                    </label>
+                    <label className="listing-radio-label">
+                      <input type="radio" name="gender" /> Unisex
+                    </label>
+                    <label className="listing-radio-label">
+                      <input type="radio" name="gender" /> Not Applicable
+                    </label>
+                  </div>
+                </div>
               </div>
 
-              <div className="formGroup">
-                <label htmlFor="category">Category *</label>
-                <select
-                  id="category"
-                  name="category"
-                  value={formData.category}
-                  onChange={handleInputChange}
-                  required
-                >
-                  <option value="">Select Category</option>
-                  <option value="Accessories">Accessories</option>
-                  <option value="Books & Media">Books & Media</option>
-                  <option value="Clothes">Clothes</option>
-                  <option value="Electronics">Electronics</option>
-                  <option value="Furniture">Furniture </option>
-                  <option value="Garden">Garden</option>
-                  <option value="Home Essentials">Home Essentials</option>
-                  <option value="Jewelry & Watches">Jewelry & Watches</option>
-                  <option value="Musical Instruments">Musical Instruments</option>
-                  <option value="Office Supplies">Office Supplies </option>
-                  <option value="Sports & Outdoors">Sports & Outdoors</option>
-                  <option value="Tools & Equipment">Tools & Equipment</option>
-                  <option value="Toys & Games">Toys & Games</option>
-                  <option value="Other">Other</option>
-                </select>
+              <div className="listing-card">
+                <h3 className="listing-card-title">Pricing & Stock</h3>
+                <div className="listing-price-stock-row">
+                  <div className="listing-form-group">
+                    <label>Price</label>
+                    <input type="text" className="listing-form-input" />
+                  </div>
+                  <div className="listing-form-group">
+                    <label>Quantity</label>
+                    <input type="text" className="listing-form-input" />
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="formRow">
-              <div className="formGroup">
-                <label htmlFor="location">Location *</label>
-                <input
-                  type="text"
-                  id="location"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleInputChange}
-                  placeholder="Enter location"
-                  required
-                />
-              </div>
-
-              <div className="formGroup">
-                <label htmlFor="gender">Gender *</label>
-                <select
-                  id="gender"
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleInputChange}
-                  required
-                >
-                  <option value="">Select gender</option>
-                  <option value="Female">Female</option>
-                  <option value="Male">Male</option>
-                  <option value="Unisex">Unisex</option>
-                  <option value="Other">Other</option>
-                  <option value="Not Applicable">Not Applicable</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="formRow">
-
-              
-            </div>
-
-            <div className="formGroup fullWidth">
-              <label htmlFor="description">Description</label>
-              <textarea
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={handleInputChange}
-                placeholder="Describe the product in detail..."
-                rows={5}
-              />
-            </div>
-
-            {/* Action Buttons */}
-            <div className="actionButtons">
-              <div className="rightActions">
+            {/* Right Column: Image Upload */}
+            <div className="listing-image-column">
+              <div className="listing-card-upload-card">
+                <ImageUploader />
               </div>
             </div>
 
           </div>
         </div>
-
-        {/* ==============================form2======================================== */}
-        <div className="editForm2">
-
-          {/* Image Upload Section */}
-          <div className="imageSection">
-          </div>
-
-          {/* Form Fields */}
-          <div className="formFields">
-            <h2 className="price-stock">Pricing & Stock</h2>
-
-            <div className="formRow">
-              <div className="formGroup">
-                <label htmlFor="price">Price (R) *</label>
-                <input
-                  type="text"
-                  id="price"
-                  name="price"
-                  value={formData.price}
-                  onChange={handleInputChange}
-                  placeholder="e.g., R850"
-                  required
-                />
-              </div>
-
-              <div className="formGroup">
-                <label htmlFor="quantity">Quantity</label>
-                <input
-                  type="text"
-                  id="quantity"
-                  name="quantity"
-                  value={formData.quantity}
-                  onChange={handleInputChange}
-                  placeholder="e.g., 20"
-                />
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <div className="actionButtons">
-              <div className="rightActions">
-                <button className="btnCancel" onClick={handleCancel}>
-                  <FaTimes /> Cancel
-                </button>
-                <button
-                  className={`btnSave ${!isEditing ? 'disabled' : ''}`}
-                  // onClick={handleSave}
-                  disabled={!isEditing}
-                >
-                  List Product
-                </button>
-              </div>
-            </div>
-
-      </section>
+      </main>
     </div>
   );
-}
+};
 
 export default ProductListingPage;

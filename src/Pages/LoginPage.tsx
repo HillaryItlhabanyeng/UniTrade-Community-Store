@@ -148,7 +148,7 @@ const LoginPage: React.FC = () => {
 
             {/* Forgot password */}
             <div className="forgot-password-row">
-              <Link to="/forgot-password">Forgot Password?</Link>
+              <Link to="/reset-password">Forgot Password?</Link>
             </div>
 
             {/* Remember me */}

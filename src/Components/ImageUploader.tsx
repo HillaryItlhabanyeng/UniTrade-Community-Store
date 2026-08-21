@@ -11,7 +11,7 @@ function ImageUploader() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [images, setImages] = useState<UploadedImage[]>([]);
-  const [mainImage, setMainImage] = useState<string       | null>(null);
+  const [mainImageId, setMainImageId] = useState<string | null>(null);
 
   // Open the device's file picker
   const handleAddPhotos = () => {
@@ -22,12 +22,9 @@ function ImageUploader() {
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = event.target.files;
 
-    if (!selectedFiles) {
-      return;
-    }
+    if (!selectedFiles) return;
 
     const files = Array.from(selectedFiles);
-
     const newImages = files.map((file) => ({
       id: crypto.randomUUID(),
       file: file,
@@ -37,56 +34,46 @@ function ImageUploader() {
     setImages((previousImages) => {
       const updatedImages = [...previousImages, ...newImages];
 
-      // Make the first image the main image
-      if (previousImages.length === 0 && newImages.length > 0) {
-        setMainImage(newImages[0].id);
+      // Make the first image the main image if there isn't one already
+      if (!mainImageId && newImages.length > 0) {
+        setMainImageId(newImages[0].id);
       }
 
       return updatedImages;
     });
 
-    // Allows the user to select the same file again later
     event.target.value = "";
   };
 
   // Delete an image
   const handleDelete = (id: string) => {
     const imageToDelete = images.find((image) => image.id === id);
-
-    if (imageToDelete) {
-      URL.revokeObjectURL(imageToDelete.preview);
-    }
+    if (imageToDelete) URL.revokeObjectURL(imageToDelete.preview);
 
     const updatedImages = images.filter((image) => image.id !== id);
-
     setImages(updatedImages);
 
-    // If the deleted image was the main image
-    if (mainImage === id) {
+    // Adjust main image if deleted
+    if (mainImageId === id) {
       if (updatedImages.length > 0) {
-        setMainImage(updatedImages[0].id);
+        setMainImageId(updatedImages[0].id);
       } else {
-        setMainImage(null);
+        setMainImageId(null);
       }
     }
   };
 
   // Set an image as the main image
   const handleSetMain = (id: string) => {
-    setMainImage(id);
+    setMainImageId(id);
   };
 
+  // Get the current main image object
+  const mainImage = images.find((img) => img.id === mainImageId) || null;
+
   return (
-    <div className="image-uploader">
-
-      <div className="upload-header">
-        <div>
-          {/* <h2 className="imagesTopic">Upload Images</h2> */}
-          {/* <p>Add photos of the item you're selling</p> */}
-        </div>
-
-        <span>{images.length}/4</span>
-      </div>
+    <div className="image-uploader-dark">
+      <h2 className="upload-title">Upload Images</h2>
 
       {/* Hidden file input */}
       <input
@@ -98,75 +85,57 @@ function ImageUploader() {
         style={{ display: "none" }}
       />
 
-      {/* Image previews */}
-      {images.length > 0 && (
-        <div className="image-grid">
-
-          {images.map((image) => (
-            <div
-              className={`image-card ${
-                mainImage === image.id ? "main-image" : ""
-              }`}
-              key={image.id}
-            >
-
-              {/* Image */}
-              <img
-                src={image.preview}
-                alt="Product preview"
-              />
-
-              {/* Main image badge */}
-              {mainImage === image.id && (
-                <span className="main-badge">
-                  Main Image
-                </span>
-              )}
-
-              {/* Delete button */}
-              <button
-                type="button"
-                className="delete-button"
-                onClick={() => handleDelete(image.id)}
-                aria-label="Delete image"
-              >
-                ×
-              </button>
-
-              {/* Set as main button */}
-              {mainImage !== image.id && (
-                <button
-                  type="button"
-                  className="set-main-button"
-                  onClick={() => handleSetMain(image.id)}
-                >
-                  Set as Main
-                </button>
-              )}
-
-            </div>
-          ))}
-
-        </div>
-      )}
-      {/* ============================================== */}
-      {/* Add photos button */}
-      <div className="imageT">
-      <button
-        type="button"
-        className="add-photos-button"
-        onClick={handleAddPhotos}
-        disabled={images.length >= 4}
-      >
-        Add Images
-      </button>
-
-      {/* Instructions */}
-      <p className="upload-info">
-        You can upload up to 4 photos.
-      </p>
+      {/* Main Large Preview */}
+      <div className="main-preview">
+        {mainImage ? (
+          <img src={mainImage.preview} alt="Main preview" />
+        ) : (
+          <div className="empty-main-preview">No image selected</div>
+        )}
       </div>
 
+      {/* Thumbnails Row */}
+      <div className="thumbnail-row">
+        {images.map((image) => (
+          <div
+            className={`thumbnail-card ${
+              mainImageId === image.id ? "active-thumbnail" : ""
+            }`}
+            key={image.id}
+            onClick={() => handleSetMain(image.id)}
+          >
+            <img src={image.preview} alt="Product preview" />
+            
+            {/* Delete Badge */}
+            <button
+              type="button"
+              className="delete-badge"
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent setting as main when deleting
+                handleDelete(image.id);
+              }}
+              aria-label="Delete image"
+            >
+              ×
+            </button>
+          </div>
+        ))}
+
+        {/* Add button (always visible, disabled if 4 images) */}
+        <button
+          type="button"
+          className="add-image-button"
+          onClick={handleAddPhotos}
+          disabled={images.length >= 4}
+        >
+          +
+        </button>
+      </div>
+
+      {/* Helper Text */}
+      {/* {images.length >= 4 && ( */}
+        <p className="upload-limit-info">You can upload up to 4 photos.</p>
+      {/* )} */}
     </div>
   );
 }
