@@ -51,7 +51,7 @@ const LoginPage: React.FC = () => {
     console.log({ email, password, rememberMe });
 
     // Redirect to the home page after a successful login
-    navigate("/");
+    navigate("/home");
   };
 
   return (
