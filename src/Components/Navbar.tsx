@@ -50,7 +50,7 @@ export default function Navbar({
       <nav className="navbar">
 
         {/* LOGO */}
-        <Link to="/" className="navbar-logo">
+        <Link to="/home" className="navbar-logo">
           <img
             src="/UniTrade logo 2.png"
             alt="UniTrade Campus Marketplace"
@@ -169,7 +169,7 @@ export default function Navbar({
         <div className="nav-links-row">
 
           <NavLink
-            to="/"
+            to="/home"
             end
             className={({ isActive }) =>
               isActive ? "active" : ""
