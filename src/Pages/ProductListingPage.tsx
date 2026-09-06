@@ -40,7 +40,7 @@ function ProductListingPage() {
         {/* Header */}
         <header className="listing-top-header">
           <div className="listing-header-left">
-            <button className="listing-close-btn" onClick={() => navigate("/selling")}>×</button>
+            <button className="listing-close-btn" onClick={() => navigate("/my-listings")}>×</button>
             <h1>Product Listing</h1>
           </div>
           <div className="listing-header-right">

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import "./MyListingsPage.css";
 
@@ -75,6 +75,8 @@ export default function MyListingsPage() {
     );
   };
 
+  const navigate = useNavigate();
+
   return (
     <div className="ml-page">
       <Navbar />
@@ -84,7 +86,7 @@ export default function MyListingsPage() {
           <h1>My Listings</h1>
           <p>Manage the items you're selling on UniTrade</p>
         </div>
-        <button className="ml-sell-btn">Sell an Item</button>
+        <button className="ml-sell-btn" onClick={() => navigate("/list-product")}>Sell an Item</button>
       </div>
 
       <div className="ml-filter-bar">

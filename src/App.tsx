@@ -27,6 +27,7 @@ import MessagesPage from "./Pages/MessagesPage";
 
 import OTPPage from "./Pages/OTPPage";
 import ResetPasswordPage from "./Pages/ResetPasswordPage";
+import LandingPage from "./Pages/LandingPage";
 
 import ProductListingPage from "./Pages/ProductListingPage";
 import ProfilePage from "./Pages/ProfilePage";
@@ -37,7 +38,8 @@ function App() {
       <Routes>
 
         {/* Home */}
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/home" element={<HomePage />} />
 
         {/* Authentication */}
         <Route path="/login" element={<LoginPage />} />
@@ -72,6 +74,7 @@ function App() {
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        {/* <Route path="/landing" element={<LandingPage />} /> */}
 
         {/* Reviews */}
         <Route
