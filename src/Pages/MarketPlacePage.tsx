@@ -1,6 +1,6 @@
-import  { useState } from "react";
+import React, { useState } from "react";
 import Navbar from "../Components/Navbar";
-import { useCart } from "../Components/useCart";
+import { useSaved } from "../Components/useSaved";
 import "./MarketPlacePage.css";
 
 const categories = ["All Categories", "Electronics", "Books", "Furniture", "Other"];
@@ -8,80 +8,19 @@ const conditions = ["All", "New", "Like New", "Good", "Fair"];
 const locations = ["Bellville Campus", "Distric 6 Campus", "Mowbray Campus", "Wellington Campus"];
 
 const products = [
-  {
-    id: "proline-intel-celeron",
-    title: "PROLINE INTEL CELERON",
-    price: "R3699.00",
-    location: "Bellville Campus",
-    image: "/laptop.jpg",
-  },
-  {
-    id: "a4-counter-books",
-    title: "A4 Counter Books - 3 Quire",
-    price: "R40.00",
-    location: "Wellington Campus",
-    image: "/a4.jpg",
-  },
-  {
-    id: "laptop-stand-cooling-pad",
-    title: "Laptop Stand Laptop Cooling Pad",
-    price: "R250.00",
-    location: "Mowbray Campus",
-    image: "/coolpad.jpg",
-  },
-  {
-    id: "calculator-scientific-deli",
-    title: "Calculator Scientific - Black - Deli",
-    price: "R550.00",
-    location: "Distric 6 Campus",
-    image: "/calculator.jpg",
-  },
-  {
-    id: "iphone-11-64gb",
-    title: "Iphone 11 64GB",
-    price: "R5200.00",
-    location: "Distric 6 Campus",
-    image: "/iphone.jpg",
-  },
-  {
-    id: "bugani-freebuds-b20",
-    title: "Bugani FreeBuds B20 Wireless Earbuds",
-    price: "R930.00",
-    location: "Mowbray Campus",
-    image: "/earbuds.jpg",
-  },
-  {
-    id: "nortic-classic-desk",
-    title: "Nortic Classic Home office Desk",
-    price: "R1500.00",
-    location: "Wellington Campus",
-    image: "/desks.jpg",
-  },
-  {
-    id: "brightup-backpack-zip",
-    title: "Brightup Backpack Zip",
-    price: "R765.00",
-    location: "Bellville Campus",
-    image: "/backpack.jpg",
-  },
+  { id: "1", title: "PROLINE INTEL CELERON", price: 3699.0, location: "Bellville Campus", image: "/laptop.jpg" },
+  { id: "2", title: "A4 Counter Books - 3 Quire", price: 40.0, location: "Wellington Campus", image: "/a4.jpg" },
+  { id: "3", title: "Laptop Stand Laptop Cooling Pad", price: 250.0, location: "Mowbray Campus", image: "/coolingpad.jpg" },
+  { id: "4", title: "Calculator Scientific - Black - Deli", price: 550.0, location: "Distric 6 Campus", image: "/calculator.jpg" },
+  { id: "5", title: "Iphone 11 64GB", price: 5200.0, location: "Distric 6 Campus", image: "/iphone.jpg" },
+  { id: "6", title: "Bugani FreeBuds B20 Wireless Earbuds", price: 930.0, location: "Mowbray Campus", image: "/earbuds.jpg" },
+  { id: "7", title: "Nortic Classic Home office Desk", price: 1500.0, location: "Wellington Campus", image: "/desks.jpg" },
+  { id: "8", title: "Brightup Backpack Zip", price: 765.0, location: "Bellville Campus", image: "/backpack.jpg" },
 ];
 
 export default function MarketPlacePage() {
   const [activeCategory, setActiveCategory] = useState("All Categories");
-  const { addItem } = useCart();
-
-  const parsePrice = (priceStr: string) =>
-    parseFloat(priceStr.replace(/[^0-9.]/g, ""));
-
-  const handleAddToCart = (product: (typeof products)[number]) => {
-    addItem({
-      id: product.id,
-      name: product.title,
-      price: parsePrice(product.price),
-      location: product.location,
-      imageUrl: product.image,
-    });
-  };
+  const { isSaved, toggleSaved } = useSaved();
 
   return (
     <div className="mp-page">
@@ -168,21 +107,29 @@ export default function MarketPlacePage() {
 
           <div className="mp-grid">
             {products.map((p) => (
-              <div className="mp-card" key={p.title}>
+              <div className="mp-card" key={p.id}>
                 <div className="mp-card-image">
                   <img src={p.image} alt={p.title} />
-                  <button className="mp-fav">♡</button>
+                  <button
+                    className={`mp-fav ${isSaved(p.id) ? "mp-fav-active" : ""}`}
+                    onClick={() =>
+                      toggleSaved({
+                        id: p.id,
+                        name: p.title,
+                        price: p.price,
+                        location: p.location,
+                        imageUrl: p.image,
+                      })
+                    }
+                    aria-label={isSaved(p.id) ? "Remove from saved" : "Save item"}
+                  >
+                    {isSaved(p.id) ? "♥" : "♡"}
+                  </button>
                 </div>
                 <div className="mp-card-info">
                   <span className="mp-card-title">{p.title}</span>
-                  <span className="mp-card-price">{p.price}</span>
+                  <span className="mp-card-price">R{p.price.toFixed(2)}</span>
                   <span className="mp-card-location">📍 {p.location}</span>
-                  <button
-                    className="mp-add-to-cart"
-                    onClick={() => handleAddToCart(p)}
-                  >
-                    Add to Cart
-                  </button>
                 </div>
               </div>
             ))}

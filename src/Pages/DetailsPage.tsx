@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Navbar from "../Components/Navbar";
 import CheckoutSteps from "../Components/CheckoutSteps";
 import OrderSummary from "../Components/OrderSummary";
+import { useCart } from "../Components/useCart";
 import "./DetailsPage.css"
+
+const DELIVERY_FEE = 150.0;
 
 export default function DetailsPage(){
     const navigate = useNavigate();
+    const { items } = useCart();
     const [fullName, setFullName] = useState("");
     const [phone, setPhone] = useState("");
     const[email,setEmail] = useState("");
@@ -18,7 +23,16 @@ export default function DetailsPage(){
         navigate("/checkout/payment");
     };
 
+    const orderSummaryItems = items.map((item) => ({
+        name: item.name,
+        specs: item.category ?? "",
+        price: item.price * item.quantity,
+        image: item.imageUrl ?? "",
+    }));
+
     return (
+    <>
+    <Navbar showLinks={false} />
     <div className="checkout-page">
         <p className="secure-label">SECURE CHECKOUT</p>
         <h2>Your Details</h2>
@@ -60,15 +74,8 @@ export default function DetailsPage(){
           </div>
 
           <OrderSummary
-            items={[
-                {
-                    name: "PROLINE INTEL CELERON",
-                    specs: "DUAL CORE, 4GB/500GB",
-                    price: 3699.0,
-                    image: "/laptop.jpg",
-                },
-            ]}
-            deliveryFee={150.0}
+            items={orderSummaryItems}
+            deliveryFee={DELIVERY_FEE}
           />
         </div>
 
@@ -76,5 +83,6 @@ export default function DetailsPage(){
             Continue to Payment →
         </button>
     </div>
+    </>
 );
 }
