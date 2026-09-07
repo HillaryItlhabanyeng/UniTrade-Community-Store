@@ -20,10 +20,15 @@ import CategoriesPage from "./Pages/CategoriesPage";
 
 import MyListingsPage from "./Pages/MyListingsPage";
 import SavedPage from "./Pages/SavedPage";
+import BuyingPage from "./Pages/BuyingPage";
+import OrderDetailPage from "./Pages/OrderDetailPage";
 import BulletinBoardPage from "./Pages/BulletinBoardPage";
 
 import NotificationsPage from "./Pages/NotificationsPage";
 import MessagesPage from "./Pages/MessagesPage";
+import ServicesPage from "./Pages/ServicesPage";
+import AnnouncementsPage from "./Pages/AnnouncementsPage";
+import EventsPage from "./Pages/EventsPage";
 
 import OTPPage from "./Pages/OTPPage";
 import ResetPasswordPage from "./Pages/ResetPasswordPage";
@@ -32,6 +37,7 @@ import LandingPage from "./Pages/LandingPage";
 import ProductListingPage from "./Pages/ProductListingPage";
 import ProfilePage from "./Pages/ProfilePage";
 import ProductDetailsPage from "./Pages/ProductDetailsPage";
+
 
 function App() {
   return (
@@ -55,10 +61,13 @@ function App() {
 
         {/* Marketplace */}
         <Route path="/shop" element={<MarketPlacePage />} />
+        <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/list-product" element={<ProductListingPage />} />
         <Route path="/my-listings" element={<MyListingsPage />} />
         <Route path="/saved" element={<SavedPage />} />
+        <Route path="/buying" element={<BuyingPage />} />
+        <Route path="/orders/:reference" element={<OrderDetailPage />} />
 
         {/* Cart / Checkout */}
         <Route path="/cart" element={<CartPage />} />
@@ -74,6 +83,9 @@ function App() {
         <Route path="/bulletin-board" element={<BulletinBoardPage />} />
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
+        <Route path="/announcements" element={<AnnouncementsPage />} />
+        <Route path="/events" element={<EventsPage />} />
+        <Route path="/services" element={<ServicesPage />} />
         <Route path="/contact" element={<ContactPage />} />
         {/* <Route path="/landing" element={<LandingPage />} /> */}
         <Route path="/product-details" element={<ProductDetailsPage />} />

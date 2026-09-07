@@ -347,31 +347,31 @@ export default function CategoriesPage() {
                     </div>
                     <div className="categoryCardss">
                         <h1 className="categoryCardsText">Sports & outdoor</h1>
-                        <img src="/sports.png" alt="Sports" className="categoryImages" onClick={() => navigate("/shop/sports")} />
+                        <img src="/sports.png" alt="Sports" className="categoryImages" onClick={() => navigate("")} />
                     </div>
                     <div className="categoryCardss">
                         <h1 className="categoryCardsText">Furniture</h1>
-                        <img src="/mirror.png" alt="Furniture" className="categoryImages" onClick={() => navigate("/shop/furniture")} />
+                        <img src="/mirror.png" alt="Furniture" className="categoryImages" onClick={() => navigate("")} />
                     </div>
                     <div className="categoryCardss">
                         <h1 className="categoryCardsText">Home</h1>
-                        <img src="/deffuser.png" alt="Home" className="categoryImages" onClick={() => navigate("/shop/home")} />
+                        <img src="/deffuser.png" alt="Home" className="categoryImages" onClick={() => navigate("")} />
                     </div>
                     <div className="categoryCardss">
                         <h1 className="categoryCardsText">Jewelry</h1>
-                        <img src="/accessories.png" alt="Jewelry" className="categoryImages" onClick={() => navigate("/shop/jewelry")} />
+                        <img src="/accessories.png" alt="Jewelry" className="categoryImages" onClick={() => navigate("")} />
                     </div>
                     <div className="categoryCardss">
                         <h1 className="categoryCardsText">Office</h1>
-                        <img src="/chair.png" alt="Office" className="categoryImages" onClick={() => navigate("/shop/office")} />
+                        <img src="/chair.png" alt="Office" className="categoryImages" onClick={() => navigate("")} />
                     </div>
                     <div className="categoryCardss">
                         <h1 className="categoryCardsText">Food</h1>
-                        <img src="/chips.png" alt="Food" className="categoryImages" onClick={() => navigate("/shop/food")} />
+                        <img src="/chips.png" alt="Food" className="categoryImages" onClick={() => navigate("")} />
                     </div>
                     <div className="categoryCardss">
                         <h1 className="categoryCardsText">Other</h1>
-                        <img src="/shoes.png" alt="Other" className="categoryImages" onClick={() => navigate("/shop/other")} />
+                        <img src="/shoes.png" alt="Other" className="categoryImages" onClick={() => navigate("")} />
                     </div>
                 </div>
             </section>

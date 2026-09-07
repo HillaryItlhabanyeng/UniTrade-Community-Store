@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   FaSearch,
   FaComments,
@@ -11,6 +11,7 @@ import {
   FaExchangeAlt,
   FaSignOutAlt,
 } from "react-icons/fa";
+import { useCart } from "./useCart";
 
 import "./Navbar.css";
 
@@ -24,6 +25,9 @@ export default function Navbar({
   showLinks = true,
 }: Props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+  const { itemCount } = useCart();
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Close the dropdown when clicking anywhere outside it
@@ -62,11 +66,14 @@ export default function Navbar({
         <div className="navbar-search">
           <input
             type="text"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            onKeyDown={(event) => { if (event.key === "Enter") navigate(`/shop?search=${encodeURIComponent(search)}`); }}
             placeholder="Search for items, users or categories..."
             aria-label="Search"
           />
 
-          <button type="button" aria-label="Search">
+          <button type="button" aria-label="Search" onClick={() => navigate(`/shop?search=${encodeURIComponent(search)}`)}>
             <FaSearch />
           </button>
         </div>
@@ -93,9 +100,10 @@ export default function Navbar({
           </Link>
 
           {/* Cart */}
-          <Link to="/cart" className="nav-action">
+          <Link to="/cart" className="nav-action nav-cart-action">
             <FaShoppingBag className="action-icon" />
             <span className="action-label">Cart</span>
+            {itemCount > 0 && <span className="cart-count" aria-label={`${itemCount} items in cart`}>{itemCount}</span>}
           </Link>
 
           {/* =================================================
@@ -203,6 +211,33 @@ export default function Navbar({
             }
           >
             Bulletin Board
+          </NavLink>
+
+          <NavLink
+            to="/announcements"
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
+          >
+            Announcements
+          </NavLink>
+
+          <NavLink
+            to="/events"
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
+          >
+            Events
+          </NavLink>
+
+          <NavLink
+            to="/services"
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
+          >
+            Services
           </NavLink>
 
           <NavLink
