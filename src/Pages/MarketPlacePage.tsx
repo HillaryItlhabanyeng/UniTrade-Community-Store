@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Navbar from "../Components/Navbar";
 import { useSaved } from "../Components/useSaved";
 import "./MarketPlacePage.css";

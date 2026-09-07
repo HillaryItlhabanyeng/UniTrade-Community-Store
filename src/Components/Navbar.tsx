@@ -206,6 +206,24 @@ export default function Navbar({
           </NavLink>
 
           <NavLink
+            to="/announcements"
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
+          >
+            Announcements
+          </NavLink>
+
+          <NavLink
+            to="/services"
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
+          >
+            Services
+          </NavLink>
+
+          <NavLink
             to="/account"
             className={({ isActive }) =>
               isActive ? "active" : ""

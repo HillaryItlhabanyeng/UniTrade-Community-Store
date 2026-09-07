@@ -24,6 +24,8 @@ import BulletinBoardPage from "./Pages/BulletinBoardPage";
 
 import NotificationsPage from "./Pages/NotificationsPage";
 import MessagesPage from "./Pages/MessagesPage";
+import ServicesPage from "./Pages/ServicesPage";
+import AnnouncementsPage from "./Pages/AnnouncementsPage";
 
 import OTPPage from "./Pages/OTPPage";
 import ResetPasswordPage from "./Pages/ResetPasswordPage";
@@ -73,6 +75,8 @@ function App() {
         <Route path="/bulletin-board" element={<BulletinBoardPage />} />
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
+        <Route path="/announcements" element={<AnnouncementsPage />} />
+        <Route path="/services" element={<ServicesPage />} />
         <Route path="/contact" element={<ContactPage />} />
         {/* <Route path="/landing" element={<LandingPage />} /> */}
 
