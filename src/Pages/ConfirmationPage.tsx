@@ -1,21 +1,33 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../Components/Navbar";
-import { useCart } from "../Components/useCart";
+import { useOrders } from "../Components/useOrders";
 import "./ConfirmationPage.css";
-
-const DELIVERY_FEE = 150.0;
 
 export default function ConfirmationPage() {
   const navigate = useNavigate();
-  const { items, subtotal } = useCart();
+  const location = useLocation();
+  const { getOrder } = useOrders();
 
-  const referenceNumber = "FR-78TRFGDUN3452";
-  const status = "PENDING";
-
-  const delivery = items.length > 0 ? DELIVERY_FEE : 0;
-  const total = subtotal + delivery;
+  const reference = (location.state as { reference?: string } | null)?.reference;
+  const order = reference ? getOrder(reference) : undefined;
 
   const formatCurrency = (value: number) => `R${value.toFixed(2)}`;
+
+  if (!order) {
+    return (
+      <>
+        <Navbar showLinks={false} />
+        <div className="confirmation-page">
+          <div className="confirmation-card">
+            <p>We couldn't find that order.</p>
+            <button className="continue-shopping-btn" onClick={() => navigate("/")}>
+              Continue Shopping
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -34,44 +46,45 @@ export default function ConfirmationPage() {
           <div className="order-details-box">
             <div className="reference-row">
               <span className="reference-label">REFERENCE</span>
-              <span className={`status-badge ${status.toLowerCase()}`}>{status}</span>
+              <span className={`status-badge ${order.status.toLowerCase()}`}>
+                {order.status}
+              </span>
             </div>
-            <p className="reference-number">{referenceNumber}</p>
+            <p className="reference-number">{order.reference}</p>
 
-            {items.length === 0 ? (
-              <p>No items found for this order.</p>
-            ) : (
-              items.map((item, i) => (
-                <div key={i} className="confirmation-item">
-                  <img src={item.imageUrl} alt={item.name} />
-                  <div className="confirmation-item-info">
-                    <p className="item-name">{item.name}</p>
-                    {item.category && <p className="item-specs">{item.category}</p>}
-                    <p className="item-extra">Qty: {item.quantity}</p>
-                  </div>
-                  <span className="item-price">
-                    {formatCurrency(item.price * item.quantity)}
-                  </span>
+            {order.items.map((item, i) => (
+              <div key={i} className="confirmation-item">
+                {item.imageUrl && <img src={item.imageUrl} alt={item.name} />}
+                <div className="confirmation-item-info">
+                  <p className="item-name">{item.name}</p>
+                  {item.category && <p className="item-specs">{item.category}</p>}
+                  <p className="item-extra">Qty: {item.quantity}</p>
                 </div>
-              ))
-            )}
+                <span className="item-price">
+                  {formatCurrency(item.price * item.quantity)}
+                </span>
+              </div>
+            ))}
 
             <div className="summary-row">
               <span>Subtotal</span>
-              <span>{formatCurrency(subtotal)}</span>
+              <span>{formatCurrency(order.subtotal)}</span>
             </div>
             <div className="summary-row">
               <span>Delivery</span>
-              <span>{formatCurrency(delivery)}</span>
+              <span>{formatCurrency(order.deliveryFee)}</span>
             </div>
             <div className="summary-row total">
               <span>Total Paid</span>
-              <span>{formatCurrency(total)}</span>
+              <span>{formatCurrency(order.total)}</span>
             </div>
           </div>
 
           <div className="confirmation-actions">
-            <button className="track-order-btn" onClick={() => navigate("/account/orders")}>
+            <button
+              className="track-order-btn"
+              onClick={() => navigate(`/orders/${order.reference}`)}
+            >
               Track Order
             </button>
             <button className="continue-shopping-btn" onClick={() => navigate("/")}>

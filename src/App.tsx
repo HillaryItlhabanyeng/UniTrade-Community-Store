@@ -20,6 +20,8 @@ import CategoriesPage from "./Pages/CategoriesPage";
 
 import MyListingsPage from "./Pages/MyListingsPage";
 import SavedPage from "./Pages/SavedPage";
+import BuyingPage from "./Pages/BuyingPage";
+import OrderDetailPage from "./Pages/OrderDetailPage";
 import BulletinBoardPage from "./Pages/BulletinBoardPage";
 
 import NotificationsPage from "./Pages/NotificationsPage";
@@ -33,6 +35,7 @@ import LandingPage from "./Pages/LandingPage";
 
 import ProductListingPage from "./Pages/ProductListingPage";
 import ProfilePage from "./Pages/ProfilePage";
+
 
 function App() {
   return (
@@ -60,6 +63,8 @@ function App() {
         <Route path="/list-product" element={<ProductListingPage />} />
         <Route path="/my-listings" element={<MyListingsPage />} />
         <Route path="/saved" element={<SavedPage />} />
+        <Route path="/buying" element={<BuyingPage />} />
+        <Route path="/orders/:reference" element={<OrderDetailPage />} />
 
         {/* Cart / Checkout */}
         <Route path="/cart" element={<CartPage />} />

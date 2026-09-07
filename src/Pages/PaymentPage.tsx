@@ -3,13 +3,15 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import CheckoutSteps from "../Components/CheckoutSteps";
 import { useCart } from "../Components/useCart";
+import { useOrders } from "../Components/useOrders";
 import "./PaymentPage.css";
 
 const DELIVERY_FEE = 50;
 
 export default function PaymentPage() {
   const navigate = useNavigate();
-  const { items, subtotal } = useCart();
+  const { items, subtotal, clearCart } = useCart();
+  const { addOrder } = useOrders();
 
   const [cardNumber, setCardNumber] = useState("");
   const [expiry, setExpiry] = useState("");
@@ -63,10 +65,23 @@ export default function PaymentPage() {
   };
 
   const handlePayNow = () => {
-    if (items.length === 0) return;
-    if (!validate()) return;
-    navigate("/checkout/confirmation");
-  };
+  if (items.length === 0) return;
+  if (!validate()) return;
+
+  const orderItems = items.map((i) => ({
+    id: i.id,
+    name: i.name,
+    price: i.price,
+    quantity: i.quantity,
+    imageUrl: i.imageUrl,
+    category: i.category,
+  }));
+
+  const newOrder = addOrder(orderItems, delivery);
+  clearCart();
+
+  navigate("/checkout/confirmation", { state: { reference: newOrder.reference } });
+};
 
   return (
     <>
