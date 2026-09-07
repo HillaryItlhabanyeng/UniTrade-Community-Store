@@ -119,6 +119,7 @@
 ========================================================= */
 
 .nav-action {
+  position: relative;
   min-width: 48px;
 
   display: flex;
@@ -418,4 +419,20 @@
     overflow-x: auto;
     justify-content: flex-start;
   }
+}
+
+.cart-count {
+  position: absolute;
+  top: -7px;
+  right: 2px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: 10px;
+  background: #2db7c3;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 18px;
+  text-align: center;
 }

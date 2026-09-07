@@ -1,36 +1,37 @@
 import { Link } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import "./CategoriesPage.css";
+import { products } from "../data/products";
 
 const categoryData = [
   {
     name: "Electronics",
     image: "/hpElite.jpg",
-    count: 34,
+    count: products.filter((product) => product.category === "Electronics").length,
     description: "Laptops, phones, accessories & more",
   },
   {
     name: "Books",
     image: "/old.jpg",
-    count: 21,
+    count: products.filter((product) => product.category === "Books").length,
     description: "Textbooks, novels & study guides",
   },
   {
     name: "Furniture",
     image: "/selo.jpg",
-    count: 15,
+    count: products.filter((product) => product.category === "Furniture").length,
     description: "Desks, chairs, storage & decor",
   },
   {
     name: "Clothing",
     image: "/hoodie.jpg",
-    count: 18,
+    count: products.filter((product) => product.category === "Clothing").length,
     description: "Hoodies, shoes & campus wear",
   },
   {
     name: "Other",
     image: "/backpack.jpg",
-    count: 8,
+    count: products.filter((product) => product.category === "Other").length,
     description: "Everything else worth trading",
   },
 ];

@@ -36,6 +36,7 @@ import LandingPage from "./Pages/LandingPage";
 
 import ProductListingPage from "./Pages/ProductListingPage";
 import ProfilePage from "./Pages/ProfilePage";
+import ProductDetailsPage from "./Pages/ProductDetailsPage";
 
 
 function App() {
@@ -60,6 +61,7 @@ function App() {
 
         {/* Marketplace */}
         <Route path="/shop" element={<MarketPlacePage />} />
+        <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/list-product" element={<ProductListingPage />} />
         <Route path="/my-listings" element={<MyListingsPage />} />
