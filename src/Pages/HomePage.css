@@ -193,6 +193,7 @@
 .ut-category-more {
   justify-content: center;
   color: #999;
+  cursor: pointer;
 }
 
 .ut-more-dots {

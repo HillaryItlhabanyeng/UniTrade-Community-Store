@@ -31,6 +31,7 @@ import LandingPage from "./Pages/LandingPage";
 
 import ProductListingPage from "./Pages/ProductListingPage";
 import ProfilePage from "./Pages/ProfilePage";
+import ProductDetailsPage from "./Pages/ProductDetailsPage";
 
 function App() {
   return (
@@ -75,6 +76,9 @@ function App() {
         <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/contact" element={<ContactPage />} />
         {/* <Route path="/landing" element={<LandingPage />} /> */}
+        <Route path="/product-details" element={<ProductDetailsPage />} />
+
+
 
         {/* Reviews */}
         <Route

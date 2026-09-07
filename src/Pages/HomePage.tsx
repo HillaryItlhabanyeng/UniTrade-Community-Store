@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import { useCart } from "../Components/useCart";
 import "./HomePage.css";
@@ -57,6 +58,7 @@ export default function HomePage() {
     });
   };
 
+  const navigate = useNavigate();
   return (
     <div className="ut-page">
       <Navbar />
@@ -103,7 +105,7 @@ export default function HomePage() {
               <span>{cat.name}</span>
             </div>
           ))}
-          <div className="ut-category-card ut-category-more">
+          <div className="ut-category-card ut-category-more" onClick={() => navigate("/CategoriesPage")}>
             <span className="ut-more-dots">⋯</span>
             <span>More</span>
           </div>
