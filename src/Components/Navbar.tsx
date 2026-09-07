@@ -215,6 +215,15 @@ export default function Navbar({
           </NavLink>
 
           <NavLink
+            to="/events"
+            className={({ isActive }) =>
+              isActive ? "active" : ""
+            }
+          >
+            Events
+          </NavLink>
+
+          <NavLink
             to="/services"
             className={({ isActive }) =>
               isActive ? "active" : ""

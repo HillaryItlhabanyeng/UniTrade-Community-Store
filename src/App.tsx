@@ -28,6 +28,7 @@ import NotificationsPage from "./Pages/NotificationsPage";
 import MessagesPage from "./Pages/MessagesPage";
 import ServicesPage from "./Pages/ServicesPage";
 import AnnouncementsPage from "./Pages/AnnouncementsPage";
+import EventsPage from "./Pages/EventsPage";
 
 import OTPPage from "./Pages/OTPPage";
 import ResetPasswordPage from "./Pages/ResetPasswordPage";
@@ -81,6 +82,7 @@ function App() {
         <Route path="/messages" element={<MessagesPage />} />
         <Route path="/notifications" element={<NotificationsPage />} />
         <Route path="/announcements" element={<AnnouncementsPage />} />
+        <Route path="/events" element={<EventsPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/contact" element={<ContactPage />} />
         {/* <Route path="/landing" element={<LandingPage />} /> */}
