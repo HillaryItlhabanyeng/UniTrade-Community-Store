@@ -3,24 +3,24 @@ import { Link } from "react-router-dom";
 import { FaMapMarkerAlt, FaShoppingCart } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import { useCart } from "../Components/useCart";
-import { categories, products } from "../data/products";
+import { products } from "../data/products";
 import "./HomePage.css";
 import Footer from "../Components/Footer";
 import { useNavigate } from "react-router-dom";
 
-const categoryImages: Record<string, string> = {
-  Electronics: "/hpElite.jpg",
-  Books: "/old.jpg",
-  Furniture: "/selo.jpg",
-  Clothing: "/hoodie.jpg",
-  Other: "/backpack.jpg",
-};
+// const categoryImages: Record<string, string> = {
+//   Electronics: "/hpElite.jpg",
+//   Books: "/old.jpg",
+//   Furniture: "/selo.jpg",
+//   Clothing: "/hoodie.jpg",
+//   Other: "/backpack.jpg",
+// };
 
 export default function HomePage() {
   const [showMore, setShowMore] = useState(false);
   const { addItem } = useCart();
   const visibleProducts = showMore ? products : products.slice(0, 5);
-  const featuredCategories = categories.filter((category) => category !== "All Categories");
+  // const featuredCategories = categories.filter((category) => category !== "All Categories");
 
   const handleAddToCart = (product: typeof products[number]) => {
     addItem({
