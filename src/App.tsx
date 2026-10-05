@@ -111,5 +111,5 @@ function App() {
 
 export default App;
 
-// VITE_SUPABASE_URL=https://tiaokvmnbzpvmbdmmxcz.supabase.co
-// VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_gNbfRIh7aznQiPjfT1RAlQ_veZ4wiSr
+//VITE_SUPABASE_URL=https://atpbgkaorwradcgkcyjf.supabase.co
+//VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_3_ob9PCXGvbnQ0DMuMH3Yw_UVsLr2_n
