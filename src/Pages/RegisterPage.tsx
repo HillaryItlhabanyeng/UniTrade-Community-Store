@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./RegisterPage.css";
+import { supabase } from "../lib/supabaseClient";
 
 import {
   FaUser,
@@ -22,7 +23,7 @@ const RegisterPage: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
@@ -48,10 +49,30 @@ const RegisterPage: React.FC = () => {
     if (password !== confirmPassword) return alert("Passwords do not match.");
     if (!agreeToTerms) return alert("Please agree to the Terms and Conditions to continue.");
 
-    console.log("Form submitted:", { fullName, email, phone, role, password });
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { full_name: fullName, phone, role },
+        },
+      });
 
-    // Go to login page after successful registration
-    navigate("/login");
+      if (error) {
+        alert(error.message);
+        return;
+      }
+
+      if (!data.session) {
+        alert("Check your email to confirm your account, then sign in.");
+        navigate("/login");
+        return;
+      }
+
+      navigate("/bulletin-board");
+    } catch (requestError) {
+      alert(requestError instanceof Error ? requestError.message : "Could not create your account. Please try again.");
+    }
   };
 
   return (

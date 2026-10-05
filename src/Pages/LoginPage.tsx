@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import type { FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { supabase } from "../lib/supabaseClient";
 
 import "./LoginPage.css";
 
@@ -21,13 +22,14 @@ import {
 
 const LoginPage: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!email.trim()) {
@@ -48,10 +50,18 @@ const LoginPage: React.FC = () => {
       return;
     }
 
-    console.log({ email, password, rememberMe });
+    try {
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      if (error) {
+        alert(error.message);
+        return;
+      }
 
-    // Redirect to the home page after a successful login
-    navigate("/home");
+      const redirect = searchParams.get("redirect");
+      navigate(redirect?.startsWith("/") ? redirect : "/home");
+    } catch (requestError) {
+      alert(requestError instanceof Error ? requestError.message : "Could not sign in. Please try again.");
+    }
   };
 
   return (
