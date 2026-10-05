@@ -6,7 +6,8 @@ import RegisterPage from "./Pages/RegisterPage";
 import SettingsPage from "./Pages/SettingsPage";
 
 import AccountPage from "./Pages/AccountPage";
-import MarketPlacePage from "./Pages/MarketPlacePage";
+// import MarketPlacePage from "./Pages/MarketPlacePage";
+ import Products from "./Pages/Products";
 import CartPage from "./Pages/CartPage";
 import CheckoutPage from "./Pages/CheckoutPage";
 
@@ -34,7 +35,7 @@ import OTPPage from "./Pages/OTPPage";
 import ResetPasswordPage from "./Pages/ResetPasswordPage";
 import LandingPage from "./Pages/LandingPage";
 
-// import ProductListingPage from "./Pages/ProductListingPage";
+import ProductListingPage from "./Pages/ProductListingPage";
 import ProfilePage from "./Pages/ProfilePage";
 import ProductDetailsPage from "./Pages/ProductDetailsPage";
 
@@ -60,10 +61,12 @@ function App() {
         <Route path="/settings" element={<SettingsPage />} />
 
         {/* Marketplace */}
-        <Route path="/shop" element={<MarketPlacePage />} />
-        <Route path="/product/:id" element={<ProductDetailsPage />} />
+        {/* <Route path="/shop" element={<MarketPlacePage />} /> */}
+        <Route path="/shop" element={<Products />} />
+        {/* <Route path="/product/:id" element={<ProductDetailsPage />} /> */}
+        <Route path="/product-details/:id" element={<ProductDetailsPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
-        {/* <Route path="/list-product" element={<ProductListingPage />} /> */}
+        <Route path="/list-product" element={<ProductListingPage />} />
         <Route path="/my-listings" element={<MyListingsPage />} />
         <Route path="/saved" element={<SavedPage />} />
         <Route path="/buying" element={<BuyingPage />} />
@@ -88,7 +91,7 @@ function App() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/contact" element={<ContactPage />} />
         {/* <Route path="/landing" element={<LandingPage />} /> */}
-        <Route path="/product-details" element={<ProductDetailsPage />} />
+        {/* <Route path="/product-details" element={<ProductDetailsPage />} /> */}
 
 
 

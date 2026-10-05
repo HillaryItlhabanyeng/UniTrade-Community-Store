@@ -4,7 +4,7 @@
   padding: 0;
 }
 
-.CarPartListingContainer{
+.ProductListingPageContainer{
  display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -13,7 +13,7 @@
 }
 
 .listing-main-content {
-   margin-top: 100px;
+   /* margin-top: 100px; */
   min-height: 100vh;
   width: 100%;
   /* width: calc(100% - 240px); */
@@ -23,34 +23,6 @@
 .listing-icon-btn {
   cursor: pointer;
 }
-
-/* .listing-notification{
-  width: 18px;
-  height: 18px;
-  color: #1a2639;
-  cursor: pointer;
-} */
-
-/* .listing-settings{
-  width: 24x;
-  height: 24px;
-  color: #1a2639;
-  cursor: pointer;
-} */
-
-/* .listing-profile {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
-} */
-
-/* .listing-scrollable-area {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px 30px 30px 30px;
-} */
 
 .listing-main-content h1{
   margin: 20px;
@@ -62,7 +34,6 @@
 .listing-main-content p{
   margin: 10px;
   font-size: 15px;
-  /* font-weight: bold; */
   color: #c0c8d8;
 }
 
@@ -87,7 +58,7 @@
 
 .listing-btn-draft1 {
   background: transparent;
-  border: 2px solid #d24f1a;
+  border: 2px solid #3bf5ff;
   color: #ffffff;
   font-weight: 600;
   border-radius: 20px;
@@ -97,8 +68,8 @@
 }
 
 .listing-btn-list {
-  background: #d24f1a;
-  color: #fff;
+  background: #3bf5ff;
+  color: #00102d;
   font-weight: 600;
   border-radius: 20px;
   padding: 10px 24px;
@@ -107,14 +78,12 @@
 }
 
 .listing-btn-draft:hover {
-  background-color: #d24f1a;
+  background-color: #3bf5ff;
   color: #00102d;
-  /* opacity: 0.9; */
 }
 
 .listing-btn-list:hover {
   background-color: #1a2639;
-  /* opacity: 0.9; */
 }
 
 
@@ -176,7 +145,7 @@
 }
 
 .listing-form-input:focus, .listing-form-select:focus {
-  box-shadow: 0 0 0 2px #d24f1a;
+  box-shadow: 0 0 0 2px #3bf5ff;
 }
 
 .listing-form-select option {
@@ -201,7 +170,7 @@
   appearance: none;
   width: 16px;
   height: 16px;
-  border: 2px solid #d24f1a;
+  border: 2px solid #3bf5ff;
   border-radius: 50%;
   outline: none;
   cursor: pointer;
@@ -212,7 +181,7 @@
   content: '';
   width: 8px;
   height: 8px;
-  background: #d24f1a;
+  background: #3bf5ff;
   border-radius: 50%;
   position: absolute;
   top: 50%;
@@ -284,7 +253,7 @@
 }
 
 .listing-add-image-btn:hover {
-  background: #d24f1a;
+  background: #3bf5ff;
 }
 
 .listing-card-upload-card{
@@ -344,10 +313,10 @@
 }
 
 .listing-progress-step.active .listing-step-circle {
-  background: #d24f1a;
+  background: #3bf5ff;
   color: #fff;
-  border-color: #d24f1a;
-  box-shadow: 0 0 0 4px rgba(210, 79, 26, 0.25);
+  border-color: #3bf5ff;
+  box-shadow: 0 0 0 4px rgba(59, 245, 255, 0.25);
   transform: scale(1.08);
 }
 
@@ -429,7 +398,7 @@
 /* ── Error states ── */
 .listing-form-input.input-error,
 .listing-form-select.input-error {
-  box-shadow: 0 0 0 2px #e74c3c;
+  box-shadow: 0 0 0 2px #3bf5ff;
 }
 
 .listing-step-error {
@@ -437,7 +406,7 @@
   align-items: center;
   gap: 8px;
   background: rgba(231, 76, 60, 0.12);
-  color: #e74c3c;
+  color: #3bf5ff;
   padding: 10px 14px;
   border-radius: 8px;
   font-size: 13px;
@@ -465,7 +434,7 @@
 
 .listing-image-pending {
   background: rgba(210, 79, 26, 0.12);
-  color: #d24f1a;
+  color: #3bf5ff;
   border: 1px solid rgba(210, 79, 26, 0.3);
 }
 
@@ -532,10 +501,10 @@
 
 /* Active step (current) */
 .listing-progress-step.active .listing-step-circle {
-  background: #d24f1a;
+  background: #3bf5ff;
   color: #fff;
-  border-color: #d24f1a;
-  box-shadow: 0 0 0 4px rgba(210, 79, 26, 0.25);
+  border-color: #3bf5ff;
+  box-shadow: 0 0 0 4px rgba(59, 245, 255, 0.25);
   transform: scale(1.08);
 }
 

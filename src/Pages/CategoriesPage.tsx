@@ -311,7 +311,7 @@ export default function CategoriesPage() {
     const navigate = useNavigate();
 
     const handleProductClick = (product: Product) => {
-        navigate("/product-details", { state: { product } });
+        navigate(`/product-details/${product.id}`, { state: { product } });
     };
 
     return (
