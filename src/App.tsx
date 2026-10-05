@@ -34,7 +34,7 @@ import OTPPage from "./Pages/OTPPage";
 import ResetPasswordPage from "./Pages/ResetPasswordPage";
 import LandingPage from "./Pages/LandingPage";
 
-import ProductListingPage from "./Pages/ProductListingPage";
+// import ProductListingPage from "./Pages/ProductListingPage";
 import ProfilePage from "./Pages/ProfilePage";
 import ProductDetailsPage from "./Pages/ProductDetailsPage";
 
@@ -63,7 +63,7 @@ function App() {
         <Route path="/shop" element={<MarketPlacePage />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
-        <Route path="/list-product" element={<ProductListingPage />} />
+        {/* <Route path="/list-product" element={<ProductListingPage />} /> */}
         <Route path="/my-listings" element={<MyListingsPage />} />
         <Route path="/saved" element={<SavedPage />} />
         <Route path="/buying" element={<BuyingPage />} />
@@ -110,3 +110,6 @@ function App() {
 }
 
 export default App;
+
+// VITE_SUPABASE_URL=https://tiaokvmnbzpvmbdmmxcz.supabase.co
+// VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_gNbfRIh7aznQiPjfT1RAlQ_veZ4wiSr

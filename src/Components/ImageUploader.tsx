@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import "./ImageUploader.css";
 
 type UploadedImage = {
@@ -7,75 +7,62 @@ type UploadedImage = {
   preview: string;
 };
 
-function ImageUploader() {
+type ImageUploaderProps = {
+  /** Called with the currently-selected main image File (or null) */
+  onUpload?: (file: File | null) => void;
+};
+
+function ImageUploader({ onUpload }: ImageUploaderProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [images, setImages] = useState<UploadedImage[]>([]);
   const [mainImageId, setMainImageId] = useState<string | null>(null);
 
-  // Open the device's file picker
-  const handleAddPhotos = () => {
-    fileInputRef.current?.click();
-  };
+  const mainImage = images.find((img) => img.id === mainImageId) || null;
 
-  // Handle selected images
+  // Notify parent with the actual File object whenever main image changes
+  useEffect(() => {
+    if (onUpload) {
+      onUpload(mainImage ? mainImage.file : null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainImageId, images.length]);
+
+  const handleAddPhotos = () => fileInputRef.current?.click();
+
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = event.target.files;
-
     if (!selectedFiles) return;
 
     const files = Array.from(selectedFiles);
     const newImages = files.map((file) => ({
       id: crypto.randomUUID(),
-      file: file,
+      file,
       preview: URL.createObjectURL(file),
     }));
 
-    setImages((previousImages) => {
-      const updatedImages = [...previousImages, ...newImages];
-
-      // Make the first image the main image if there isn't one already
-      if (!mainImageId && newImages.length > 0) {
-        setMainImageId(newImages[0].id);
-      }
-
-      return updatedImages;
-    });
-
+    setImages((prev) => [...prev, ...newImages]);
+    if (!mainImageId && newImages.length > 0) setMainImageId(newImages[0].id);
     event.target.value = "";
   };
 
-  // Delete an image
   const handleDelete = (id: string) => {
-    const imageToDelete = images.find((image) => image.id === id);
-    if (imageToDelete) URL.revokeObjectURL(imageToDelete.preview);
+    const img = images.find((i) => i.id === id);
+    if (img) URL.revokeObjectURL(img.preview);
 
-    const updatedImages = images.filter((image) => image.id !== id);
-    setImages(updatedImages);
-
-    // Adjust main image if deleted
+    const updated = images.filter((i) => i.id !== id);
+    setImages(updated);
     if (mainImageId === id) {
-      if (updatedImages.length > 0) {
-        setMainImageId(updatedImages[0].id);
-      } else {
-        setMainImageId(null);
-      }
+      setMainImageId(updated.length > 0 ? updated[0].id : null);
     }
   };
 
-  // Set an image as the main image
-  const handleSetMain = (id: string) => {
-    setMainImageId(id);
-  };
-
-  // Get the current main image object
-  const mainImage = images.find((img) => img.id === mainImageId) || null;
+  const handleSetMain = (id: string) => setMainImageId(id);
 
   return (
     <div className="image-uploader-dark">
       <h2 className="upload-title">Upload Images</h2>
 
-      {/* Hidden file input */}
       <input
         ref={fileInputRef}
         type="file"
@@ -85,7 +72,6 @@ function ImageUploader() {
         style={{ display: "none" }}
       />
 
-      {/* Main Large Preview */}
       <div className="main-preview">
         {mainImage ? (
           <img src={mainImage.preview} alt="Main preview" />
@@ -94,7 +80,6 @@ function ImageUploader() {
         )}
       </div>
 
-      {/* Thumbnails Row */}
       <div className="thumbnail-row">
         {images.map((image) => (
           <div
@@ -105,13 +90,11 @@ function ImageUploader() {
             onClick={() => handleSetMain(image.id)}
           >
             <img src={image.preview} alt="Product preview" />
-            
-            {/* Delete Badge */}
             <button
               type="button"
               className="delete-badge"
               onClick={(e) => {
-                e.stopPropagation(); // Prevent setting as main when deleting
+                e.stopPropagation();
                 handleDelete(image.id);
               }}
               aria-label="Delete image"
@@ -121,7 +104,6 @@ function ImageUploader() {
           </div>
         ))}
 
-        {/* Add button (always visible, disabled if 4 images) */}
         <button
           type="button"
           className="add-image-button"
@@ -132,10 +114,7 @@ function ImageUploader() {
         </button>
       </div>
 
-      {/* Helper Text */}
-      {/* {images.length >= 4 && ( */}
-        <p className="upload-limit-info">You can upload up to 4 photos.</p>
-      {/* )} */}
+      <p className="upload-limit-info">You can upload up to 4 photos.</p>
     </div>
   );
 }
