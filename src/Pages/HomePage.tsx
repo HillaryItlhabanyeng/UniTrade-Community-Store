@@ -5,6 +5,8 @@ import Navbar from "../Components/Navbar";
 import { useCart } from "../Components/useCart";
 import { categories, products } from "../data/products";
 import "./HomePage.css";
+import Footer from "../Components/Footer";
+import { useNavigate } from "react-router-dom";
 
 const categoryImages: Record<string, string> = {
   Electronics: "/hpElite.jpg",
@@ -31,32 +33,78 @@ export default function HomePage() {
       imageUrl: product.image,
     });
   };
-
+const navigate = useNavigate();
   return (
     <div className="ut-page">
       <Navbar />
 
-      <section className="ut-hero">
+      {/* <section className="ut-hero">
         <div className="ut-hero-copy">
           <h1>Buy. <span className="ut-accent">Sell.</span> Connect.</h1>
           <h2>Welcome to UniTrade</h2>
           <p>The trusted community marketplace for students, by students.</p>
           <p>Buy and sell items, discover great deals, and connect with your campus community.</p>
           <div className="ut-hero-buttons">
-            <Link className="ut-btn-primary" to="/shop">Show Marketplace</Link>
-            <Link className="ut-btn-secondary" to="/list-product">Sell an Item</Link>
+            <button className="ut-btn-primary" onClick={() => navigate("/shop")}>Show Marketplace</button>
+            <button className="ut-btn-secondary" onClick={() => navigate("/list-product")}>Sell an Item</button>
           </div>
         </div>
 
         <div className="ut-hero-image">
-          <img src="/students.jpg" alt="Students" />
+          <img src="/student.jpg" alt="Students" />
           <div className="ut-verified-badge"><span className="ut-verified-icon">🛡️</span><div><p className="ut-verified-title">Verified Students</p><p className="ut-verified-subtitle">Safe • Secure • Trusted</p></div></div>
+        </div>
+      </section> */}
+
+      <section className="homeSection1">
+        <div className="homeSectionsContainer1">
+          
+          <div className="homeMini1">
+            <div className="homeMini1Contents">
+              <h1>Buy. <span>Sell.</span> Connect.</h1>
+              <h2>Welcome to UniTrade</h2>
+              <p>The trusted community marketplace for students, by students.</p>
+              <p>Buy and sell items, discover great deals, and connect with your campus community.</p>
+              <div className="homeMini1Contentsbuttons">
+                <button className="homeMini1ContentsPrimary" onClick={() => navigate("/shop")}>Show Marketplace</button>
+                <button className="homeMini1ContentsSecondary" onClick={() => navigate("/list-product")}>Sell an Item</button>
+              </div>
+            </div>
+
+            <img src="/watch.png" alt="watch" />
+          </div>
+
+            <div className="homeSectionMiniContainer">
+              <div className="homeMini2">
+                <h1>Trending</h1>
+                <img src="/home-deffuser2.png" alt="trending" />
+              </div>
+              <div className="homeMini3">
+                <h1>Featured</h1>
+                <img src="/headsets2.png" alt="featured" />
+              </div>
+            </div>
+        </div>
+
+        <div className="homeSectionsContainer1">
+          <div className="homeMini4">
+            <h1>Deals</h1>
+            <img src="/portable-blender.png" alt="deals" />
+          </div>
+          <div className="homeMini5">
+            <h1>Recently Added</h1>
+            <img src="/Tiffany.png" alt="recently added" />
+          </div>
+          <div className="homeMini6">
+            <h1>Top Rated</h1>
+            <img src="/Portable-Bluetooth.png" alt="top rated" />
+          </div>
         </div>
       </section>
 
       <section className="ut-section">
         <div className="ut-section-header"><h3>Popular Categories</h3><Link to="/categories" className="ut-view-all">View all categories</Link></div>
-        <div className="ut-categories">
+        {/* <div className="ut-categories">
           {featuredCategories.map((category) => {
             const categoryName = category;
             const count = products.filter((product) => product.category === categoryName).length;
@@ -66,7 +114,7 @@ export default function HomePage() {
               <small>{count} listings</small>
             </Link>;
           })}
-        </div>
+        </div> */}
       </section>
 
       <section className="ut-section">
@@ -84,6 +132,15 @@ export default function HomePage() {
         </div>
         <button type="button" className="ut-more-button" onClick={() => setShowMore((current) => !current)}>{showMore ? "Show less" : "More items"}</button>
       </section>
+
+      <section className="homePromosection">
+        {/* <div className="gbvContainer">
+          <h1>SAY NO TO GENDER BASED VIOLENCE</h1>
+        </div> */}
+        <button className="backTopButton">Back to top</button>
+        </section>
+
+      <Footer />
     </div>
   );
 }
