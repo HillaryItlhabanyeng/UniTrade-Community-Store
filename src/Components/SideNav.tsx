@@ -15,6 +15,8 @@ import {
   FaChevronUp,
 } from "react-icons/fa";
 
+import { supabase } from "../lib/supabaseClient";
+
 import "./SideNav.css";
 
 export default function SideNav() {
@@ -24,74 +26,51 @@ export default function SideNav() {
   const [myProductsOpen, setMyProductsOpen] = useState(true);
   const [communityOpen, setCommunityOpen] = useState(true);
 
-  const isActive = (path) => {
-    return location.pathname === path;
-  };
+  const isActive = (path: string) => location.pathname === path;
 
-  const handleLogout = () => {
-    const confirmed = window.confirm(
-      "Are you sure you want to log out?"
-    );
+  const activeClass = (path: string) => (isActive(path) ? "active" : "");
 
-    if (confirmed) {
-      navigate("/login");
-    }
+  const handleLogout = async () => {
+    const confirmed = window.confirm("Are you sure you want to log out?");
+
+    if (!confirmed) return;
+
+    await supabase.auth.signOut();
+    navigate("/login");
   };
 
   return (
     <aside className="side-nav">
-
-      {/* =========================================
-          LOGO
-      ========================================== */}
-
+      {/* LOGO */}
       <div className="side-nav-logo">
         <img
-          src="UniTrade logo 2.png"
+          src="/UniTrade logo 2.png"
           alt="UniTrade Campus Marketplace"
           className="unitrade-logo"
         />
       </div>
 
-
-      {/* =========================================
-          NAVIGATION
-      ========================================== */}
-
+      {/* NAVIGATION */}
       <nav className="side-nav-menu">
-
         {/* HOME */}
-
         <button
           type="button"
-          className={`side-nav-item ${
-            isActive("/home") ? "active" : ""
-          }`}
+          className={`side-nav-item ${activeClass("/home")}`}
           onClick={() => navigate("/home")}
         >
           <FaHome className="side-nav-icon" />
-
           <span>Home</span>
         </button>
 
-
-        {/* =========================================
-            MY PRODUCTS
-        ========================================== */}
-
+        {/* MY PRODUCTS */}
         <button
           type="button"
           className="side-nav-item side-nav-parent"
-          onClick={() =>
-            setMyProductsOpen(!myProductsOpen)
-          }
+          onClick={() => setMyProductsOpen(!myProductsOpen)}
         >
           <span className="side-nav-item-left">
-
             <FaBoxOpen className="side-nav-icon" />
-
             <span>My products</span>
-
           </span>
 
           {myProductsOpen ? (
@@ -101,92 +80,53 @@ export default function SideNav() {
           )}
         </button>
 
-
         {myProductsOpen && (
           <div className="side-nav-submenu">
-
             <button
               type="button"
-              className={`submenu-item ${
-                isActive("/my-listings")
-                  ? "active"
-                  : ""
-              }`}
-              onClick={() =>
-                navigate("/my-listings")
-              }
+              className={`submenu-item ${activeClass("/my-listings")}`}
+              onClick={() => navigate("/my-listings")}
             >
               Selling
             </button>
 
-
             <button
               type="button"
-              className={`submenu-item ${
-                isActive("/buying")
-                  ? "active"
-                  : ""
-              }`}
-              onClick={() =>
-                navigate("/buying")
-              }
+              className={`submenu-item ${activeClass("/buying")}`}
+              onClick={() => navigate("/buying")}
             >
               Buying
             </button>
 
-
             <button
               type="button"
-              className={`submenu-item ${
-                isActive("/saved")
-                  ? "active"
-                  : ""
-              }`}
-              onClick={() =>
-                navigate("/saved")
-              }
+              className={`submenu-item ${activeClass("/saved")}`}
+              onClick={() => navigate("/saved")}
             >
               Saved
             </button>
-
           </div>
         )}
 
-
-        {/* =========================================
-            PRODUCTS
-        ========================================== */}
-
+        {/* PRODUCTS */}
         <button
           type="button"
-          className={`side-nav-item ${
-            isActive("/products") ? "active" : ""
-          }`}
+          className={`side-nav-item ${activeClass("/products")}`}
           onClick={() => navigate("/products")}
         >
           <FaShoppingBag className="side-nav-icon" />
-
           <span>Products</span>
         </button>
 
-
-        {/* =========================================
-            COMMUNITY
-        ========================================== */}
-
+        {/* COMMUNITY */}
         <button
           type="button"
           className="side-nav-item side-nav-parent"
-          onClick={() =>
-            setCommunityOpen(!communityOpen)
-          }
+          onClick={() => setCommunityOpen(!communityOpen)}
         >
           <span className="side-nav-item-left">
-
             <FaUsers className="side-nav-icon" />
-
             <span>Community</span>
-
           </span>
 
           {communityOpen ? (
@@ -196,101 +136,59 @@ export default function SideNav() {
           )}
         </button>
 
-
         {communityOpen && (
           <div className="side-nav-submenu">
-
             <button
               type="button"
-              className={`submenu-item ${
-                isActive("/announcements")
-                  ? "active"
-                  : ""
-              }`}
-              onClick={() =>
-                navigate("/announcements")
-              }
+              className={`submenu-item ${activeClass("/announcements")}`}
+              onClick={() => navigate("/announcements")}
             >
               <FaBullhorn />
-
               <span>Announcements</span>
             </button>
 
-
             <button
               type="button"
-              className={`submenu-item ${
-                isActive("/services")
-                  ? "active"
-                  : ""
-              }`}
-              onClick={() =>
-                navigate("/services")
-              }
+              className={`submenu-item ${activeClass("/services")}`}
+              onClick={() => navigate("/services")}
             >
               <FaComments />
-
               <span>Services</span>
             </button>
 
-
             <button
               type="button"
-              className={`submenu-item ${
-                isActive("/events")
-                  ? "active"
-                  : ""
-              }`}
-              onClick={() =>
-                navigate("/events")
-              }
+              className={`submenu-item ${activeClass("/events")}`}
+              onClick={() => navigate("/events")}
             >
               <FaCalendarAlt />
-
               <span>Events</span>
             </button>
-
           </div>
         )}
 
-
-        {/* =========================================
-            PROFILE
-        ========================================== */}
-
+        {/* PROFILE */}
         <button
           type="button"
-          className={`side-nav-item ${
-            isActive("/profile") ? "active" : ""
-          }`}
+          className={`side-nav-item ${activeClass("/profile")}`}
           onClick={() => navigate("/profile")}
         >
           <FaUser className="side-nav-icon" />
-
           <span>Profile</span>
         </button>
-
       </nav>
 
-
-      {/* =========================================
-          LOGOUT
-      ========================================== */}
-
+      {/* LOGOUT */}
       <div className="side-nav-bottom">
-
         <button
           type="button"
           className="side-nav-logout"
           onClick={handleLogout}
         >
           <FaSignOutAlt />
-
           <span>Log out</span>
         </button>
-
       </div>
-
     </aside>
   );
 }
