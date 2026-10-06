@@ -8,10 +8,10 @@ import {
   FaShoppingBag,
   FaChevronDown,
   FaUser,
-  FaExchangeAlt,
   FaSignOutAlt,
 } from "react-icons/fa";
 import { useCart } from "./useCart";
+import { supabase } from "../lib/supabaseClient";
 
 import "./Navbar.css";
 
@@ -21,7 +21,7 @@ type Props = {
 };
 
 export default function Navbar({
-  userName = "Sipho",
+  userName = "",
   showLinks = true,
 }: Props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -30,6 +30,65 @@ export default function Navbar({
   const navigate = useNavigate();
   const location = useLocation();
   const { itemCount } = useCart();
+
+  /* Real signed-in user (from Supabase) instead of a fixed name */
+  const [profileName, setProfileName] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
+  const [avatarFailed, setAvatarFailed] = useState(false);
+  const [signedIn, setSignedIn] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const loadUser = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (cancelled) return;
+
+      if (!session) {
+        setSignedIn(false);
+        setProfileName("");
+        setAvatarUrl("");
+        return;
+      }
+
+      setSignedIn(true);
+
+      const { data } = await supabase
+        .from("profiles")
+        .select("full_name, avatar_url")
+        .eq("id", session.user.id)
+        .maybeSingle();
+
+      if (cancelled) return;
+
+      setProfileName(data?.full_name || session.user.email || "");
+      setAvatarUrl(data?.avatar_url || "");
+      setAvatarFailed(false);
+    };
+
+    loadUser();
+
+    const { data: listener } = supabase.auth.onAuthStateChange(() => {
+      loadUser();
+    });
+
+    return () => {
+      cancelled = true;
+      listener.subscription.unsubscribe();
+    };
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    localStorage.removeItem("unitrade_user");
+    navigate("/login");
+  };
+
+  const displayName =
+    profileName || userName || (signedIn ? "My account" : "Guest");
   const menuRef = useRef<HTMLDivElement>(null);
   const bulletinMenuRef = useRef<HTMLDivElement>(null);
 
@@ -137,13 +196,20 @@ export default function Navbar({
               aria-haspopup="true"
               aria-expanded={isMenuOpen}
             >
-              <img
-                src="/Sipho.png"
-                alt={`${userName} profile`}
-                className="profile-avatar-image"
-              />
+              {avatarUrl && !avatarFailed ? (
+                <img
+                  src={avatarUrl}
+                  alt={`${displayName} profile`}
+                  className="profile-avatar-image"
+                  onError={() => setAvatarFailed(true)}
+                />
+              ) : (
+                <span className="profile-avatar-fallback">
+                  {displayName.charAt(0).toUpperCase()}
+                </span>
+              )}
 
-              <span className="profile-name">{userName}</span>
+              <span className="profile-name">{displayName}</span>
 
               <FaChevronDown
                 className={`profile-chevron ${isMenuOpen ? "open" : ""}`}
@@ -161,22 +227,12 @@ export default function Navbar({
                   Profile
                 </Link>
 
-                <Link
-                  to="/switch-user"
-                  className="profile-dropdown-item"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <FaExchangeAlt className="dropdown-icon" />
-                  Switch User
-                </Link>
-
                 <button
                   type="button"
                   className="profile-dropdown-item logout"
                   onClick={() => {
                     setIsMenuOpen(false);
-                    // TODO: hook this up to your actual logout logic
-                    console.log("Logging out...");
+                    handleLogout();
                   }}
                 >
                   <FaSignOutAlt className="dropdown-icon" />

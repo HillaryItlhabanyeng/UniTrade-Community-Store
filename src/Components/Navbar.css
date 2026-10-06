@@ -507,3 +507,23 @@
   line-height: 18px;
   text-align: center;
 }
+
+/* Letter avatar shown when the user has no profile photo */
+.profile-avatar-fallback {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+
+  background: #16b3a5;
+  color: #ffffff;
+
+  font-size: 20px;
+  font-weight: 700;
+}

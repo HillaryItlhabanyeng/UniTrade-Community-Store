@@ -17,7 +17,7 @@
   --page-bg: #f4f6f8;
 
   /* Width of the fixed SideNav. Adjust if the sidebar is wider/narrower. */
-  --sidenav-width: 170px;
+  --sidenav-width: 166px;
 
   display: flex;
   min-height: 100vh;
@@ -703,6 +703,13 @@
 /* =========================================================
    RESPONSIVE
 ========================================================= */
+
+/* The sidebar shrinks to 145px on small screens (see SideNav.css) */
+@media (max-width: 800px) {
+  .profile-page {
+    --sidenav-width: 145px;
+  }
+}
 
 @media (max-width: 900px) {
   .pp-layout {
