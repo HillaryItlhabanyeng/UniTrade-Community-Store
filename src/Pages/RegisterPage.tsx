@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-import { supabase } from "../lib/supabaseClient";
-
 import "./RegisterPage.css";
+import { supabase } from "../lib/supabaseClient";
 
 import {
   FaUser,
@@ -20,24 +18,13 @@ import {
 } from "react-icons/fa";
 import { MdOutlineWorkOutline } from "react-icons/md";
 
-/* Saved in the profiles table as a friendly label */
-const ROLE_LABELS: Record<string, string> = {
-  student: "Student",
-  faculty: "Faculty",
-  vendor: "Vendor",
-  resident: "Resident",
-};
-
 const RegisterPage: React.FC = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (loading) return;
 
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
@@ -53,8 +40,7 @@ const RegisterPage: React.FC = () => {
     if (!fullName) return alert("Please enter your full name and surname.");
     if (!email) return alert("Please enter your email address.");
 
-    const emailRegex =
-  /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     if (!emailRegex.test(email)) return alert("Please enter a valid email address.");
     if (!phone) return alert("Please enter your phone number.");
     if (!role) return alert("Please select your role.");
@@ -64,59 +50,28 @@ const RegisterPage: React.FC = () => {
     if (!agreeToTerms) return alert("Please agree to the Terms and Conditions to continue.");
 
     try {
-      setLoading(true);
-
-      /*
-        full_name, phone and role are saved as user metadata.
-        The database trigger (handle_new_user) copies them into
-        the profiles table automatically.
-      */
-      const { data: signUpData, error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
-          data: {
-            full_name: fullName,
-            phone,
-            role: ROLE_LABELS[role] ?? "Community Member",
-          },
+          data: { full_name: fullName, phone, role },
         },
       });
 
       if (error) {
-        console.error("Registration error:", error);
-
-        if (error.message.toLowerCase().includes("already")) {
-          alert("An account with this email already exists. Please log in.");
-        } else {
-          alert(`Registration failed: ${error.message}`);
-        }
-
+        alert(error.message);
         return;
       }
 
-      // With email confirmation ON, an existing email returns a user with no identities
-      if (signUpData.user && signUpData.user.identities?.length === 0) {
-        alert("An account with this email already exists. Please log in.");
+      if (!data.session) {
+        alert("Check your email to confirm your account, then sign in.");
         navigate("/login");
         return;
       }
 
-      if (signUpData.session) {
-        // Email confirmation is OFF: the user is already logged in
-        navigate("/home");
-      } else {
-        // Email confirmation is ON: they must confirm before logging in
-        alert(
-          "Account created! Please check your email to confirm your account, then log in."
-        );
-        navigate("/login");
-      }
-    } catch (error) {
-      console.error("Unexpected registration error:", error);
-      alert("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+      navigate("/bulletin-board");
+    } catch (requestError) {
+      alert(requestError instanceof Error ? requestError.message : "Could not create your account. Please try again.");
     }
   };
 
@@ -275,9 +230,7 @@ const RegisterPage: React.FC = () => {
               </label>
             </div>
 
-            <button type="submit" disabled={loading}>
-              {loading ? "Creating account..." : "Create Account"}
-            </button>
+            <button type="submit">Create Account</button>
           </form>
 
           <p className="login">

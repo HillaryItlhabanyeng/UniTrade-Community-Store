@@ -228,6 +228,11 @@ body:has(.login-page) {
   opacity: 1;
 }
 
+.login-input-group input:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
 /* =====================================
    PASSWORD EYE
 ===================================== */
@@ -252,6 +257,11 @@ body:has(.login-page) {
 .password-toggle:focus-visible {
   outline: 2px solid #25c1ca;
   border-radius: 4px;
+}
+
+.password-toggle:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 /* =====================================
@@ -293,6 +303,10 @@ body:has(.login-page) {
   cursor: pointer;
 }
 
+.remember-me input:disabled {
+  cursor: not-allowed;
+}
+
 .remember-me label {
   color: #e0e6ec;
   font-size: 13px;
@@ -316,12 +330,17 @@ body:has(.login-page) {
   transition: transform 0.15s, filter 0.2s;
 }
 
-.login-button:hover {
+.login-button:hover:not(:disabled) {
   filter: brightness(1.06);
 }
 
-.login-button:active {
+.login-button:active:not(:disabled) {
   transform: scale(0.99);
+}
+
+.login-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
 }
 
 /* =====================================
@@ -377,10 +396,11 @@ body:has(.login-page) {
   color: #30465d;
   cursor: pointer;
   font-size: 20px;
-  transition: transform 0.15s, background 0.2s;
+  transition: transform 0.15s, background 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
 }
 
-.role-option:hover {
+.role-option:hover:not(:disabled) {
   background: #ffffff;
   transform: translateY(-2px);
 }
@@ -388,6 +408,36 @@ body:has(.login-page) {
 .role-option span {
   font-size: 10px;
   font-weight: 600;
+}
+
+/* The role the user has picked */
+.role-option.selected {
+  border-color: #14b8a6;
+  background: #ffffff;
+  color: #0f9488;
+  box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.4);
+}
+
+.role-option:focus-visible {
+  outline: 2px solid #25c1ca;
+  outline-offset: 2px;
+}
+
+.role-option:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* "Selected role: Student" line */
+.selected-role-message {
+  margin-top: 10px;
+  text-align: center;
+  color: #e0e6ec;
+  font-size: 12.5px;
+}
+
+.selected-role-message strong {
+  color: #3bc8d1;
 }
 
 /* =====================================

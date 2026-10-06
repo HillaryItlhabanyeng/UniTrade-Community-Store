@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   FaSearch,
   FaComments,
@@ -25,10 +25,13 @@ export default function Navbar({
   showLinks = true,
 }: Props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isBulletinMenuOpen, setIsBulletinMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
   const { itemCount } = useCart();
   const menuRef = useRef<HTMLDivElement>(null);
+  const bulletinMenuRef = useRef<HTMLDivElement>(null);
 
   // Close the dropdown when clicking anywhere outside it
   useEffect(() => {
@@ -39,11 +42,27 @@ export default function Navbar({
       ) {
         setIsMenuOpen(false);
       }
+      if (
+        bulletinMenuRef.current &&
+        !bulletinMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsBulletinMenuOpen(false);
+      }
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false);
+        setIsBulletinMenuOpen(false);
+      }
     }
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () =>
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   return (
@@ -204,41 +223,57 @@ export default function Navbar({
             Categories
           </NavLink>
 
-          <NavLink
-            to="/bulletin-board"
-            className={({ isActive }) =>
-              isActive ? "active" : ""
-            }
-          >
-            Bulletin Board
-          </NavLink>
+          <div className="nav-dropdown-wrapper" ref={bulletinMenuRef}>
+            <button
+              type="button"
+              className={`nav-dropdown-trigger ${
+                ["/bulletin-board", "/announcements", "/events", "/services"].includes(location.pathname)
+                  ? "active"
+                  : ""
+              }`}
+              onClick={() => setIsBulletinMenuOpen((open) => !open)}
+              aria-haspopup="true"
+              aria-expanded={isBulletinMenuOpen}
+            >
+              Bulletin Board
+              <FaChevronDown
+                className={`nav-dropdown-chevron ${isBulletinMenuOpen ? "open" : ""}`}
+              />
+            </button>
 
-          <NavLink
-            to="/announcements"
-            className={({ isActive }) =>
-              isActive ? "active" : ""
-            }
-          >
-            Announcements
-          </NavLink>
-
-          <NavLink
-            to="/events"
-            className={({ isActive }) =>
-              isActive ? "active" : ""
-            }
-          >
-            Events
-          </NavLink>
-
-          <NavLink
-            to="/services"
-            className={({ isActive }) =>
-              isActive ? "active" : ""
-            }
-          >
-            Services
-          </NavLink>
+            {isBulletinMenuOpen && (
+              <div className="nav-dropdown-menu">
+                <NavLink
+                  to="/bulletin-board"
+                  className="nav-dropdown-item"
+                  onClick={() => setIsBulletinMenuOpen(false)}
+                >
+                  Bulletin Board
+                </NavLink>
+                <NavLink
+                  to="/announcements"
+                  className="nav-dropdown-item"
+                  onClick={() => setIsBulletinMenuOpen(false)}
+                >
+                  Announcements
+                </NavLink>
+                <NavLink
+                  to="/events"
+                  className="nav-dropdown-item"
+                  onClick={() => setIsBulletinMenuOpen(false)}
+                >
+                  Events
+                </NavLink>
+                <NavLink
+                  to="/services"
+                  className="nav-dropdown-item"
+                  onClick={() => setIsBulletinMenuOpen(false)}
+                >
+                  Services
+                </NavLink>
+              </div>
+            )}
+          </div>
 
           <NavLink
             to="/account"
