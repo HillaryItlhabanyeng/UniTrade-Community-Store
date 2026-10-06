@@ -15,23 +15,20 @@
   align-items: center;
 }
 
-/* .categorySectionTitle{
-  margin-top: 30px;
-  margin-bottom: 30px;
-  color: #e9e9e9;
-  font-size: 40px;
-  font-weight: 700;
-  margin-left: 30%;
-  transform: translate(30%, 0%);
-} */
-
-
-/* .categoryTitleText{
-  font-size: 20px;
+.categorySectionTitle {
   color: #112e3d;
-  margin-bottom: 50px;
-  transform: translate(43%, 0%);
-} */
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.categorySectionText {
+  color: #112e3d;
+  font-size: 15px;
+  text-align: center;
+  margin-bottom: 40px;
+}
 
 .categoryCardsCollection {
   display: flex;

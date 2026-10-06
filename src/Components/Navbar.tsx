@@ -209,7 +209,7 @@ export default function Navbar({
                 </span>
               )}
 
-              <span className="profile-name">{displayName}</span>
+              {/* <span className="profile-name">{displayName}</span> */}
 
               <FaChevronDown
                 className={`profile-chevron ${isMenuOpen ? "open" : ""}`}
