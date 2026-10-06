@@ -1,5 +1,8 @@
-/* ===== Tokens (reuse from your other Pages if already global) ===== */
-.checkout-page {
+
+/* Every class here is prefixed "co-" so it can't clash with the
+   Details, Payment or Cart stylesheets. */
+
+.co-page {
   --navy: #0f2a4a;
   --navy-dark: #0a1f38;
   --teal: #14b8a6;
@@ -10,97 +13,38 @@
   --error: #dc2626;
   --bg: #eef1f4;
 
+  box-sizing: border-box;
+  width: 100%;
   min-height: 100vh;
   background: var(--bg);
-  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: inherit;
   color: var(--text-dark);
+  text-align: left;
 }
 
-/* ===== Header ===== */
-.checkout-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--navy);
-  padding: 14px 32px;
-  color: #fff;
+.co-page *,
+.co-page *::before,
+.co-page *::after {
+  box-sizing: border-box;
 }
 
-.checkout-header-left {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.logo-mark {
-  color: var(--teal);
-  font-size: 22px;
-}
-
-.checkout-nav {
-  display: flex;
-  gap: 28px;
-}
-
-.checkout-nav a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  opacity: 0.9;
-}
-
-.checkout-nav a:hover {
-  opacity: 1;
-  color: var(--teal);
-}
-
-.checkout-header-right {
-  display: flex;
-  gap: 16px;
-}
-
-.icon-btn {
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-/* ===== Main ===== */
-.checkout-main {
+.co-main {
+  width: 100%;
   max-width: 1080px;
   margin: 0 auto;
   padding: 28px 24px 64px;
 }
 
-.checkout-title {
+.co-title {
+  margin: 0 0 20px;
   font-size: 24px;
   font-weight: 700;
-  margin: 0 0 4px;
   color: var(--navy-dark);
 }
 
-.breadcrumb {
-  font-size: 13px;
-  color: var(--text-muted);
-  margin: 0 0 24px;
-}
+/* ===== Steps ===== */
 
-.breadcrumb a {
-  color: var(--text-muted);
-  text-decoration: none;
-}
-
-.breadcrumb span {
-  color: var(--text-dark);
-}
-
-/* ===== Step indicator ===== */
-.step-indicator {
+.co-steps {
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -109,7 +53,7 @@
   margin: 0 0 32px;
 }
 
-.step {
+.co-step {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -117,7 +61,7 @@
   width: 96px;
 }
 
-.step-circle {
+.co-step-circle {
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -131,38 +75,39 @@
   font-weight: 700;
 }
 
-.step.active .step-circle {
-  background: var(--navy);
-  border-color: var(--navy);
+.co-step-active .co-step-circle {
+  background: var(--teal);
+  border-color: var(--teal);
   color: #fff;
 }
 
-.step-label {
+.co-step-label {
   font-size: 12px;
   font-weight: 600;
   color: var(--text-muted);
 }
 
-.step.active .step-label {
+.co-step-active .co-step-label {
   color: var(--navy-dark);
 }
 
-.step-connector {
+.co-step-connector {
   flex: 1;
   max-width: 120px;
   height: 2px;
-  background: #d1d5db;
   margin-top: 18px;
+  background: #d1d5db;
 }
 
 /* ===== Columns ===== */
-.checkout-columns {
+
+.co-columns {
   display: flex;
   gap: 24px;
   align-items: flex-start;
 }
 
-.checkout-left {
+.co-left {
   flex: 1.4;
   display: flex;
   flex-direction: column;
@@ -170,76 +115,80 @@
   min-width: 0;
 }
 
-.checkout-right {
+.co-right {
   flex: 1;
   min-width: 0;
 }
 
-.checkout-card,
-.summary-card {
+.co-card {
+  width: 100%;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   padding: 22px 24px;
 }
 
-.card-heading {
-  font-size: 13px;
-  font-weight: 700;
+.co-heading {
   margin: 0 0 18px;
+  font-size: 14px;
+  font-weight: 700;
   color: var(--text-dark);
 }
 
-/* ===== Form fields ===== */
-.form-field {
+/* ===== Form ===== */
+
+.co-field {
   display: flex;
   flex-direction: column;
   gap: 6px;
   margin-bottom: 16px;
 }
 
-.form-field:last-child {
+.co-field:last-child {
   margin-bottom: 0;
 }
 
-.form-field label {
+.co-field label {
   font-size: 12px;
   font-weight: 700;
   color: var(--text-dark);
 }
 
-.form-field input {
+.co-field input {
+  width: 100%;
   border: 1px solid var(--border);
   border-radius: 6px;
   padding: 10px 12px;
+  font: inherit;
   font-size: 13px;
   outline: none;
   transition: border-color 0.15s ease;
 }
 
-.form-field input:focus {
+.co-field input:focus {
   border-color: var(--teal);
   box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15);
 }
 
-.input-error {
-  border-color: var(--error) !important;
+.co-field .co-input-error {
+  border-color: var(--error);
 }
 
-.field-error {
+.co-error {
   font-size: 12px;
   color: var(--error);
 }
 
 /* ===== Payment options ===== */
-.payment-options {
+
+.co-payment-options {
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
 }
 
-.payment-option {
+.co-payment-option {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -251,149 +200,182 @@
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 
-.payment-option:hover {
+.co-payment-option:hover {
   border-color: var(--teal);
 }
 
-.payment-option.selected {
+.co-payment-option.co-selected {
   border-color: var(--teal);
   background: rgba(20, 184, 166, 0.06);
 }
 
-.payment-option input[type="radio"] {
+.co-payment-option input[type="radio"] {
   accent-color: var(--teal);
 }
 
-.payment-swatch {
+.co-swatch {
   width: 28px;
   height: 18px;
   background: #d1d5db;
   border-radius: 3px;
 }
 
-.continue-btn {
+/* ===== Continue button ===== */
+
+.co-form-message {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background: #fdecec;
+  color: var(--error);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.co-continue {
+  display: block;
   width: 100%;
-  background: var(--teal);
-  color: #fff;
+  margin: 0;
+  padding: 13px;
   border: none;
   border-radius: 6px;
-  padding: 13px;
+  background: var(--teal);
+  color: #fff;
+  font: inherit;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   transition: background 0.15s ease;
 }
 
-.continue-btn:hover {
+.co-continue:hover {
   background: var(--teal-dark);
 }
 
 /* ===== Order summary ===== */
-.summary-item {
+
+.co-sum-item {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 16px;
 }
 
-.summary-thumb {
+.co-sum-thumb {
+  flex: none;
   width: 64px;
   height: 64px;
   background: #d9d9d9;
   border-radius: 4px;
-  flex-shrink: 0;
 }
 
-.summary-thumb img {
+.co-sum-thumb img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   border-radius: 4px;
 }
 
-.summary-item-info {
+.co-sum-info {
   flex: 1;
+  min-width: 0;
 }
 
-.summary-item-name {
+.co-sum-name {
   margin: 0;
   font-size: 13px;
   font-weight: 700;
+  overflow-wrap: anywhere;
 }
 
-.summary-item-qty {
+.co-sum-qty {
   margin: 2px 0 0;
   font-size: 12px;
   color: var(--text-muted);
 }
 
-.summary-item-price {
+.co-sum-price {
   margin: 0;
   font-size: 13px;
   font-weight: 600;
+  white-space: nowrap;
 }
 
-.summary-divider {
-  height: 1px;
-  background: var(--border);
-  margin: 14px 0;
-}
-
-.summary-row {
-  display: flex;
-  justify-content: space-between;
+.co-empty {
+  margin: 0;
   font-size: 13px;
   color: var(--text-muted);
-  padding: 4px 0;
 }
 
-.total-row {
+.co-divider {
+  height: 1px;
+  margin: 14px 0;
+  background: var(--border);
+}
+
+.co-sum-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.co-sum-row.co-total {
   font-size: 15px;
   font-weight: 700;
   color: var(--text-dark);
 }
 
-.secure-checkout {
+.co-secure {
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin-top: 20px;
-  text-align: center;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
+  text-align: center;
 }
 
-.lock-icon {
+.co-lock {
   font-size: 18px;
 }
 
-.secure-title {
-  margin: 0;
+.co-secure-title {
+  margin: 4px 0 0;
   font-size: 13px;
   font-weight: 700;
 }
 
-.secure-subtitle {
+.co-secure-sub {
   margin: 2px 0 0;
   font-size: 12px;
   color: var(--text-muted);
 }
 
 /* ===== Mobile ===== */
+
 @media (max-width: 900px) {
-  .checkout-columns {
+  .co-columns {
     flex-direction: column;
   }
 
-  .checkout-nav {
-    display: none;
+  .co-left,
+  .co-right {
+    width: 100%;
+    flex: none;
   }
 
-  .step-indicator {
-    flex-wrap: wrap;
-  }
-
-  .step-connector {
+  .co-step-connector {
     max-width: 40px;
   }
 }
+
+@media (max-width: 480px) {
+  .co-main {
+    padding: 18px 14px 40px;
+  }
+
+  .co-card {
+    padding: 18px 16px;
+  }
+}
+
