@@ -1,17 +1,51 @@
+import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../Components/Navbar";
-import { useOrders } from "../Components/useOrders";
+import { fetchOrderByReference, type OrderView } from "../lib/orders";
+import { formatCurrency } from "../lib/format";
 import "./ConfirmationPage.css";
 
 export default function ConfirmationPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { getOrder } = useOrders();
 
   const reference = (location.state as { reference?: string } | null)?.reference;
-  const order = reference ? getOrder(reference) : undefined;
 
-  const formatCurrency = (value: number) => `R${value.toFixed(2)}`;
+  const [order, setOrder] = useState<OrderView | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    if (!reference) {
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    fetchOrderByReference(reference).then((result) => {
+      if (cancelled) return;
+      setOrder(result);
+      setLoading(false);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [reference]);
+
+  if (loading) {
+    return (
+      <>
+        <Navbar showLinks={false} />
+        <div className="confirmation-page">
+          <div className="confirmation-card">
+            <p>Loading your order…</p>
+          </div>
+        </div>
+      </>
+    );
+  }
 
   if (!order) {
     return (

@@ -2,10 +2,14 @@ import "./LandingPage.css";
 // import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import {
-    FaSearch, FaHandshake, FaTruckMoving, FaShoppingCart, FaWallet,
+    FaSearch, FaHandshake, FaTruckMoving, FaWallet,
     FaMapPin, FaAward, FaEnvelope, FaPhone, FaClock, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn
 } from "react-icons/fa";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ProductCard from "../Components/ProductCard";
+import { supabase } from "../lib/supabaseClient";
+import { mapProductRow } from "../lib/products";
+import type { Product } from "../types/product";
 
 
 function LandingPage() {
@@ -22,6 +26,34 @@ function LandingPage() {
         subject: "",
         message: "",
     });
+
+    const [trending, setTrending] = useState<Product[]>([]);
+
+    useEffect(() => {
+        let cancelled = false;
+
+        (async () => {
+            const { data, error } = await supabase
+                .from("Products")
+                .select("*")
+                .eq("is_active", true)
+                .order("created_at", { ascending: false })
+                .limit(5);
+
+            if (cancelled) return;
+
+            if (error) {
+                console.error("Failed to fetch trending products:", error);
+                return;
+            }
+
+            setTrending((data ?? []).map(mapProductRow));
+        })();
+
+        return () => {
+            cancelled = true;
+        };
+    }, []);
 
     // const handleLogIn = () => {
     //     // TODO: replace with actual navigation (e.g. react-router's navigate('/login'))
@@ -167,67 +199,9 @@ function LandingPage() {
                 <h1 className="landingTrandingTitle">Trending</h1>
 
                 <div className="landingTrandingCards">
-
-                    <div className="trandingCards">
-                        <img src="/trending1.png" alt="PartLink Logo" className="trandingImage" />
-
-                        <div className="trandingButtonContainer">
-                            <h2 className="trandingProductName">Cooking set</h2>
-                            <h2 className="trandingProductPrice">R799.99</h2>
-                            <button className="trandingButton">
-                                <FaShoppingCart /> Add to cart
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="trandingCards">
-                        <img src="/trending2.jpg" alt="PartLink Logo" className="trandingImage" />
-
-                        <div className="trandingButtonContainer">
-                            <h2 className="trandingProductName">Headphones</h2>
-                            <h2 className="trandingProductPrice">R429.99</h2>
-                            <button className="trandingButton">
-                                <FaShoppingCart /> Add to cart
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="trandingCards">
-                        <img src="/trending3.jpg" alt="PartLink Logo" className="trandingImage" />
-
-                        <div className="trandingButtonContainer">
-                            <h2 className="trandingProductName">Bluetooth Speaker</h2>
-                            <h2 className="trandingProductPrice">R379.99</h2>
-                            <button className="trandingButton">
-                                <FaShoppingCart /> Add to cart
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="trandingCards">
-                        <img src="/trending4.webp" alt="PartLink Logo" className="trandingImage" />
-
-                        <div className="trandingButtonContainer">
-                            <h2 className="trandingProductName">Note Book</h2>
-                            <h2 className="trandingProductPrice">R80.00</h2>
-                            <button className="trandingButton">
-                                <FaShoppingCart /> Add to cart
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className="trandingCards">
-                        <img src="/trending5.jpg" alt="PartLink Logo" className="trandingImage" />
-
-                        <div className="trandingButtonContainer">
-                            <h2 className="trandingProductName">Highlighter</h2>
-                            <h2 className="trandingProductPrice">R67.90</h2>
-                            <button className="trandingButton">
-                                <FaShoppingCart /> Add to cart
-                            </button>
-                        </div>
-                    </div>
-
+                    {trending.map((product) => (
+                        <ProductCard key={product.id} product={product} />
+                    ))}
                 </div>
             </section>
 

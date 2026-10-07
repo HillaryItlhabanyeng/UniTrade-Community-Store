@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Navbar from "../Components/Navbar";
 import CheckoutSteps from "../Components/CheckoutSteps";
 import { useCart } from "../Components/useCart";
+import { isValidProductId } from "../Components/CartContext.types";
 import { supabase } from "../lib/supabaseClient";
 
 import {
@@ -12,6 +13,7 @@ import {
   loadCheckoutDetails,
   makeReference,
 } from "../lib/checkout";
+import { formatCurrency } from "../lib/format";
 
 import "./PaymentPage.css";
 
@@ -35,11 +37,18 @@ export default function PaymentPage() {
     string | null
   >(null);
 
+  // Prevents the guard effect below from redirecting back to
+  // /checkout/details once an order has gone through and
+  // clearCheckoutDetails() has run.
+  const orderPlacedRef = useRef(false);
+
   // --------------------------------------------------
   // Check login and checkout details
   // --------------------------------------------------
 
   useEffect(() => {
+    if (orderPlacedRef.current) return;
+
     const checkCheckoutAccess = async () => {
       const {
         data: { user },
@@ -77,9 +86,6 @@ export default function PaymentPage() {
   );
 
   const total = subtotal + delivery;
-
-  const formatCurrency = (value: number) =>
-    `R${value.toFixed(2)}`;
 
   // --------------------------------------------------
   // Card formatting
@@ -211,10 +217,7 @@ export default function PaymentPage() {
       } = await supabase.auth.getUser();
 
       if (userError) {
-        console.error(
-          "User lookup error:",
-          userError
-        );
+        console.error("User lookup failed:", userError);
 
         throw new Error(
           `Could not verify your account: ${userError.message}`
@@ -267,10 +270,7 @@ export default function PaymentPage() {
           .single();
 
       if (orderError) {
-        console.error(
-          "ORDER INSERT FAILED:",
-          orderError
-        );
+        console.error("Order insert failed:", orderError);
 
         throw new Error(
           `Could not create your order: ${orderError.message}`
@@ -287,6 +287,25 @@ export default function PaymentPage() {
       // 4. Add products to order_items
       // --------------------------------------------------
 
+      // Products.id is a numeric bigint. Cart items added from
+      // stale/demo data (non-numeric ids) can't be purchased — catch
+      // that here with a clear message instead of letting Postgres
+      // reject the insert. (The cart itself filters these out on
+      // load now, but this is a last line of defense.)
+      const invalidItems = items.filter(
+        (item) => !isValidProductId(item.id)
+      );
+
+      if (invalidItems.length > 0) {
+        console.error("Invalid product id(s) in cart:", invalidItems);
+
+        await supabase.from("orders").delete().eq("id", order.id);
+
+        throw new Error(
+          `"${invalidItems[0].name}" is no longer available for purchase. Please remove it from your cart and try again.`
+        );
+      }
+
       const orderItems = items.map((item) => ({
         order_id: order.id,
         product_id: item.id,
@@ -301,10 +320,7 @@ export default function PaymentPage() {
         .insert(orderItems);
 
       if (orderItemsError) {
-        console.error(
-          "ORDER ITEMS INSERT FAILED:",
-          orderItemsError
-        );
+        console.error("order_items insert failed:", orderItemsError);
 
         // Try to remove incomplete order
         await supabase
@@ -339,10 +355,7 @@ export default function PaymentPage() {
         .eq("id", order.id);
 
       if (paidError) {
-        console.error(
-          "ORDER PAYMENT STATUS UPDATE FAILED:",
-          paidError
-        );
+        console.error("Payment status update failed:", paidError);
 
         throw new Error(
           `Your order was created, but we could not update its payment status: ${paidError.message}`
@@ -352,6 +365,8 @@ export default function PaymentPage() {
       // --------------------------------------------------
       // 6. Success
       // --------------------------------------------------
+
+      orderPlacedRef.current = true;
 
       clearCart();
       clearCheckoutDetails();
@@ -365,10 +380,7 @@ export default function PaymentPage() {
         }
       );
     } catch (err) {
-      console.error(
-        "CHECKOUT FAILED:",
-        err
-      );
+      console.error("Checkout failed:", err);
 
       if (err instanceof Error) {
         setSubmitError(err.message);

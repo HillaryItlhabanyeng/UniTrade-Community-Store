@@ -1,15 +1,47 @@
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
-import { useOrders } from "../Components/useOrders";
+import { fetchOrderByReference, type OrderView } from "../lib/orders";
+import { formatCurrency } from "../lib/format";
 import "./OrderDetailPage.css";
 
 export default function OrderDetailPage() {
   const { reference } = useParams<{ reference: string }>();
   const navigate = useNavigate();
-  const { getOrder } = useOrders();
 
-  const order = reference ? getOrder(reference) : undefined;
-  const formatCurrency = (value: number) => `R${value.toFixed(2)}`;
+  const [order, setOrder] = useState<OrderView | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    if (!reference) {
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    fetchOrderByReference(reference).then((result) => {
+      if (cancelled) return;
+      setOrder(result);
+      setLoading(false);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [reference]);
+
+  if (loading) {
+    return (
+      <div className="order-detail-page">
+        <Navbar />
+        <div className="order-detail-empty">
+          <p>Loading order…</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!order) {
     return (

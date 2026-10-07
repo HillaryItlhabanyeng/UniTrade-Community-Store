@@ -110,6 +110,74 @@
     flex: 1;
 }
 
+.field-error{
+    color: #dc2626;
+    font-size: 12px;
+    margin: -10px 0 16px 0;
+}
+
+.fulfillment-options{
+    display: grid;
+    /* minmax(0, 1fr): a bare 1fr won't let the track shrink below its content's natural width */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 480px){
+    .fulfillment-options{
+        grid-template-columns: 1fr;
+    }
+}
+
+.fulfillment-option{
+    min-width: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.fulfillment-option:hover{
+    border-color: #14b8a6;
+}
+
+.fulfillment-option.selected{
+    border-color: #14b8a6;
+    background: #f0fdfa;
+}
+
+.fulfillment-option input[type="radio"]{
+    /* overrides .details-form input's width: 100%, which also matches these */
+    width: auto;
+    margin-top: 3px;
+    margin-bottom: 0;
+    accent-color: #14b8a6;
+    flex-shrink: 0;
+}
+
+.fulfillment-option span{
+    flex: 1 1 0%;
+    min-width: 0;
+}
+
+.fulfillment-option strong{
+    display: block;
+    font-size: 14px;
+    color: #111;
+}
+
+.fulfillment-option small{
+    display: block;
+    font-size: 12px;
+    color: #888;
+    margin-top: 2px;
+}
+
 .order-summary{
     flex: 1;
     border: 1px solid #e5e5e5;

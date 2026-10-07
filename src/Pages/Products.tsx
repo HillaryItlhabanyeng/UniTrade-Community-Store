@@ -1,30 +1,13 @@
 import "./Products.css";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { FaSearch, FaFilter, FaTimes } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
+import ProductCard from "../Components/ProductCard";
 import { supabase } from "../lib/supabaseClient";
-
-
-// Types
-type Products = {
-  id: string;
-  name: string;
-  description: string;
-  brand: string;
-  model: string;
-  category: string;
-  condition: string;
-  street: string;
-  city: string;
-  province: string;
-  postal_code: string;
-  price: number;
-  quantity: number;
-  image_url: string;
-  created_at: string;
-};
+import { mapProductRow } from "../lib/products";
+import type { Product } from "../types/product";
 
 type SortOption =
   | "newest"
@@ -34,20 +17,33 @@ type SortOption =
   | "name-asc";
 
 function Products() {
-  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // Data + loading state
-  const [products, setProducts] = useState<Products[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   // Search & filter state
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState("");
+  // Seeded from ?category= so links from the Categories page land
+  // pre-filtered here instead of showing everything.
+  const [category, setCategory] = useState(searchParams.get("category") ?? "");
   const [brand, setBrand] = useState("");
   const [condition, setCondition] = useState("");
   const [province, setProvince] = useState("");
   const [sort, setSort] = useState<SortOption>("newest");
+
+  const selectCategory = (value: string) => {
+    setCategory(value);
+    const next = new URLSearchParams(searchParams);
+    if (value) {
+      next.set("category", value);
+    } else {
+      next.delete("category");
+    }
+    setSearchParams(next, { replace: true });
+  };
 
   // Controls whether the filter panel is visible
   const [showFilters, setShowFilters] = useState(false);
@@ -102,7 +98,7 @@ function Products() {
         setError(fetchError.message);
         setProducts([]);
       } else {
-        setProducts((data as Products[]) || []);
+        setProducts((data ?? []).map(mapProductRow));
       }
 
       setLoading(false);
@@ -124,7 +120,7 @@ function Products() {
   // Clear all filters
   const clearFilters = () => {
     setQuery("");
-    setCategory("");
+    selectCategory("");
     setBrand("");
     setCondition("");
     setProvince("");
@@ -180,7 +176,7 @@ function Products() {
                   <label>Category</label>
                   <select
                     value={category}
-                    onChange={(e) => setCategory(e.target.value)}
+                    onChange={(e) => selectCategory(e.target.value)}
                   >
                     <option value="">All Categories</option>
                     <option>Books</option>
@@ -295,29 +291,7 @@ function Products() {
           {!loading &&
             !error &&
             products.map((product) => (
-              <div
-                key={product.id}
-                className="productCard"
-                onClick={() => navigate(`/product-details/${product.id}`)}
-              >
-                <div className="productCardImage">
-                  {product.image_url ? (
-                    <img src={product.image_url} alt={product.name} />
-                  ) : (
-                    <div className="productCardNoImage">No image</div>
-                  )}
-                </div>
-                <div className="productCardBody">
-                  <h3>{product.name}</h3>
-                  <p className="productCardMeta">
-                    {product.brand} · {product.model}
-                  </p>
-                  <p className="productCardLocation">
-                    {product.city}, {product.province}
-                  </p>
-                  <p className="productCardPrice">R {product.price}</p>
-                </div>
-              </div>
+              <ProductCard key={product.id} product={product} />
             ))}
         </div>
       </section>

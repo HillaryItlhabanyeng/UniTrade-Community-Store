@@ -6,8 +6,7 @@ import RegisterPage from "./Pages/RegisterPage";
 import SettingsPage from "./Pages/SettingsPage";
 
 import AccountPage from "./Pages/AccountPage";
-// import MarketPlacePage from "./Pages/MarketPlacePage";
- import Products from "./Pages/Products";
+import Products from "./Pages/Products";
 import CartPage from "./Pages/CartPage";
 import CheckoutPage from "./Pages/CheckoutPage";
 
@@ -61,9 +60,7 @@ function App() {
         <Route path="/settings" element={<SettingsPage />} />
 
         {/* Marketplace */}
-        {/* <Route path="/shop" element={<MarketPlacePage />} /> */}
         <Route path="/shop" element={<Products />} />
-        {/* <Route path="/product/:id" element={<ProductDetailsPage />} /> */}
         <Route path="/product-details/:id" element={<ProductDetailsPage />} />
         <Route path="/categories" element={<CategoriesPage />} />
         <Route path="/list-product" element={<ProductListingPage />} />
@@ -90,10 +87,6 @@ function App() {
         <Route path="/events" element={<EventsPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/contact" element={<ContactPage />} />
-        {/* <Route path="/landing" element={<LandingPage />} /> */}
-        {/* <Route path="/product-details" element={<ProductDetailsPage />} /> */}
-
-
 
         {/* Reviews */}
         <Route
@@ -113,6 +106,3 @@ function App() {
 }
 
 export default App;
-
-//VITE_SUPABASE_URL=https://atpbgkaorwradcgkcyjf.supabase.co
-//VITE_SUPABASE_PUBLISHABLE_KEY=sb_publishable_3_ob9PCXGvbnQ0DMuMH3Yw_UVsLr2_n

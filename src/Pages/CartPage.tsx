@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import { useCart } from "../Components/useCart";
+import { useToast } from "../Components/useToast";
+import { formatCurrency } from "../lib/format";
 import "./CartPage.css";
 
 const DELIVERY_FEE = 50;
@@ -8,6 +10,7 @@ const DELIVERY_FEE = 50;
 function CartPage() {
   const navigate = useNavigate();
   const { items, updateQuantity, removeItem, subtotal } = useCart();
+  const { showToast } = useToast();
 
   const delivery = items.length > 0 ? DELIVERY_FEE : 0;
   const discount = 0;
@@ -18,7 +21,10 @@ function CartPage() {
     navigate("/checkout");
   };
 
-  const formatCurrency = (value: number) => `R${value.toFixed(2)}`;
+  const handleRemove = (id: string, name: string) => {
+    removeItem(id);
+    showToast(`Removed "${name}" from cart`, "info");
+  };
 
   return (
     <div className="cart-page">
@@ -95,7 +101,7 @@ function CartPage() {
                     <td>
                       <button
                         className="remove-btn"
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => handleRemove(item.id, item.name)}
                         aria-label={`Remove ${item.name}`}
                       >
                         ✕

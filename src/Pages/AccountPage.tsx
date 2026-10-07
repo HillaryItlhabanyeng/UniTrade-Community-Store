@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SideNav from "../Components/SideNav";
 import { supabase } from "../lib/supabaseClient";
+import { formatCurrency } from "../lib/format";
 import "./AccountPage.css";
 
 /* ---------- types ---------- */
@@ -12,7 +13,7 @@ type OrderItem = {
   id: string;
   quantity: number | null;
   unit_price: number | null;
-  products?: Product | Product[] | null;
+  Products?: Product | Product[] | null;
 };
 
 type Order = {
@@ -53,21 +54,18 @@ const TABS: { key: StatusFilter; label: string }[] = [
   { key: "cancelled", label: "Cancelled" },
 ];
 
-/* Tried in order; the first one your database accepts is used. */
+/* Tried in order; the first one your database accepts is used.
+   "Products" (capitalized) is the actual table name. */
 const BASE = "id, reference, status, created_at, fulfillment_type, total";
 const SELECTS = [
-  `${BASE}, order_items(id, quantity, unit_price, products(*))`,
+  `${BASE}, order_items(id, quantity, unit_price, Products(*))`,
   `${BASE}, order_items(id, quantity, unit_price)`,
   BASE,
 ];
 
 /* ---------- helpers ---------- */
 
-const money = (v: number | null) =>
-  `R ${Number(v ?? 0).toLocaleString("en-ZA", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })}`;
+const money = formatCurrency;
 
 const day = (iso: string) =>
   new Date(iso).toLocaleDateString("en-ZA", {
@@ -79,7 +77,7 @@ const day = (iso: string) =>
 const statusOf = (o: Order) => (o.status || "pending").toLowerCase();
 
 const productOf = (item: OrderItem): Product | null =>
-  Array.isArray(item.products) ? item.products[0] ?? null : item.products ?? null;
+  Array.isArray(item.Products) ? item.Products[0] ?? null : item.Products ?? null;
 
 const titleOf = (p: Product | null) =>
   p?.title ?? p?.name ?? p?.product_name ?? "Item";

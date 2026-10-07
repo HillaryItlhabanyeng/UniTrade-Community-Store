@@ -3,16 +3,16 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import { CartProvider } from "./Components/CartContext";
 import { SavedProvider } from "./Components/SavedContext";
-import { OrdersProvider } from "./Components/OrdersContext";
+import { ToastProvider } from "./Components/ToastContext";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <CartProvider>
-      <SavedProvider>
-        <OrdersProvider>
+    <ToastProvider>
+      <CartProvider>
+        <SavedProvider>
           <App />
-        </OrdersProvider>
-      </SavedProvider>
-    </CartProvider>
+        </SavedProvider>
+      </CartProvider>
+    </ToastProvider>
   </StrictMode>
 );

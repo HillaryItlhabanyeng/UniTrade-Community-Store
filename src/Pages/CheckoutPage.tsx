@@ -10,6 +10,7 @@ import {
   loadCheckoutDetails,
   saveCheckoutDetails,
 } from "../lib/checkout";
+import { formatCurrency } from "../lib/format";
 import "./CheckoutPage.css";
 
 interface ShippingInfo {
@@ -166,9 +167,6 @@ function CheckoutPage() {
 
     navigate("/checkout/details");
   };
-
-  const formatCurrency = (value: number) =>
-    `${value < 0 ? "-" : ""}R${Math.abs(value).toFixed(2)}`;
 
   return (
     <div className="co-page">

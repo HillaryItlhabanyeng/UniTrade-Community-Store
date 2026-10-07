@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaMapMarkerAlt, FaShoppingCart } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
-import { useCart } from "../Components/useCart";
-import { products } from "../data/products";
+import ProductCard from "../Components/ProductCard";
+import { supabase } from "../lib/supabaseClient";
+import { mapProductRow } from "../lib/products";
+import type { Product } from "../types/product";
 import "./HomePage.css";
 import Footer from "../Components/Footer";
 import { useNavigate } from "react-router-dom";
@@ -18,22 +19,37 @@ import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const [showMore, setShowMore] = useState(false);
-  const { addItem } = useCart();
+  const [products, setProducts] = useState<Product[]>([]);
   const visibleProducts = showMore ? products : products.slice(0, 5);
   // const featuredCategories = categories.filter((category) => category !== "All Categories");
 
-  const handleAddToCart = (product: typeof products[number]) => {
-    addItem({
-      id: product.id,
-      name: product.title,
-      price: product.price,
-      seller: product.seller,
-      category: product.category,
-      location: product.location,
-      imageUrl: product.image,
-    });
-  };
-const navigate = useNavigate();
+  useEffect(() => {
+    let cancelled = false;
+
+    (async () => {
+      const { data, error } = await supabase
+        .from("Products")
+        .select("*")
+        .eq("is_active", true)
+        .order("created_at", { ascending: false })
+        .limit(24);
+
+      if (cancelled) return;
+
+      if (error) {
+        console.error("Failed to fetch featured products:", error);
+        return;
+      }
+
+      setProducts((data ?? []).map(mapProductRow));
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const navigate = useNavigate();
   return (
     <div className="ut-page">
       <Navbar />
@@ -120,17 +136,13 @@ const navigate = useNavigate();
       <section className="ut-section">
         <div className="ut-section-header"><div><h3>Featured Listings</h3><p className="ut-section-subtitle">Fresh finds from students across campus</p></div><Link to="/shop" className="ut-view-all">View all listings</Link></div>
         <div className="ut-listings">
-          {visibleProducts.map((product) => <article className="ut-listing-card" key={product.id}>
-            <Link to={`/product/${product.id}`} className="ut-listing-image-link"><img src={product.image} alt={product.title} /></Link>
-            <div className="ut-listing-info">
-              <Link to={`/product/${product.id}`} className="ut-listing-title">{product.title}</Link>
-              <span className="ut-listing-price">R{product.price.toFixed(2)}</span>
-              <span className="ut-listing-meta"><FaMapMarkerAlt /> {product.location}</span>
-              <button type="button" className="ut-add-to-cart" onClick={() => handleAddToCart(product)}><FaShoppingCart /> Add to Cart</button>
-            </div>
-          </article>)}
+          {visibleProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
         </div>
-        <button type="button" className="ut-more-button" onClick={() => setShowMore((current) => !current)}>{showMore ? "Show less" : "More items"}</button>
+        {products.length > 5 && (
+          <button type="button" className="ut-more-button" onClick={() => setShowMore((current) => !current)}>{showMore ? "Show less" : "More items"}</button>
+        )}
       </section>
 
       <section className="homePromosection">

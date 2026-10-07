@@ -15,6 +15,9 @@ import {
   FaThumbsDown,
 } from "react-icons/fa";
 import { supabase } from "../lib/supabaseClient";
+import { useCart } from "../Components/useCart";
+import { useToast } from "../Components/useToast";
+import { formatCurrency } from "../lib/format";
 
 interface Product {
   id: string | number;
@@ -57,6 +60,8 @@ export default function ProductDetailsPage() {
   const location = useLocation();
   const navigate = useNavigate();
   const { id: routeId } = useParams<{ id: string }>();
+  const { addItem } = useCart();
+  const { showToast } = useToast();
 
   const passedProduct = (location.state as { product?: Product })?.product;
 
@@ -205,13 +210,32 @@ export default function ProductDetailsPage() {
 
   const handleAddToCart = () => {
     if (!product) return;
-    console.log(`Added ${quantity} of ${product.name} to cart`);
+    addItem(
+      {
+        id: String(product.id),
+        name: product.name,
+        price: product.price,
+        category: product.category,
+        imageUrl: product.image,
+      },
+      quantity
+    );
+    showToast(`Added "${product.name}" to cart`);
     navigate("/cart");
   };
 
   const handleBuyNow = () => {
     if (!product) return;
-    console.log(`Buying ${quantity} of ${product.name}`);
+    addItem(
+      {
+        id: String(product.id),
+        name: product.name,
+        price: product.price,
+        category: product.category,
+        imageUrl: product.image,
+      },
+      quantity
+    );
     navigate("/checkout");
   };
 
@@ -235,12 +259,14 @@ export default function ProductDetailsPage() {
           .eq("user_id", user.id)
           .eq("product_id", String(product.id));
         setIsSaved(false);
+        showToast(`Removed "${product.name}" from saved`, "info");
       } else {
         await supabase.from("Favorites").insert({
           user_id: user.id,
           product_id: String(product.id),
         });
         setIsSaved(true);
+        showToast(`Saved "${product.name}"`);
       }
     } catch (err) {
       console.error("Favorite toggle failed:", err);
@@ -435,7 +461,7 @@ export default function ProductDetailsPage() {
             </div>
 
             <div className="productDetailPrice">
-              R{product.price.toFixed(2)}
+              {formatCurrency(product.price)}
             </div>
 
             {/* Colors */}

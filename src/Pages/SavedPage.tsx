@@ -1,21 +1,27 @@
 import { Link } from "react-router-dom";
 import Navbar from "../Components/Navbar";
+import ProductCard from "../Components/ProductCard";
 import { useSaved } from "../Components/useSaved";
-import { useCart } from "../Components/useCart";
+import { useToast } from "../Components/useToast";
+import type { Product } from "../types/product";
 import "./SavedPage.css";
 
 export default function SavedPage() {
   const { savedItems, removeSaved } = useSaved();
-  const { addItem } = useCart();
+  const { showToast } = useToast();
 
-  const handleAddToCart = (item: (typeof savedItems)[number]) => {
-    addItem({
-      id: item.id,
-      name: item.name,
-      price: item.price,
-      location: item.location,
-      imageUrl: item.imageUrl,
-    });
+  const toProduct = (item: (typeof savedItems)[number]): Product => ({
+    id: item.id,
+    name: item.name,
+    price: item.price,
+    imageUrl: item.imageUrl ?? "",
+    category: "",
+    location: item.location ?? "",
+  });
+
+  const handleRemove = (item: (typeof savedItems)[number]) => {
+    removeSaved(item.id);
+    showToast(`Removed "${item.name}" from saved`, "info");
   };
 
   return (
@@ -39,32 +45,12 @@ export default function SavedPage() {
       ) : (
         <div className="sv-grid">
           {savedItems.map((item) => (
-            <div className="sv-card" key={item.id}>
-              <div className="sv-card-image">
-                <img src={item.imageUrl} alt={item.name} />
-                <button
-                  className="sv-remove"
-                  onClick={() => removeSaved(item.id)}
-                  aria-label="Remove from saved"
-                >
-                  ♥
-                </button>
-              </div>
-
-              <div className="sv-card-info">
-                <span className="sv-card-title">{item.name}</span>
-                <span className="sv-card-price">R{item.price.toFixed(2)}</span>
-                {item.location && (
-                  <span className="sv-card-location">📍 {item.location}</span>
-                )}
-                <button
-                  className="sv-add-to-cart"
-                  onClick={() => handleAddToCart(item)}
-                >
-                  Add to Cart
-                </button>
-              </div>
-            </div>
+            <ProductCard
+              key={item.id}
+              product={toProduct(item)}
+              isSaved
+              onToggleSaved={() => handleRemove(item)}
+            />
           ))}
         </div>
       )}
