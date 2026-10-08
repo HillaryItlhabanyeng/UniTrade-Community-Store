@@ -1,24 +1,15 @@
 import "./LandingPage.css";
-// import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import {
-    FaSearch, FaHandshake, FaTruckMoving, FaWallet,
+    FaSearch, FaHandshake, FaTruckMoving, FaShoppingCart, FaWallet,
     FaMapPin, FaAward, FaEnvelope, FaPhone, FaClock, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn
 } from "react-icons/fa";
-import { useEffect, useState } from "react";
-import ProductCard from "../Components/ProductCard";
-import { supabase } from "../lib/supabaseClient";
-import { mapProductRow } from "../lib/products";
-import type { Product } from "../types/product";
+import { useState } from "react";
+import Footer from "../Components/Footer";
 
 
 function LandingPage() {
-    //  const [activeTab, setActiveTab] = useState<'active' | 'sold'>('active');
     const navigate = useNavigate();
-    //     const handleTabChange = (tab: "active" | "sold", path: string) => {
-    //     setActiveTab(tab);
-    //     navigate(path);
-    //   };
 
     const [form] = useState({
         fullName: "",
@@ -26,34 +17,6 @@ function LandingPage() {
         subject: "",
         message: "",
     });
-
-    const [trending, setTrending] = useState<Product[]>([]);
-
-    useEffect(() => {
-        let cancelled = false;
-
-        (async () => {
-            const { data, error } = await supabase
-                .from("Products")
-                .select("*")
-                .eq("is_active", true)
-                .order("created_at", { ascending: false })
-                .limit(5);
-
-            if (cancelled) return;
-
-            if (error) {
-                console.error("Failed to fetch trending products:", error);
-                return;
-            }
-
-            setTrending((data ?? []).map(mapProductRow));
-        })();
-
-        return () => {
-            cancelled = true;
-        };
-    }, []);
 
     // const handleLogIn = () => {
     //     // TODO: replace with actual navigation (e.g. react-router's navigate('/login'))
@@ -67,7 +30,6 @@ function LandingPage() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Hook up to your backend / email service here
         console.log("Contact form submitted:", form);
     };
 
@@ -199,9 +161,67 @@ function LandingPage() {
                 <h1 className="landingTrandingTitle">Trending</h1>
 
                 <div className="landingTrandingCards">
-                    {trending.map((product) => (
-                        <ProductCard key={product.id} product={product} />
-                    ))}
+
+                    <div className="trandingCards">
+                        <img src="/trending1.png" alt="PartLink Logo" className="trandingImage" />
+
+                        <div className="trandingButtonContainer">
+                            <h2 className="trandingProductName">Cooking set</h2>
+                            <h2 className="trandingProductPrice">R799.99</h2>
+                            <button className="trandingButton">
+                                <FaShoppingCart /> Add to cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="trandingCards">
+                        <img src="/trending2.png" alt="PartLink Logo" className="trandingImage" />
+
+                        <div className="trandingButtonContainer">
+                            <h2 className="trandingProductName">Headphones</h2>
+                            <h2 className="trandingProductPrice">R429.99</h2>
+                            <button className="trandingButton">
+                                <FaShoppingCart /> Add to cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="trandingCards">
+                        <img src="/trending3.png" alt="PartLink Logo" className="trandingImage" />
+
+                        <div className="trandingButtonContainer">
+                            <h2 className="trandingProductName">Bluetooth Speaker</h2>
+                            <h2 className="trandingProductPrice">R379.99</h2>
+                            <button className="trandingButton">
+                                <FaShoppingCart /> Add to cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="trandingCards">
+                        <img src="/trending4.png" alt="PartLink Logo" className="trandingImage" />
+
+                        <div className="trandingButtonContainer">
+                            <h2 className="trandingProductName">Note Book</h2>
+                            <h2 className="trandingProductPrice">R80.00</h2>
+                            <button className="trandingButton">
+                                <FaShoppingCart /> Add to cart
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="trandingCards">
+                        <img src="/trending5.png" alt="PartLink Logo" className="trandingImage" />
+
+                        <div className="trandingButtonContainer">
+                            <h2 className="trandingProductName">Highlighter</h2>
+                            <h2 className="trandingProductPrice">R67.90</h2>
+                            <button className="trandingButton">
+                                <FaShoppingCart /> Add to cart
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </section>
 
@@ -314,7 +334,7 @@ function LandingPage() {
 
             {/* ============================================================footer========================================= */}
 
-            <footer className="footer">
+            {/* <footer className="footer">
                 <div className="footer-container">
                     <div className="footer-brand">
                         <img src="/logo-recolored.png" alt="PartLink Logo" className="footer-logo" />
@@ -354,7 +374,8 @@ function LandingPage() {
                 <div className="footer-bottom">
                     <p>© 2026 UNITRADE MARKETPLACE</p>
                 </div>
-            </footer>
+            </footer> */}
+            <Footer />
         </div>
 
 

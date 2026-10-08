@@ -1,103 +1,15 @@
-<<<<<<< HEAD
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import Navbar from "../Components/Navbar";
-import ProductCard from "../Components/ProductCard";
-import { supabase } from "../lib/supabaseClient";
-import { mapProductRow } from "../lib/products";
-import type { Product } from "../types/product";
-=======
 // import { useState } from "react";
 import { FaAngleDoubleRight } from "react-icons/fa";
 import Navbar from "../Components/Navbar";
-// import { useCart } from "../Components/useCart";
-// import { products } from "../data/products";
->>>>>>> 239f029303a165b2eda75b55d3f4bca93a4c3c40
 import "./HomePage.css";
 import Footer from "../Components/Footer";
 import { useNavigate } from "react-router-dom";
 
-// const categoryImages: Record<string, string> = {
-//   Electronics: "/hpElite.jpg",
-//   Books: "/old.jpg",
-//   Furniture: "/selo.jpg",
-//   Clothing: "/hoodie.jpg",
-//   Other: "/backpack.jpg",
-// };
-
 export default function HomePage() {
-<<<<<<< HEAD
-  const [showMore, setShowMore] = useState(false);
-  const [products, setProducts] = useState<Product[]>([]);
-  const visibleProducts = showMore ? products : products.slice(0, 5);
-  // const featuredCategories = categories.filter((category) => category !== "All Categories");
-
-  useEffect(() => {
-    let cancelled = false;
-
-    (async () => {
-      const { data, error } = await supabase
-        .from("Products")
-        .select("*")
-        .eq("is_active", true)
-        .order("created_at", { ascending: false })
-        .limit(24);
-
-      if (cancelled) return;
-
-      if (error) {
-        console.error("Failed to fetch featured products:", error);
-        return;
-      }
-
-      setProducts((data ?? []).map(mapProductRow));
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
-=======
-  // const [showMore, setShowMore] = useState(false);
-  // const { addItem } = useCart();
-  // const visibleProducts = showMore ? products : products.slice(0, 5);
-  // const featuredCategories = categories.filter((category) => category !== "All Categories");
-
-  // const handleAddToCart = (product: typeof products[number]) => {
-  //   addItem({
-  //     id: product.id,
-  //     name: product.title,
-  //     price: product.price,
-  //     seller: product.seller,
-  //     category: product.category,
-  //     location: product.location,
-  //     imageUrl: product.image,
-  //   });
-  // };
->>>>>>> 239f029303a165b2eda75b55d3f4bca93a4c3c40
   const navigate = useNavigate();
   return (
     <div className="ut-page">
       <Navbar />
-
-      {/* <section className="ut-hero">
-        <div className="ut-hero-copy">
-          <h1>Buy. <span className="ut-accent">Sell.</span> Connect.</h1>
-          <h2>Welcome to UniTrade</h2>
-          <p>The trusted community marketplace for students, by students.</p>
-          <p>Buy and sell items, discover great deals, and connect with your campus community.</p>
-          <div className="ut-hero-buttons">
-            <button className="ut-btn-primary" onClick={() => navigate("/shop")}>Show Marketplace</button>
-            <button className="ut-btn-secondary" onClick={() => navigate("/list-product")}>Sell an Item</button>
-          </div>
-        </div>
-
-        <div className="ut-hero-image">
-          <img src="/student.jpg" alt="Students" />
-          <div className="ut-verified-badge"><span className="ut-verified-icon">🛡️</span><div><p className="ut-verified-title">Verified Students</p><p className="ut-verified-subtitle">Safe • Secure • Trusted</p></div></div>
-        </div>
-      </section> */}
 
       <section className="homeSection1">
         <div className="homeSectionsContainer1">
@@ -196,18 +108,6 @@ export default function HomePage() {
         </div>
       </section>
 
-<<<<<<< HEAD
-      <section className="ut-section">
-        <div className="ut-section-header"><div><h3>Featured Listings</h3><p className="ut-section-subtitle">Fresh finds from students across campus</p></div><Link to="/shop" className="ut-view-all">View all listings</Link></div>
-        <div className="ut-listings">
-          {visibleProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-        {products.length > 5 && (
-          <button type="button" className="ut-more-button" onClick={() => setShowMore((current) => !current)}>{showMore ? "Show less" : "More items"}</button>
-        )}
-=======
       <section className="homeCategoriesSection">
         <div className="homeCategoriesHeader">
           <h1>Featured Categories</h1>
@@ -243,7 +143,6 @@ export default function HomePage() {
             <img src="/sports.png" alt="Sports" className="homeImages" onClick={() => navigate("/categories")} />
           </div>
         </div>
->>>>>>> 239f029303a165b2eda75b55d3f4bca93a4c3c40
       </section>
 
       <section className="homeDealsSection">
