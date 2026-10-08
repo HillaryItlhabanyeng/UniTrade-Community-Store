@@ -13,7 +13,6 @@ export default function HomePage() {
 
       <section className="homeSection1">
         <div className="homeSectionsContainer1">
-
           <div className="homeMini1">
             <div className="homeMini1Contents">
               <h1>Buy. <span>Sell.</span> Connect.</h1>
@@ -64,42 +63,42 @@ export default function HomePage() {
         </div>
         <div className="homeSection2Contents">
           <div className="homeSection2Card">
-            <img src="/samsung1.png" alt="card1" />
+            <img src="/samsung1.png" alt="Samsung Galaxy S21" />
             <div className="homeSection2CardText">
               <h2>Samsung Galaxy S21</h2>
               <p>Get your hands on the latest Samsung Ultra!</p>
             </div>
           </div>
           <div className="homeSection2Card">
-            <img src="/iphone7.png" alt="card1" />
+            <img src="/iphone7.png" alt="iPhone 7" />
             <div className="homeSection2CardText">
               <h2>iPhone 7</h2>
               <p>Experience the power of the iPhone 7 with its sleek design.</p>
             </div>
           </div>
           <div className="homeSection2Card">
-            <img src="/iphone8.png" alt="card1" />
+            <img src="/iphone8.png" alt="iPhone 8" />
             <div className="homeSection2CardText">
               <h2>iPhone 8</h2>
               <p>Experience the power of the iPhone 8 with its sleek design.</p>
             </div>
           </div>
           <div className="homeSection2Card">
-            <img src="/iphone11.png" alt="card1" />
+            <img src="/iphone11.png" alt="iPhone 11" />
             <div className="homeSection2CardText">
               <h2>iPhone 11</h2>
               <p>Experience the power of the iPhone 11 with its sleek design.</p>
             </div>
           </div>
           <div className="homeSection2Card">
-            <img src="/iphone13.png" alt="card1" />
+            <img src="/iphone13.png" alt="iPhone 13" />
             <div className="homeSection2CardText">
               <h2>iPhone 13</h2>
               <p>Experience the power of the iPhone 13 with its sleek design.</p>
             </div>
           </div>
           <div className="homeSection2Card">
-            <img src="/samsung2.png" alt="card1" />
+            <img src="/samsung2.png" alt="Samsung Galaxy S21" />
             <div className="homeSection2CardText">
               <h2>Samsung Galaxy S21</h2>
               <p>Get your hands on the latest Samsung Galaxy S21!</p>
@@ -165,27 +164,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* <section className="homeBestSelling">
-        <h1>Best Selling</h1>
-        <div className="bestSellingCardContainer">
-          <div className="homeBestSellingMainContents">
-
-          </div>
-
-          <div className="homeBestSellingMainContentsContainer">
-            <div className="homeBestSellingMainContentsCard"></div>
-            <div className="homeBestSellingMainContentsCard"></div>
-            <div className="homeBestSellingMainContentsCard"></div>
-            <div className="homeBestSellingMainContentsCard"></div>
-            <div className="homeBestSellingMainContentsCard"></div>
-            <div className="homeBestSellingMainContentsCard"></div>
-          </div>
-        </div>
-      </section> */}
       <section className="homeBestSellingSection">
         <div className="homeBestSellingheader">
           <h2>Best Selling</h2>
-          <button className="homeBestSellingview-allButton" onClick={() => navigate("/shop")}>View all <FaAngleDoubleRight /></button>
+          <button className="homeBestSellingview-allButton" onClick={() => navigate("/shop")}>
+            View all <FaAngleDoubleRight />
+          </button>
         </div>
 
         <div className="homeBestSellingCardsCollection1">
@@ -197,39 +181,40 @@ export default function HomePage() {
 
           <div className="homeBestSellingCardsCollection">
             <div className="homeBestSellingCardss">
-              <img src="/adidas-shoes.png" alt="Engines" className="homeBestSellingImages" />
+              <img src="/adidas-shoes.png" alt="Adidas shoes" className="homeBestSellingImages" />
             </div>
             <div className="homeBestSellingCardss">
-              <img src="/bafana.png" alt="clothes" className="homeBestSellingImages" />
+              <img src="/bafana.png" alt="Bafana jersey" className="homeBestSellingImages" />
             </div>
             <div className="homeBestSellingCardss">
-              <img src="/bat.png" alt="sport" className="homeBestSellingImages" />
+              <img src="/bat.png" alt="Cricket bat" className="homeBestSellingImages" />
             </div>
             <div className="homeBestSellingCardss">
-              <img src="/kattle.png" alt="Kitchen" className="homeBestSellingImages" />
+              <img src="/kattle.png" alt="Kettle" className="homeBestSellingImages" />
             </div>
             <div className="homeBestSellingCardss">
-              <img src="/pots-set.png" alt="Kitchen" className="homeBestSellingImages" />
+              <img src="/pots-set.png" alt="Pots set" className="homeBestSellingImages" />
             </div>
             <div className="homeBestSellingCardss">
-              <img src="/redbat-bag.png" alt="Interior" className="homeBestSellingImages" />
+              <img src="/redbat-bag.png" alt="Red Bat bag" className="homeBestSellingImages" />
             </div>
             <div className="homeBestSellingCardss">
-              <img src="/soccer-ball.png" alt="sport" className="homeBestSellingImages" />
+              <img src="/soccer-ball.png" alt="Soccer ball" className="homeBestSellingImages" />
             </div>
             <div className="homeBestSellingCardss">
-              <img src="/trending3.png" alt="Suspensions" className="homeBestSellingImages" />
+              <img src="/trending3.png" alt="Trending item" className="homeBestSellingImages" />
             </div>
           </div>
         </div>
       </section>
 
-      {/* <section className="ut-section">
-        <div className="ut-section-header"><h3>Popular Categories</h3><Link to="/categories" className="ut-view-all">View all categories</Link></div>
-      </section> */}
-
       <section className="homePromosection">
-        <button className="backTopButton">Back to top</button>
+        <button
+          className="backTopButton"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          Back to top
+        </button>
       </section>
 
       <Footer />
