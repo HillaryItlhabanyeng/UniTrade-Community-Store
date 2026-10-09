@@ -9,7 +9,7 @@
 
 /* Baby blue background ONLY when Register page is displayed */
 body:has(.register-page) {
-  background-image: url(background.png);
+  background-image: url(/background.png);
 }
 
 .register-page {
@@ -18,7 +18,7 @@ body:has(.register-page) {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background-image: url(background.png);
+  background-image: url(/background.png);
   background-size: cover;
   background-position: center;
   position: relative;

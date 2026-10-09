@@ -14,7 +14,7 @@ body,
 
 /* Baby blue background ONLY when Login page is displayed */
 body:has(.login-page) {
-  background-image: url(background.png);
+  background-image: url(/background.png);
 }
 
 /* Card itself — no background image, just white + shadow */
@@ -25,7 +25,7 @@ body:has(.login-page) {
   display: flex;
   overflow: hidden;
   background: #ffffff;
-  background-image: url(background.png);
+  background-image: url(/background.png);
   background-size: cover;
   background-position: center;
   border-radius: 8px;

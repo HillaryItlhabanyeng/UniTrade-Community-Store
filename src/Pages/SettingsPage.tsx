@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-// @ts-expect-error - SideNav.jsx has no type declarations
+
 import SideNav from "../Components/SideNav";
 
 import "./SettingsPage.css";

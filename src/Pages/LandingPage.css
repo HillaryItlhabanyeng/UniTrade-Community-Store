@@ -124,7 +124,7 @@
     width: 600px;
     height: 600px;
     padding: 35px;
-    background-image: url(LAPTOPS.jpg);
+    background-image: url(/LAPTOPS.jpg);
     background-repeat: no-repeat;
     background-size: cover;
   background-position: center;
@@ -283,7 +283,7 @@
 .landingSectionPromo{
   background-image: 
     linear-gradient(to right, rgba(75, 54, 33, 0) 12%, #16b3a5 18%),
-    url("bag.jpg");
+    url("/bag.jpg");
   background-size: contain, contain;
   background-position: left center, left center; 
   background-repeat: no-repeat, no-repeat;
@@ -414,7 +414,7 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow: hidden;
   
-  background-image: url(backgnd.jpg);
+  background-image: url(/backgnd.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -427,7 +427,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url(backgnd.jpg);
+  background-image: url(/backgnd.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
